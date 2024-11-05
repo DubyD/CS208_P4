@@ -10,5 +10,7 @@ public class RoomNode {
                         For example, a combined door value of 12 would mean that there are a north and west doors
                         1 would mean only a south door. 3 = 2 + 1 (E + S)
                         */
+        int x = 0;      //Room coords
+        int y = 0;      //Top room will be y = 0, x = width/2
     }
 }
