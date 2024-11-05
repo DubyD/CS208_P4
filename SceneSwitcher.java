@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 public class SceneSwitcher {
     private JFrame frame;
     private GamePanel gameScreen;
-    private MenuPanel menuScreen;
+    private TitleScene menuScreen;
 
     public SceneSwitcher(JFrame frame) {
         this.frame = frame;
