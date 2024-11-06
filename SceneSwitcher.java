@@ -16,7 +16,7 @@ public class SceneSwitcher {
 
     private void showMenu(){
         this.frame.getContentPane().removeAll();
-        menuScreen = new MenuPanel();
+        menuScreen = new TitleScene();
         menuScreen.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,7 +51,7 @@ public class SceneSwitcher {
      * Getters
      */
 
-    public MenuPanel getMenuScreen() {
+    public TitleScene getMenuScreen() {
         return menuScreen;
     }
     public GamePanel getGameScreen() {
