@@ -2,22 +2,35 @@ import javax.swing.*;
 import java.awt.*;
 
 public class door extends JPanel implements Runnable {
-    private boolean flag;
+    private boolean isOpening; // True if the door is opening, false if closing
+    private int doorWidth; // Width of the door
     private Thread t;
 
     public door() {
-        // Start the animation thread
+        this.doorWidth = 0; // Start with the door closed
+        this.isOpening = true; // Start the door opening
         t = new Thread(this);
-        flag = true;
         t.start();
     }
 
     public void run() {
         while (true) {
             try {
-                // Toggle the flag to open/close the door
-                flag = !flag;
-                Thread.sleep(1000); // Sleep for 1 second
+                // Update the door width based on its state
+                if (isOpening) {
+                    doorWidth += 2; // Increase the width to simulate opening
+                    if (doorWidth >= 200) { // Fully open
+                        doorWidth = 200; // Set to full width
+                        isOpening = false; // Start closing
+                    }
+                } else {
+                    doorWidth -= 2; // Decrease the width to simulate closing
+                    if (doorWidth <= 0) { // Fully closed
+                        doorWidth = 0; // Set to closed
+                        isOpening = true; // Start opening
+                    }
+                }
+                Thread.sleep(50); // Sleep for a short time for smooth animation
                 repaint(); // Request a repaint
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -28,34 +41,20 @@ public class door extends JPanel implements Runnable {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int[] x = {300, 400, 500};
-        int[] y = {300, 200, 300};
 
         // Draw the door frame
-        g.drawPolygon(x, y, 3);
         g.setColor(new Color(100, 102, 102));
-        g.fillPolygon(x, y, 3);
-        g.drawRect(300, 300, 200, 100);
+        g.fillRect(300, 200, 200, 300); // Door frame
         g.setColor(Color.yellow);
-        g.fillRect(300, 300, 200, 100);
+        g.fillRect(300, 200, 200, 300); // Door background
 
-        // Draw the door based on the flag
-        if (flag) {
-            g.drawRect(375, 350, 50, 50);
-            g.setColor(new Color(120, 0, 0));
-            g.fillRect(375, 350, 50, 50);
-            g.setColor(Color.black);
-            g.fillRect(375, 350, 50, 50);
-            g.setColor(new Color(120, 0, 0));
+        // Draw the door based on its width
+        g.setColor(new Color(120, 0, 0));
+        g.fillRect(300 + (200 - doorWidth), 200, doorWidth, 300); // Draw the door
 
-            // Draw the door opening
-            int[] x1 = {375, 390, 390, 375, 375};
-            int[] y1 = {350, 360, 390, 400, 350};
-            g.fillPolygon(x1, y1, 5);
-            int[] x2 = {425, 410, 410, 425, 425};
-            int[] y2 = {350, 360, 390, 400, 350};
-            g.fillPolygon(x2, y2, 5);
-        }
+        // Draw the door handle (fixed position)
+        g.setColor(Color.black);
+        g.fillRect(375, 350, 10, 10); // Handle
     }
 
     public static void main(String[] args) {
