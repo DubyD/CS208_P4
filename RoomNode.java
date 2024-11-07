@@ -6,8 +6,10 @@ public class RoomNode {
     private final boolean exit;
     private Player[] occupants;
     private Door[] doors;
+    private Maze parent;
+    private RoomNode nextRoom;
+    private boolean trap;
 
-    Maze parent;
     public RoomNode(){
         int door = 0;
         x = 0;      //Room coords
@@ -22,6 +24,8 @@ public class RoomNode {
         this.x = x;
         this.y = y;
         this.exit = exit;
+        this.trap = false;
+        this.nextRoom = null;
     }
     public boolean addPlayer(Player player){
         for(int i = 0; i < 4; i++){
@@ -95,6 +99,10 @@ public class RoomNode {
     public int getDoorValue(){
         return door;
     }
+
+    /**
+     *
+     */
 
     @Override
     public int hashCode(){
