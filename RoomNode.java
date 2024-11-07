@@ -1,13 +1,16 @@
 public class RoomNode {
 
+    private Door[] doors;
+    private Player[] occupants;
+    private Maze parent;
+    private RoomNode nextNode;
+
     private int door;
     private final int x;
     private final int y;
     private final boolean exit;
-    private Player[] occupants;
-    private Door[] doors;
-    private Maze parent;
-    private RoomNode nextRoom;
+
+
     private boolean trap;
 
     public RoomNode(){
@@ -25,8 +28,8 @@ public class RoomNode {
         this.y = y;
         this.exit = exit;
         this.trap = false;
-        this.nextRoom = null;
     }
+
     public boolean addPlayer(Player player){
         for(int i = 0; i < 4; i++){
             if(occupants[i] == null){
@@ -99,10 +102,38 @@ public class RoomNode {
     public int getDoorValue(){
         return door;
     }
+    public boolean isExit(){
+        return exit;
+    }
+    public boolean isTrap(){
+        return trap;
+    }
+    public boolean hasNext(){
+        return nextNode != null;
+    }
+    public RoomNode getNextNode(){
+        return nextNode;
+    }
 
     /**
-     *
+     * Setters
      */
+    public void setDoor(int door){
+        this.door = door;
+    }
+    public void setExit(){
+        this.exit = true;
+    }
+    public void setNext(RoomNode nextRoom){
+        this.nextNode = nextRoom;
+    }
+    public void setTrap(){
+        this.trap = true;
+    }
+
+
+
+
 
     @Override
     public int hashCode(){
