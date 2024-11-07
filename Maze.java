@@ -11,8 +11,8 @@ public class Maze {
         generateMaze();
     }
     public Maze(){
-        this.width = 10;
-        this.height = 10;
+        this.width = 5;
+        this.height = 5;
         this.numPlayers = 1;
         //rooms is set in generateMaze()
         generateMaze();
