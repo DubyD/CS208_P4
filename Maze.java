@@ -8,14 +8,14 @@ public class Maze {
         this.width = width;
         this.height = height;
         this.numPlayers = numPlayers;
-        generateMaze();
+        //generateMaze();
     }
     public Maze(){
         this.width = 10;
         this.height = 10;
         this.numPlayers = 1;
         //rooms is set in generateMaze()
-        generateMaze();
+        //generateMaze();
     }
     ///@param p The player that wishes to move
      /// @param direction the direction the player wishes to move
