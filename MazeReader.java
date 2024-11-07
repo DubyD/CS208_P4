@@ -6,7 +6,6 @@ public class MazeReader {
         int sizeup=0;
         for(int i=0; i<grid.length; i++){
             for(int j=0; j<grid[0].length; j++){
-                Object A = '*';
                 if((grid[i][j]) == '*'){
                     mazenew[sizerecorder] = new MazeRecorder(i,j);
                     sizerecorder++;
