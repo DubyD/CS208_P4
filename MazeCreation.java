@@ -326,7 +326,10 @@ public class MazeCreation {
         }
         return output;
     }
-
+    public char[][] getGrid(){
+        updateGrid();
+        return grid;
+    }
     // run it
     public static void main(String[] args) {
         MazeCreation maze = new MazeCreation(20);
