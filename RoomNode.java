@@ -36,6 +36,7 @@ public class RoomNode {
         }
         return false;
     }
+
     ///Creates door objects based on the room's 'door' int value.
     /// Door has a value of 0 - 15.
     ///      8 (N)
@@ -69,7 +70,6 @@ public class RoomNode {
             if(doorTemp >= 2){
                 doors[3] = new Door(3, parent.getNode(this.x - 1, this.y));
                 doorTemp -= 2;
-
             }
             if(doorTemp > 0){
                 System.out.println("Error adding doors, value was over 15? Something went wrong. Check addDoors() method.");

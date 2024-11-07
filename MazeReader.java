@@ -41,7 +41,7 @@ public class MazeReader {
     }
     public static void main(String[] args) {
         MazeCreation maze = new MazeCreation(20);
-        maze.solve();
+        //maze.solve();
         MazeReader mazeprint = new MazeReader(maze.getGrid());
 
         for(int i=0; i<maze.getGrid().length; i++){
