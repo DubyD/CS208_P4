@@ -5,10 +5,8 @@ public class RoomNode {
     private final int y;
     private final boolean exit;
     private Player[] occupants;
-    Door doorUp = null;
-    Door doorRight = null;
-    Door doorLeft = null;
-    Door doorDown = null;
+    private Door[] doors;
+
     Maze parent;
     public RoomNode(){
         int door = 0;
@@ -16,7 +14,7 @@ public class RoomNode {
         y = 0;      //Top room will be y = 0, x = width/2
         exit = false; //if exit is true, this is the destination room, the exit of the maze
         occupants = new Player[4];
-
+        doors = new Door[4];
     }
     public RoomNode(Maze parent, int door, int x, int y, boolean exit){
         this.parent = parent;
@@ -45,33 +43,47 @@ public class RoomNode {
     /// from the doorTemp integer (doorTemp is local to this method)
     /// @author Gus W
     public void addDoors(){
-
+        doors[0] = null;
+        doors[1] = null;
+        doors[2] = null;
+        doors[3] = null;
 
         if(door > 0){
             int doorTemp = door;
             if((doorTemp - 1) % 2 == 0){ //if door - 1 is even, then it has a 1 in there
-                doorDown = new Door(2, parent.getNode(this.x, this.y + 1) );
+                doors[2] = new Door(2, parent.getNode(this.x, this.y + 1) );
                 doorTemp -= 1;
             }
             if(doorTemp >= 8) { //now from the largest, descending
-                doorUp = new Door(0, parent.getNode(this.x, this.y - 1));
+                doors[0] = new Door(0, parent.getNode(this.x, this.y - 1));
                 doorTemp -= 8;
             }
             if(doorTemp >= 4){
-                doorRight = new Door(1, parent.getNode(this.x +1, this.y));
+                doors[1] = new Door(1, parent.getNode(this.x +1, this.y));
                 doorTemp -= 4;
             }
             if(doorTemp >= 2){
-                doorLeft = new Door(3, parent.getNode(this.x - 1, this.y));
+                doors[3] = new Door(3, parent.getNode(this.x - 1, this.y));
                 doorTemp -= 2;
+
             }
             if(doorTemp > 0){
                 System.out.println("Error adding doors, value was over 15? Something went wrong. Check addDoors() method.");
                 //doorTemp should be at zero, no matter what now. If it isn't something went wrong
             }
+            for(int i = 0; i < 4; i++){
+                if(doors[i] != null){
+                    if(doors[i].getDestination() == null){
+                        doors[i] = null; //deleting doors that don't have a destination
+                    }
+                }
+            }
         }
         return;
 
+    }
+    public Door[] getDoors() {
+        return doors;
     }
 
     public int getX() {
@@ -80,7 +92,7 @@ public class RoomNode {
     public int getY(){
         return y;
     }
-    public int getDoor(){
+    public int getDoorValue(){
         return door;
     }
 

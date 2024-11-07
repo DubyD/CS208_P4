@@ -17,14 +17,14 @@ public class SceneSwitcher {
     private void showMenu(){
         this.frame.getContentPane().removeAll();
         menuScreen = new TitleScene();
-        menuScreen.getStartButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showGame();
-
-            }
-        });
-        this.frame.setContentPane(menuScreen);
+//        menuScreen.getStartButton().addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                showGame();
+//
+//            }
+//        });
+        //this.frame.setContentPane(menuScreen);
 
         this.frame.revalidate();
 
@@ -33,7 +33,7 @@ public class SceneSwitcher {
     private void showGame(){
         this.frame.getContentPane().removeAll();
         gameScreen = new GamePanel();
-        this.frame.setContentPane(gameScreen);
+        //this.frame.setContentPane(gameScreen);
 
 
         gameScreen.getExitButton().addActionListener(new ActionListener() {
@@ -84,4 +84,4 @@ public class SceneSwitcher {
     }
 
 }
-}
+

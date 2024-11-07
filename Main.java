@@ -7,7 +7,7 @@ public class Main {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(800, 600);
 
-            new SceneSwitcher(frame);
+            //new SceneSwitcher(frame);
 
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
