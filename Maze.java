@@ -8,14 +8,14 @@ public class Maze {
         this.width = width;
         this.height = height;
         this.numPlayers = numPlayers;
-        generateMaze();
+        //generateMaze();
     }
     public Maze(){
         this.width = 5;
         this.height = 5;
         this.numPlayers = 1;
         //rooms is set in generateMaze()
-        generateMaze();
+        //generateMaze();
     }
     ///@param p The player that wishes to move
      /// @param direction the direction the player wishes to move
@@ -40,32 +40,7 @@ public class Maze {
             return null;
 
     }
-    ///@return true if successful
-    public boolean generateMaze(){
-        rooms = new RoomNode[height][width];
 
-        for(int y = 0; y < height; y++){
-
-            for(int x = 0; x < width; x++){
-                if(y == 0){ //first level, only one node
-                    if(x != width/2){
-                        rooms[y][x] = null;
-                    }
-                    else{ //start in middle of length
-                        rooms[y][x] = start = new RoomNode(this, 1, x, y, false); //starting room
-                    }
-                }
-                else if(y == height - 1){
-                    //last row, decides the exit
-                }
-                else{
-                    //All other rooms
-
-                }
-            }
-        }
-        return true;
-    }
 
 
 }
