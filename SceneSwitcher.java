@@ -11,6 +11,7 @@ public class SceneSwitcher {
     public SceneSwitcher(JFrame frame) {
         this.frame = frame;
         this.gameScreen = null;
+        this.menuScreen = null;
         this.showMenu();
     }
 
