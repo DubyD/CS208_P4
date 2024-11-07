@@ -12,6 +12,11 @@ public class MazeReader {
                 }
             }
         }
+        /*
+          recorder is the array with minimum number of movements that
+          saves x and y axis into a one D Arrray
+          size of the array is the minimum number of movements
+         */
         MazeRecorder[] recorder = new MazeRecorder[sizerecorder];
         System.out.println(sizerecorder);
 
