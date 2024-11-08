@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Maze {
     private RoomNode[][] rooms;
     private int width;
@@ -14,7 +16,8 @@ public class Maze {
         this.start = null;
         this.path = null;
     }
-    
+
+    // If we get a working version we will create dynamic sizing
     public Maze(int width, int height, int numPlayers){
         this.width = width;
         this.height = height;
@@ -25,16 +28,56 @@ public class Maze {
 
     }
 
-
-
     public Maze(int numOfPlayers){
         this.width = 5;
         this.height = 5;
         this.numPlayers = numOfPlayers;
         //rooms is set in generateMaze()
         //generateMaze();
-        this.start = rooms[3][0];
         this.path = genPath();
+        this.start = this.path.getHead();
+    }
+
+//----------WORKING ZONE NOT FINISHEDs-----------------------------------------------
+    private SingleLinkedList genPath(){
+        int i;
+        int j = 0;
+        if(width % 2 == 1){
+            i = (width + 1) / 2;
+        }else{
+            i = width / 2;
+        }
+
+        int nextRoom = 0;
+        int lastRoom = 0;
+        Random rand = new Random();
+        SingleLinkedList temp = new SingleLinkedList();
+        boolean looping = true;
+        while(looping){
+            temp.insertAtTail(rooms[i][j]);
+            lastRoom = nextRoom;
+            nextRoom = 1 + rand.nextInt(4);
+            if(nextRoom == 1){
+
+            }
+            if(nextRoom == 2){
+
+            }
+            if(nextRoom == 3){
+
+            }
+            if(nextRoom == 4){
+
+            }
+
+            if(){
+                looping = false;
+            }
+        }
+    }
+
+    private void generateMaze(){
+
     }
 
     ///@param p The player that wishes to move
@@ -66,12 +109,9 @@ public class Maze {
     }
 
     public RoomNode getFinish(){
-        return path.getFinish();
+        return path.getTail();
     }
 
-    public static void main(String[] args){
-            Maze maze = new Maze(10, 10, 1);
-            path
-    }
+
 
 }

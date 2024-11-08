@@ -28,6 +28,14 @@ public class SingleLinkedList {
         return head;
     }
 
+    public RoomNode getTail(){
+        RoomNode temp = head;
+        while(temp.hasNext() != null){
+            temp = temp.getNextNode()
+        }
+        return temp;
+    }
+
     public void insertAtTail(RoomNode newNode) {
 
         if (isEmpty()) {
