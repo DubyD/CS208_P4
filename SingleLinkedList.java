@@ -39,6 +39,7 @@ public class SingleLinkedList {
             temp = temp.getNextNode();
         }
         temp.setNext(newNode);
+        size++;
     }
 
     public List<RoomNode> toList() {
