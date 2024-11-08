@@ -38,7 +38,7 @@ public class Maze {
         this.start = this.path.getHead();
     }
 
-//----------WORKING ZONE NOT FINISHEDs-----------------------------------------------
+//----------WORKING ZONE NOT FINISHED-----------------------------------------------
     private SingleLinkedList genPath(){
         int i;
         int j = 0;

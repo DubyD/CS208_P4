@@ -114,6 +114,73 @@ public class RoomNode {
     public RoomNode getNextNode(){
         return nextNode;
     }
+    public void setPathDoors(RoomNode other){
+        int tempX = this.x - other.getX();
+        int tempY = this.y - other.getY();
+        if(tempX < 0){
+
+        }
+        if(tempX > 0){
+
+        }
+        if(tempY < 0){
+
+        }
+        if(tempY > 0){
+
+        }
+    }
+    public char[] getDoorDirections(){
+        if(door == 0){
+            return null;
+        }
+        if(door == 1){
+            return new char[]{'S'};
+        }
+        if(door == 2){
+            return new char[]{'E'};
+        }
+        if(door == 3){
+            return new char[]{'E','S'};
+        }
+        if(door == 4){
+            return new char[]{'W'};
+        }
+        if(door == 5){
+            return new char[]{'S','W'};
+        }
+        if(door == 6){
+            return new char[]{'E','W'};
+        }
+        if(door == 7){
+            return new char[]{'E','S','W'};
+        }
+        if(door == 8){
+            return new char[]{'N'};
+        }
+        if(door == 9){
+            return new char[]{'N','S'};
+        }
+        if(door == 10){
+            return new char[]{'N','E'};
+        }
+        if(door == 11){
+            return new char[]{'N','E','S'};
+        }
+        if(door == 12){
+            return new char[]{'N','W'};
+        }
+        if(door == 13){
+            return new char[]{'N','W','S'};
+        }
+        if(door == 14){
+            return new char[]{'N','E','W'};
+        }
+        if(door == 15){
+            return new char[]{'N','E','S','W'};
+        }
+        return null;
+    }
 
     /**
      * Setters
