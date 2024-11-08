@@ -131,55 +131,40 @@ public class RoomNode {
         }
     }
     public char[] getDoorDirections(){
-        if(door == 0){
-            return null;
+        int temp = door;
+        char[] reply = new char[0];
+        while(temp > 0){
+            if((temp - 8) > 0){
+                temp = temp - 8;
+                char[] tempList = new char[reply.length + 1];
+
+                System.arraycopy(reply, 0, temp, 0, reply.length);
+                tempList[tempList.length - 1] = 'N';
+                reply = tempList;
+            }
+            if((temp - 4) > 0){
+                temp = temp - 4;
+                char[] tempList = new char[reply.length + 1];
+                System.arraycopy(reply, 0, temp, 0, reply.length);
+                tempList[tempList.length - 1] = 'W';
+                reply = tempList;
+            }
+            if((temp - 2) > 0){
+                temp = temp - 2;
+                char[] tempList = new char[reply.length + 1];
+                System.arraycopy(reply, 0, temp, 0, reply.length);
+                tempList[tempList.length - 1] = 'E';
+                reply = tempList;
+            }
+            if((temp - 1) > 0){
+                temp = temp - 1;
+                char[] tempList = new char[reply.length + 1];
+                System.arraycopy(reply, 0, temp, 0, reply.length);
+                tempList[tempList.length - 1] = 'S';
+                reply = tempList;
+            }
         }
-        if(door == 1){
-            return new char[]{'S'};
-        }
-        if(door == 2){
-            return new char[]{'E'};
-        }
-        if(door == 3){
-            return new char[]{'E','S'};
-        }
-        if(door == 4){
-            return new char[]{'W'};
-        }
-        if(door == 5){
-            return new char[]{'S','W'};
-        }
-        if(door == 6){
-            return new char[]{'E','W'};
-        }
-        if(door == 7){
-            return new char[]{'E','S','W'};
-        }
-        if(door == 8){
-            return new char[]{'N'};
-        }
-        if(door == 9){
-            return new char[]{'N','S'};
-        }
-        if(door == 10){
-            return new char[]{'N','E'};
-        }
-        if(door == 11){
-            return new char[]{'N','E','S'};
-        }
-        if(door == 12){
-            return new char[]{'N','W'};
-        }
-        if(door == 13){
-            return new char[]{'N','W','S'};
-        }
-        if(door == 14){
-            return new char[]{'N','E','W'};
-        }
-        if(door == 15){
-            return new char[]{'N','E','S','W'};
-        }
-        return null;
+        return reply;
     }
 
     /**
@@ -221,3 +206,60 @@ public class RoomNode {
         return door == roomNode.door && x == roomNode.x && y == roomNode.y && exit == roomNode.exit;
     }
 }
+
+
+/**
+ * Code that is boring simple logic
+ * with the same results as
+ * getDoorDirection()
+ * 
+ if(door == 0){
+ return null;
+ }
+ if(door == 1){
+ return new char[]{'S'};
+ }
+ if(door == 2){
+ return new char[]{'E'};
+ }
+ if(door == 3){
+ return new char[]{'E','S'};
+ }
+ if(door == 4){
+ return new char[]{'W'};
+ }
+ if(door == 5){
+ return new char[]{'S','W'};
+ }
+ if(door == 6){
+ return new char[]{'E','W'};
+ }
+ if(door == 7){
+ return new char[]{'E','S','W'};
+ }
+ if(door == 8){
+ return new char[]{'N'};
+ }
+ if(door == 9){
+ return new char[]{'N','S'};
+ }
+ if(door == 10){
+ return new char[]{'N','E'};
+ }
+ if(door == 11){
+ return new char[]{'N','E','S'};
+ }
+ if(door == 12){
+ return new char[]{'N','W'};
+ }
+ if(door == 13){
+ return new char[]{'N','W','S'};
+ }
+ if(door == 14){
+ return new char[]{'N','E','W'};
+ }
+ if(door == 15){
+ return new char[]{'N','E','S','W'};
+ }
+ return null;
+ */
