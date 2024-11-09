@@ -114,22 +114,33 @@ public class RoomNode {
     public RoomNode getNextNode(){
         return nextNode;
     }
-    public void setPathDoors(RoomNode other){
-        int tempX = this.x - other.getX();
-        int tempY = this.y - other.getY();
+
+    /**
+     * Used to make sure rooms have doors to eachother
+     */
+    public void compareNextRoom(RoomNode other){
+        int tempX = other.getX() - this.x;
+        int tempY = other.getY() - this.y;
+            // If next room is:
+            // East
         if(tempX < 0){
-
+            door += 2;
         }
+            // West
         if(tempX > 0){
-
+            door += 4;
         }
+            // South
         if(tempY < 0){
-
+            door += 1;
         }
+            // North
         if(tempY > 0){
-
+            door += 8
         }
     }
+
+
     public char[] getDoorDirections(){
         int temp = door;
         char[] reply = new char[0];
@@ -175,6 +186,7 @@ public class RoomNode {
     }
     public void setExit(){
         this.exit = true;
+        door += 1;
     }
     public void setNext(RoomNode nextRoom){
         this.nextNode = nextRoom;
@@ -182,6 +194,7 @@ public class RoomNode {
     public void setTrap(){
         this.trap = true;
     }
+
 
 
 
@@ -212,7 +225,7 @@ public class RoomNode {
  * Code that is boring simple logic
  * with the same results as
  * getDoorDirection()
- * 
+ *
  if(door == 0){
  return null;
  }
