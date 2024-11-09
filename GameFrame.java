@@ -14,6 +14,7 @@ public class GameFrame  extends JPanel implements ActionListener {
         player = new Player(100, 100);
         addKeyListener(new KeyAdapt(player));
         mainTimer = new Timer(10, this);
+        mainTimer.start();
     }
     public void paint(Graphics g) {
         super.paint(g);
@@ -25,5 +26,6 @@ public class GameFrame  extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
+        player.update();
     }
 }
