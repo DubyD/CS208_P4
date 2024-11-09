@@ -117,7 +117,7 @@ public class RoomNode {
 
     /**
      * Used to make sure rooms have doors to eachother
-     */
+     
     public void compareNextRoom(RoomNode other){
         int tempX = other.getX() - this.x;
         int tempY = other.getY() - this.y;
@@ -139,6 +139,34 @@ public class RoomNode {
             door += 8
         }
     }
+*/
+/**
+ * Adds doors between this room and the specified neighboring room based on their relative positions.
+ * This method updates the door values in this room so that doors are created in the direction of the neighboring room.
+ * 
+ * @param other the neighboring RoomNode to compare and add doors to
+ */
+public void compareNextRoom(RoomNode other) {
+    int tempX = other.getX() - this.x;
+    int tempY = other.getY() - this.y;
+
+    // Check each direction and update the door value accordingly
+    if (tempX < 0) {
+        // East direction (other is to the left)
+        door += 2;
+    } else if (tempX > 0) {
+        // West direction (other is to the right)
+        door += 4;
+    }
+
+    if (tempY < 0) {
+        // South direction (other is below)
+        door += 1;
+    } else if (tempY > 0) {
+        // North direction (other is above)
+        door += 8;
+    }
+}
 
 
     public char[] getDoorDirections(){
@@ -186,11 +214,13 @@ public class RoomNode {
             this.doors[direction] = new Door(direction, neighbor);
         }
     }
-    
+    /* 
     public void setExit(){
         this.exit = true;
         door += 1;
     }
+    */
+    
     public void setNext(RoomNode nextRoom){
         this.nextNode = nextRoom;
     }

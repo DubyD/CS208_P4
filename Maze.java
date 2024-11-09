@@ -52,7 +52,11 @@ public class Maze {
         this.path = genPath();
         this.start = this.path.getHead();
         this.end = this.path.getTail();
-        this.end.setExit();
+        //this.end.setExit();
+        
+        // Create the end room with exit = true
+        this.end = new RoomNode(null, end.getDoorValue(), end.getX(), end.getY(), true);
+
         genDoors();
     }
     private void genDoors() {
