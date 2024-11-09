@@ -2,6 +2,7 @@
  * Author Will Duby, Sukhdeep
  */
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class Maze {
@@ -12,6 +13,9 @@ public class Maze {
     private RoomNode start;
     private RoomNode end;
     private SingleLinkedList path;
+    
+    private HashMap<Player, RoomNode> playerRoomMap; // Map to track player locations
+
 
 
     public Maze(){
@@ -27,6 +31,10 @@ public class Maze {
         this.width = width;
         this.height = height;
         this.numPlayers = numPlayers;
+
+
+        this.playerRoomMap = new HashMap<>(); // Initialize the map
+
         // all other Vars are set in
         genMaze();
     }
@@ -177,16 +185,26 @@ public class Maze {
         return lastRoom;
     }
 
+    // Adds a player to the specified room
+    public void addPlayerToRoom(Player player, RoomNode room) {
+    playerRoomMap.put(player, room);
+}
+
 
 
     ///@param p The player that wishes to move
      /// @param direction the direction the player wishes to move
      /// 0 = up, 1 = right, 2 = down, 3 = left
      /// @return true if successful, false if p cannot move to desired destination
-    private boolean travel(Player p, int direction) {
+    
+     private boolean travel(Player p, int direction) {
         Door[] doors = p.getRoom().getDoors();
         if(doors[direction] != null){
-             p.setRoom(doors[direction].getDestination());
+            RoomNode newRoom = doors[direction].getDestination();
+
+             p.setRoom(newRoom);
+             playerRoomMap.put(p, newRoom); // Update the player’s room in the map
+
              return true;
         }
         else{
@@ -194,7 +212,7 @@ public class Maze {
         }
 
     }
-
+    
     public RoomNode getNode(int x, int y){
             if(x >= 0 && x <= width && y >= 0 && y <= height) {//avoid index out of bounds
                 return maze[y][x];
