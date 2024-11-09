@@ -8,9 +8,10 @@ public class Player extends Entity {
     int velX = 0, velY = 0;
     int speed = 2;
     public Player(int x, int y) {
-      super(x, y);
+        super(x, y);
     }
-    public void update(List<Wall> walls) {
+
+    public void update(List<Wall> walls, List<Gate> gates) {
         int newX = x + velX;
         int newY = y + velY;
 
@@ -20,15 +21,25 @@ public class Player extends Entity {
         // Check for collision with walls
         for (Wall wall : walls) {
             if (wall.getBounds().intersects(playerBounds)) {
-                return; // Collision detected, do not move
+                return; // Collision detected with wall, do not move
             }
         }
 
-        // Update position if no collision
+        // Update position if no wall collision
         x = newX;
         y = newY;
+
+        // Check for collision with gates
+        for (Gate gate : gates) {
+            if (gate.getBounds().intersects(playerBounds)) {
+                // Stop player movement and change to Game Over Scene
+                JOptionPane.showMessageDialog(null, "You have reached the Gate! Game has Ended!");
+                System.exit(0); // Close the application
+            }
+        }
     }
-    public void draw(Graphics2D g2d){
+
+    public void draw(Graphics2D g2d) {
         g2d.drawImage(getPlayerImg(), x, y, null);
     }
     public Image getPlayerImg(){
@@ -66,3 +77,4 @@ public class Player extends Entity {
         return room;
     }
 }
+
