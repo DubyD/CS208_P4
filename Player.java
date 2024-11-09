@@ -1,14 +1,32 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class Player extends Entity {
     RoomNode room;
+    int velX = 0, velY = 0;
+    int speed = 2;
     public Player(int x, int y) {
       super(x, y);
     }
-    public void update(){
+    public void update(List<Wall> walls) {
+        int newX = x + velX;
+        int newY = y + velY;
 
+        // Create a rectangle for the player's new position
+        Rectangle playerBounds = new Rectangle(newX, newY, getPlayerImg().getWidth(null), getPlayerImg().getHeight(null));
+
+        // Check for collision with walls
+        for (Wall wall : walls) {
+            if (wall.getBounds().intersects(playerBounds)) {
+                return; // Collision detected, do not move
+            }
+        }
+
+        // Update position if no collision
+        x = newX;
+        y = newY;
     }
     public void draw(Graphics2D g2d){
         g2d.drawImage(getPlayerImg(), x, y, null);
@@ -18,10 +36,28 @@ public class Player extends Entity {
         return  ic.getImage();
     }
     public void keyPressed(KeyEvent e){
-
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
+            velY = -speed;
+        }else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
+            velY = speed;
+        }else if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
+            velX = -speed;
+        }else if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
+            velX = speed;
+        }
     }
     public void keyReleased(KeyEvent e){
-
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W){
+            velY = 0;
+        }else if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S){
+            velY = 0;
+        }else if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A){
+            velX = 0;
+        }else if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D){
+            velX = 0;
+        }
     }
     public void setRoom(RoomNode room){
 
