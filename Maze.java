@@ -53,9 +53,22 @@ public class Maze {
         this.start = this.path.getHead();
         this.end = this.path.getTail();
         this.end.setExit();
-        genDoors()
+        genDoors();
     }
-
+    private void genDoors() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                RoomNode room = maze[i][j];
+                
+                // Create doors in possible directions
+                if (i > 0) room.setDoor(0, maze[i - 1][j]);     // Up
+                if (j < height - 1) room.setDoor(1, maze[i][j + 1]); // Right
+                if (i < width - 1) room.setDoor(2, maze[i + 1][j]); // Down
+                if (j > 0) room.setDoor(3, maze[i][j - 1]);     // Left
+            }
+        }
+    }
+    
     /**
      * Ensures that a solid path and exit are generated
      */
@@ -114,7 +127,7 @@ public class Maze {
 
     private int dirCheck(RoomNode room, int lastRoom){
         Random rand = new Random();
-        int nextRoom
+        int nextRoom;
         nextRoom = 1 + rand.nextInt(4);
         // South
         if(nextRoom == 1){

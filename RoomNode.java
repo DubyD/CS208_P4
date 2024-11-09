@@ -181,9 +181,12 @@ public class RoomNode {
     /**
      * Setters
      */
-    public void setDoor(int door){
-        this.door = door;
+    public void setDoor(int direction, RoomNode neighbor) {
+        if (direction >= 0 && direction < 4) { // Ensure direction is within bounds
+            this.doors[direction] = new Door(direction, neighbor);
+        }
     }
+    
     public void setExit(){
         this.exit = true;
         door += 1;
