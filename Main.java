@@ -7,7 +7,7 @@ public class Main {
             JFrame frame1 = new JFrame("Mazed and Confused");
             frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame1.setSize(800, 600);
-            frame1.setContentPane(new TitleScene);
+            frame1.setContentPane(new TitleScene(frame1));
 
             new SceneSwitcher(frame1);
             frame1.setLocationRelativeTo(null);
