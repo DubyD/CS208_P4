@@ -15,7 +15,7 @@ public class TitleScene extends JPanel {
     private JTextArea instructions;
     private JComboBox<String> dropDownMenu; // Drop-down menu declaration
 
-    public TitleScene() {
+    public TitleScene(JFrame mainFrame) {
         startButton = new JButton("Start");
         exitButton = new JButton("Exit");
         titleLabel = setTitle();
@@ -31,6 +31,20 @@ public class TitleScene extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String selectedOption = (String) dropDownMenu.getSelectedItem();
                 JOptionPane.showMessageDialog(TitleScene.this, "You selected: " + selectedOption);
+            }
+        });
+
+        // Add action listener to the start button
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainFrame.dispose(); // Close the current frame
+                JFrame gameFrame = new JFrame("Maze Game");
+                gameFrame.setSize(800, 600);
+                gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                gameFrame.setResizable(false);
+                gameFrame.add(new GameFrame());
+                gameFrame.setVisible(true);
             }
         });
 
