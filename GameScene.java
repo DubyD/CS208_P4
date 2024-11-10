@@ -7,12 +7,16 @@ import java.util.List;
 
 public class GameScene extends JPanel implements ActionListener {
     Timer mainTimer;
-    Player player;
+    Player[] player;
     List<Wall> walls;
     List<Gate> gates;
     JButton exitButton;
 
     public GameScene() {
+
+    }
+
+    public GameScene(int players) {
         setFocusable(true);
         player = new Player(100, 100);
         walls = new ArrayList<>();
@@ -27,8 +31,11 @@ public class GameScene extends JPanel implements ActionListener {
         gates.add(new Gate(500, 300, 50, 50));
 
         addKeyListener(new KeyAdapt(player));
-        mainTimer = new Timer(10, this);
-        mainTimer.start();
+        /**
+         * Unsure if necessary for now
+         */
+        //mainTimer = new Timer(10, this);
+        //mainTimer.start();
     }
 
     public JButton getExitButton() {
