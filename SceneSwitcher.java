@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class SceneSwitcher {
     private JFrame frame;
-    private GamePanel gameScreen;
+    private GameFrame gameScreen;
     private TitleScene menuScreen;
 
     public SceneSwitcher(JFrame frame) {
@@ -18,14 +18,13 @@ public class SceneSwitcher {
     private void showMenu(){
         this.frame.getContentPane().removeAll();
         menuScreen = new TitleScene();
-//        menuScreen.getStartButton().addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                showGame();
-//
-//            }
-//        });
-        //this.frame.setContentPane(menuScreen);
+        menuScreen.getStartButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showGame();
+            }
+        });
+        this.frame.setContentPane(menuScreen);
 
         this.frame.revalidate();
 
@@ -33,8 +32,8 @@ public class SceneSwitcher {
 
     private void showGame(){
         this.frame.getContentPane().removeAll();
-        gameScreen = new GamePanel();
-        //this.frame.setContentPane(gameScreen);
+        gameScreen = new GameFrame();
+        this.frame.setContentPane(gameScreen);
 
 
         gameScreen.getExitButton().addActionListener(new ActionListener() {
