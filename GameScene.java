@@ -22,16 +22,16 @@ public class GameScene extends JPanel implements ActionListener {
     public GameScene(int numPlayers) {
         setFocusable(true);
         players = new Player[numPlayers];
-        walls = new ArrayList<>();
-        gates = new ArrayList<>();
+//        walls = new ArrayList<>();
+//        gates = new ArrayList<>();
         exitButton = new JButton("Exit");
 
         // Create walls
-        walls.add(new Wall(200, 150, 10, 300));
-        walls.add(new Wall(300, 200, 300, 10));
+//        walls.add(new Wall(200, 150, 10, 300));
+//        walls.add(new Wall(300, 200, 300, 10));
 
         // Create a gate
-        gates.add(new Gate(500, 300, 50, 50));
+//        gates.add(new Gate(500, 300, 50, 50));
 
 
         /**
@@ -55,14 +55,14 @@ public class GameScene extends JPanel implements ActionListener {
         g2d.drawString("Maze is running", 100, 100);
 
         // Draw walls
-        for (Wall wall : walls) {
-            wall.draw(g2d);
-        }
+//        for (Wall wall : walls) {
+//            wall.draw(g2d);
+//        }
 
         // Draw gates
-        for (Gate gate : gates) {
-            gate.draw(g2d);
-        }
+//        for (Gate gate : gates) {
+//            gate.draw(g2d);
+//        }
 
         //players.draw(g2d);
     }
