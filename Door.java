@@ -7,6 +7,7 @@ public class Door{
 //    private Thread t;
     private int direction;
     private RoomNode destination;
+    private boolean exit;
     public Door() {
 //        this.doorWidth = 0; // Start with the door closed
 //        this.isOpening = true; // Start the door opening
@@ -17,13 +18,14 @@ public class Door{
         this.direction = direction; //which side of the room it is on
                                     // 0 means up, 1 means right, 2, means down, 3 means left
         this.destination = destination; // where the door leads to
-                                        //Will be set in RoomNode when doors are instanced
+        this.exit = false;
     }
 
     public RoomNode getDestination() {
         return destination;
     }
     public int getDirection() { return direction;}
+    public void setExit() { exit = true;}
     //    public void run() {
 //        while (true) {
 //            try {

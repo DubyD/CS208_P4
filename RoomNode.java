@@ -41,55 +41,7 @@ public class RoomNode {
         return false;
     }
 
-    ///Creates door objects based on the room's 'door' int value.
-    /// Door has a value of 0 - 15.
-    ///      8 (N)
-    /// (W)4   2 (E)
-    ///      1 (S)
-    /// Each value means there is a door on that cardinal side.
-    /// This method operates by first testing for a south door, then
-    /// north, then west, then east. Each door created subtracts its value
-    /// from the doorTemp integer (doorTemp is local to this method)
-    /// @author Gus W
-    public void addDoors(){
-        doors[0] = null;
-        doors[1] = null;
-        doors[2] = null;
-        doors[3] = null;
 
-        if(door > 0){
-            int doorTemp = door;
-            if((doorTemp - 1) % 2 == 0){ //if door - 1 is even, then it has a 1 in there
-                doors[2] = new Door(2, parent.getNode(this.x, this.y + 1) );
-                doorTemp -= 1;
-            }
-            if(doorTemp >= 8) { //now from the largest, descending
-                doors[0] = new Door(0, parent.getNode(this.x, this.y - 1));
-                doorTemp -= 8;
-            }
-            if(doorTemp >= 4){
-                doors[1] = new Door(1, parent.getNode(this.x +1, this.y));
-                doorTemp -= 4;
-            }
-            if(doorTemp >= 2){
-                doors[3] = new Door(3, parent.getNode(this.x - 1, this.y));
-                doorTemp -= 2;
-            }
-            if(doorTemp > 0){
-                System.out.println("Error adding doors, value was over 15? Something went wrong. Check addDoors() method.");
-                //doorTemp should be at zero, no matter what now. If it isn't something went wrong
-            }
-            for(int i = 0; i < 4; i++){
-                if(doors[i] != null){
-                    if(doors[i].getDestination() == null){
-                        doors[i] = null; //deleting doors that don't have a destination
-                    }
-                }
-            }
-        }
-        return;
-
-    }
     public Door[] getDoors() {
         return doors;
     }
@@ -116,36 +68,9 @@ public class RoomNode {
         return nextNode;
     }
 
-    /**
-     * Used to make sure rooms have doors to eachother
-     
-    public void compareNextRoom(RoomNode other){
-        int tempX = other.getX() - this.x;
-        int tempY = other.getY() - this.y;
-            // If next room is:
-            // East
-        if(tempX < 0){
-            door += 2;
-        }
-            // West
-        if(tempX > 0){
-            door += 4;
-        }
-            // South
-        if(tempY < 0){
-            door += 1;
-        }
-            // North
-        if(tempY > 0){
-            door += 8
-        }
-    }
-*/
 /**
  * Adds doors between this room and the specified neighboring room based on their relative positions.
  * This method updates the door values in this room so that doors are created in the direction of the neighboring room.
- *
- * @param other the neighboring RoomNode to compare and add doors to
  */
 public void compareNextRoom(RoomNode other) {
     int tempX = other.getX() - this.x;
@@ -260,53 +185,51 @@ public void compareNextRoom(RoomNode other) {
  * with the same results as
  * getDoorDirection()
  *
- if(door == 0){
- return null;
+ ///Creates door objects based on the room's 'door' int value.
+ /// Door has a value of 0 - 15.
+ ///      8 (N)
+ /// (W)4   2 (E)
+ ///      1 (S)
+ /// Each value means there is a door on that cardinal side.
+ /// This method operates by first testing for a south door, then
+ /// north, then west, then east. Each door created subtracts its value
+ /// from the doorTemp integer (doorTemp is local to this method)
+ /// @author Gus W
+ public void addDoors(){
+ doors[0] = null;
+ doors[1] = null;
+ doors[2] = null;
+ doors[3] = null;
+
+ if(door > 0){
+ int doorTemp = door;
+ if((doorTemp - 1) % 2 == 0){ //if door - 1 is even, then it has a 1 in there
+ doors[2] = new Door(2, parent.getNode(this.x, this.y + 1) );
+ doorTemp -= 1;
  }
- if(door == 1){
- return new char[]{'S'};
+ if(doorTemp >= 8) { //now from the largest, descending
+ doors[0] = new Door(0, parent.getNode(this.x, this.y - 1));
+ doorTemp -= 8;
  }
- if(door == 2){
- return new char[]{'E'};
+ if(doorTemp >= 4){
+ doors[1] = new Door(1, parent.getNode(this.x +1, this.y));
+ doorTemp -= 4;
  }
- if(door == 3){
- return new char[]{'E','S'};
+ if(doorTemp >= 2){
+ doors[3] = new Door(3, parent.getNode(this.x - 1, this.y));
+ doorTemp -= 2;
  }
- if(door == 4){
- return new char[]{'W'};
+ if(doorTemp > 0){
+ System.out.println("Error adding doors, value was over 15? Something went wrong. Check addDoors() method.");
+ //doorTemp should be at zero, no matter what now. If it isn't something went wrong
  }
- if(door == 5){
- return new char[]{'S','W'};
+ for(int i = 0; i < 4; i++){
+ if(doors[i] != null){
+ if(doors[i].getDestination() == null){
+ doors[i] = null; //deleting doors that don't have a destination
  }
- if(door == 6){
- return new char[]{'E','W'};
  }
- if(door == 7){
- return new char[]{'E','S','W'};
  }
- if(door == 8){
- return new char[]{'N'};
  }
- if(door == 9){
- return new char[]{'N','S'};
  }
- if(door == 10){
- return new char[]{'N','E'};
- }
- if(door == 11){
- return new char[]{'N','E','S'};
- }
- if(door == 12){
- return new char[]{'N','W'};
- }
- if(door == 13){
- return new char[]{'N','W','S'};
- }
- if(door == 14){
- return new char[]{'N','E','W'};
- }
- if(door == 15){
- return new char[]{'N','E','S','W'};
- }
- return null;
  */
