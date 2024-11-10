@@ -60,10 +60,8 @@ public class Maze {
         this.path = genPath();
         this.start = this.path.getHead();
         this.end = this.path.getTail();
-        //this.end.setExit();
-        
-        // Create the end room with exit = true
-        this.end = new RoomNode(null, end.getDoorValue(), end.getX(), end.getY(), true);
+        this.end.setExit();
+
 
         genDoors();
     }
@@ -123,13 +121,17 @@ public class Maze {
             }
 
         }
+        /**
+         * if doors are randomly generated this will
+         * ensure that there is a path to the exit
+
             // Ensure the Paths has doors
         RoomNode tempRoom = temp.getHead();
         while(tempRoom != null){
             tempRoom.compareNextRoom(tempRoom.getNextNode());
             tempRoom = tempRoom.getNextNode();
         }
-
+         */
         return temp;
     }
 

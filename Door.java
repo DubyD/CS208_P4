@@ -23,6 +23,7 @@ public class Door{
     public RoomNode getDestination() {
         return destination;
     }
+    public void getDirection() { return direction}
     //    public void run() {
 //        while (true) {
 //            try {

@@ -8,26 +8,27 @@ public class RoomNode {
     private int door;
     private final int x;
     private final int y;
-    private final boolean exit;
+    private boolean exit;
 
 
     private boolean trap;
 
     public RoomNode(){
-        int door = 0;
+        door = 0;
         x = 0;      //Room coords
         y = 0;      //Top room will be y = 0, x = width/2
         exit = false; //if exit is true, this is the destination room, the exit of the maze
         occupants = new Player[4];
         doors = new Door[4];
     }
-    public RoomNode(Maze parent, int door, int x, int y, boolean exit){
+    public RoomNode(Maze parent, int x, int y){
         this.parent = parent;
-        this.door = door;
+        this.door = 0;
         this.x = x;
         this.y = y;
-        this.exit = exit;
+        this.exit = false;
         this.trap = false;
+        occupants = new Player[4];
     }
 
     public boolean addPlayer(Player player){
@@ -143,7 +144,7 @@ public class RoomNode {
 /**
  * Adds doors between this room and the specified neighboring room based on their relative positions.
  * This method updates the door values in this room so that doors are created in the direction of the neighboring room.
- * 
+ *
  * @param other the neighboring RoomNode to compare and add doors to
  */
 public void compareNextRoom(RoomNode other) {
@@ -169,37 +170,37 @@ public void compareNextRoom(RoomNode other) {
 }
 
 
-    public char[] getDoorDirections(){
+    public String[] getDoorDirections(){
         int temp = door;
-        char[] reply = new char[0];
+        String[] reply = new String[0];
         while(temp > 0){
             if((temp - 8) > 0){
                 temp = temp - 8;
-                char[] tempList = new char[reply.length + 1];
+                String[] tempList = new String[reply.length + 1];
 
                 System.arraycopy(reply, 0, temp, 0, reply.length);
-                tempList[tempList.length - 1] = 'N';
+                tempList[tempList.length - 1] = "up";
                 reply = tempList;
             }
             if((temp - 4) > 0){
                 temp = temp - 4;
-                char[] tempList = new char[reply.length + 1];
+                String[] tempList = new String[reply.length + 1];
                 System.arraycopy(reply, 0, temp, 0, reply.length);
-                tempList[tempList.length - 1] = 'W';
+                tempList[tempList.length - 1] = "left";
                 reply = tempList;
             }
             if((temp - 2) > 0){
                 temp = temp - 2;
-                char[] tempList = new char[reply.length + 1];
+                String[] tempList = new String[reply.length + 1];
                 System.arraycopy(reply, 0, temp, 0, reply.length);
-                tempList[tempList.length - 1] = 'E';
+                tempList[tempList.length - 1] = "right";
                 reply = tempList;
             }
             if((temp - 1) > 0){
                 temp = temp - 1;
-                char[] tempList = new char[reply.length + 1];
+                String[] tempList = new String[reply.length + 1];
                 System.arraycopy(reply, 0, temp, 0, reply.length);
-                tempList[tempList.length - 1] = 'S';
+                tempList[tempList.length - 1] = "down";
                 reply = tempList;
             }
         }
@@ -214,12 +215,13 @@ public void compareNextRoom(RoomNode other) {
             this.doors[direction] = new Door(direction, neighbor);
         }
     }
-    /* 
+
     public void setExit(){
-        this.exit = true;
+        exit = true;
+        // adds a south door to Out of Bounds of the 2D Maze array
         door += 1;
     }
-    */
+
     
     public void setNext(RoomNode nextRoom){
         this.nextNode = nextRoom;
@@ -229,10 +231,9 @@ public void compareNextRoom(RoomNode other) {
     }
 
 
-
-
-
-
+    /**
+     * Gus wrote the hashcode not will
+     */
     @Override
     public int hashCode(){
         final int prime = 31; //prime number used to avoid collisions

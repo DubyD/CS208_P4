@@ -30,8 +30,8 @@ public class SingleLinkedList {
 
     public RoomNode getTail(){
         RoomNode temp = head;
-        while(temp.hasNext() != null){
-            temp = temp.getNextNode()
+        while(temp.hasNext()){
+            temp = temp.getNextNode();
         }
         return temp;
     }
