@@ -134,6 +134,28 @@ public class TitleScene extends JPanel {
         return selectedOption;
     }
 
+    @Override
+    public String toString(){
+        return  "This is the main menu of a maze game with instructions on how to play" +
+                "and where you select the number of players playing";
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        TitleScene that = (TitleScene) obj;
+        if (selectedOption != that.selectedOption) {
+            return false;
+        }
+        return
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Mazed and Confused");

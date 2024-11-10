@@ -50,8 +50,22 @@ public class SceneSwitcher {
     }
 
     private void finishScreen(){
-        this.frame.getContentPane().removeAll();
-        this.finishScreen = new GameEnded();
+        frame.getContentPane().removeAll();
+        finishScreen = new GameEnded();
+        frame.setContentPane(finishScreen);
+        finishScreen.getPlayAgainButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showMenu();
+            }
+        });
+        finishScreen.getExitButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+            }
+        });
+        frame.revalidate();
     }
 
 
@@ -68,6 +82,9 @@ public class SceneSwitcher {
     }
     public Frame getFrame() {
         return frame;
+    }
+    public GameEnded getFinishedScreen() {
+        return finishScreen;
     }
 
     @Override
@@ -89,7 +106,8 @@ public class SceneSwitcher {
         SceneSwitcher that = (SceneSwitcher) obj;
         return this.getFrame().equals(that.getFrame()) &&
                 this.getGameScreen().equals(that.getGameScreen()) &&
-                this.getMenuScreen().equals(that.getMenuScreen());
+                this.getMenuScreen().equals(that.getMenuScreen()) &&
+                this.getFinishedScreen().equals(that.getFinishedScreen());
     }
 
 }
