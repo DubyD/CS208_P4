@@ -34,26 +34,6 @@ public class TitleScene extends JPanel {
             }
         });
 
-        /**
-         * This is not OOP and needs to be handled in SceneSwitcher to allow the program
-         * to function as expected. The gameFrame also isn't saved anywhere so unexpected
-         * consquences can occur. -WD
-
-         Author: Ali
-        // Add action listener to the start button
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.dispose(); // Close the current frame
-                JFrame gameFrame = new JFrame("Maze Game");
-                gameFrame.setSize(800, 600);
-                gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                gameFrame.setResizable(false);
-                gameFrame.add(new GameFrame());
-                gameFrame.setVisible(true);
-            }
-        });*/
-
         // Set the layout for the main panel
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -69,10 +49,34 @@ public class TitleScene extends JPanel {
         this.add(instructions); // Adding instructions
         this.add(dropDownMenu); // Adding the drop-down menu
         this.add(buttonPanel); // Adding the button panel
+
+        /**
+         * This is not OOP and needs to be handled in SceneSwitcher to allow the program
+         * to function as expected. The gameFrame also isn't saved anywhere so unexpected
+         * consquences can occur. It was higher in the constructor, moved here for
+         * readability -WD
+
+         Author: Ali
+         // Add action listener to the start button
+         startButton.addActionListener(new ActionListener() {
+        //@Override
+        public void actionPerformed(ActionEvent e) {
+        mainFrame.dispose(); // Close the current frame
+        JFrame gameFrame = new JFrame("Maze Game");
+        gameFrame.setSize(800, 600);
+        gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameFrame.setResizable(false);
+        gameFrame.add(new GameFrame());
+        gameFrame.setVisible(true);
+        }
+        });*/
     }
 
     public JButton getStartButton() {
         return startButton;
+    }
+    public JButton getExitButton() {
+        return exitButton;
     }
 
     private JLabel setTitle() {

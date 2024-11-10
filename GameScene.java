@@ -5,13 +5,13 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameFrame extends JPanel implements ActionListener {
+public class GameScene extends JPanel implements ActionListener {
     Timer mainTimer;
     Player player;
     List<Wall> walls;
     List<Gate> gates;
 
-    public GameFrame() {
+    public GameScene() {
         setFocusable(true);
         player = new Player(100, 100);
         walls = new ArrayList<>();

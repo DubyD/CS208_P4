@@ -37,7 +37,6 @@ public class SingleLinkedList {
     }
 
     public void insertAtTail(RoomNode newNode) {
-
         if (isEmpty()) {
             head = newNode;
             size++;

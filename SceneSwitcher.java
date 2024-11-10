@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class SceneSwitcher {
     private JFrame frame;
-    private GameFrame gameScreen;
+    private GameScene gameScreen;
     private TitleScene menuScreen;
 
     public SceneSwitcher(JFrame frame) {
@@ -32,7 +32,7 @@ public class SceneSwitcher {
 
     private void showGame(){
         this.frame.getContentPane().removeAll();
-        gameScreen = new GameFrame();
+        gameScreen = new GameScene();
         this.frame.setContentPane(gameScreen);
 
 
@@ -54,7 +54,7 @@ public class SceneSwitcher {
     public TitleScene getMenuScreen() {
         return menuScreen;
     }
-    public GamePanel getGameScreen() {
+    public GameScene getGameScreen() {
         return gameScreen;
     }
     public Frame getFrame() {
