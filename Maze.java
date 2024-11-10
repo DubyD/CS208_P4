@@ -65,6 +65,19 @@ public class Maze {
         genDoors();
         genTraps();
     }
+    private void genTraps(){
+        for(int i = 0; i < width; i++){
+            for(int j = 0; j < height; j++){
+                if(!path.inList(maze[i][j])){
+                    Random rand = new Random();
+                    int x = rand.nextInt(10);
+                    if(x > 7){
+                        maze[i][j].setTrap();
+                    }
+                }
+            }
+        }
+    }
     private void genDoors() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -234,7 +247,9 @@ public class Maze {
     public int numPlayers(){
         return numPlayers;
     }
-
+    public RoomNode[][] getMaze(){
+        return maze;
+    }
 
 
 }

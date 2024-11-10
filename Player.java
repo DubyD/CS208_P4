@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-public class Player extends Entity {
+public class Player {
     RoomNode room;
     int velX = 0, velY = 0;
     int speed = 2;

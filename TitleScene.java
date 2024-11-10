@@ -4,8 +4,7 @@
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class TitleScene extends JPanel {
 
@@ -19,6 +18,7 @@ public class TitleScene extends JPanel {
     private JLabel titleLabel;
     private JTextArea instructions;
     private JComboBox<Integer> dropDownMenu; // Drop-down menu declaration
+    private JPanel buttonPanel;
     private static int selectedOption;
 
     public TitleScene() {
@@ -35,7 +35,7 @@ public class TitleScene extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create a panel for the buttons and set its layout
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10)); // Center alignment for buttons
         buttonPanel.add(startButton);
         buttonPanel.add(exitButton);

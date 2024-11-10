@@ -53,8 +53,8 @@ public class SceneSwitcher {
         frame.getContentPane().removeAll();
         finishScreen = new GameEnded();
         frame.setContentPane(finishScreen);
-        /**
-        finishScreen.getPlayAgainButton().addActionListener(new ActionListener() {
+
+        finishScreen.getReplayButton().addActionListener(new ActionListener() {
             //@Override
             public void actionPerformed(ActionEvent e) {
                 showMenu();
@@ -66,7 +66,7 @@ public class SceneSwitcher {
                 frame.dispose();
             }
         });
-         */
+
         frame.revalidate();
     }
 

@@ -73,7 +73,6 @@ public class RoomNode {
         doors[2].setExit();
     }
 
-    
     public void setNext(RoomNode nextRoom){
         this.nextNode = nextRoom;
     }
