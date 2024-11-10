@@ -67,7 +67,10 @@ public class GameScene extends JPanel implements ActionListener {
         //players.draw(g2d);
     }
 
-
+    /**
+     * Gus when you get to the doors, door directions are:
+     * 0 == up, 1 == right, 2 == down, 3 == left.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         /**

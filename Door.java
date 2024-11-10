@@ -16,7 +16,7 @@ public class Door{
     }
     public Door(int direction, RoomNode destination){
         this.direction = direction; //which side of the room it is on
-                                    // 0 means up, 1 means right, 2, means down, 3 means left
+                                    // 0 means up, 1 means right, 2 means down, 3 means left
         this.destination = destination; // where the door leads to
         this.exit = false;
     }

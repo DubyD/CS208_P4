@@ -2,13 +2,11 @@ public class RoomNode {
 
     private Door[] doors;
     private Player[] occupants;
-    private Maze parent;
+    //Used if on the path
     private RoomNode nextNode;
-
     private int door;
     private final int x;
     private final int y;
-    private boolean exit;
 
 
     private boolean trap;
@@ -17,18 +15,17 @@ public class RoomNode {
         door = 0;
         x = 0;      //Room coords
         y = 0;      //Top room will be y = 0, x = width/2
-        exit = false; //if exit is true, this is the destination room, the exit of the maze
         occupants = new Player[4];
         doors = new Door[4];
+        trap = false;
     }
-    public RoomNode(Maze parent, int x, int y){
-        this.parent = parent;
+    public RoomNode(int x, int y){
         this.door = 0;
         this.x = x;
         this.y = y;
-        this.exit = false;
         this.trap = false;
         occupants = new Player[4];
+        doors = new Door[4];
     }
 
     public boolean addPlayer(Player player){
@@ -40,8 +37,6 @@ public class RoomNode {
         }
         return false;
     }
-
-
     public Door[] getDoors() {
         return doors;
     }
@@ -55,9 +50,6 @@ public class RoomNode {
     public int getDoorValue(){
         return door;
     }
-    public boolean isExit(){
-        return exit;
-    }
     public boolean isTrap(){
         return trap;
     }
@@ -67,71 +59,6 @@ public class RoomNode {
     public RoomNode getNextNode(){
         return nextNode;
     }
-
-/**
- * Adds doors between this room and the specified neighboring room based on their relative positions.
- * This method updates the door values in this room so that doors are created in the direction of the neighboring room.
- */
-public void compareNextRoom(RoomNode other) {
-    int tempX = other.getX() - this.x;
-    int tempY = other.getY() - this.y;
-
-    // Check each direction and update the door value accordingly
-    if (tempX < 0) {
-        // East direction (other is to the left)
-        door += 2;
-    } else if (tempX > 0) {
-        // West direction (other is to the right)
-        door += 4;
-    }
-
-    if (tempY < 0) {
-        // South direction (other is below)
-        door += 1;
-    } else if (tempY > 0) {
-        // North direction (other is above)
-        door += 8;
-    }
-}
-
-
-    public String[] getDoorDirections(){
-        int temp = door;
-        String[] reply = new String[0];
-        while(temp > 0){
-            if((temp - 8) > 0){
-                temp = temp - 8;
-                String[] tempList = new String[reply.length + 1];
-
-                System.arraycopy(reply, 0, temp, 0, reply.length);
-                tempList[tempList.length - 1] = "up";
-                reply = tempList;
-            }
-            if((temp - 4) > 0){
-                temp = temp - 4;
-                String[] tempList = new String[reply.length + 1];
-                System.arraycopy(reply, 0, temp, 0, reply.length);
-                tempList[tempList.length - 1] = "left";
-                reply = tempList;
-            }
-            if((temp - 2) > 0){
-                temp = temp - 2;
-                String[] tempList = new String[reply.length + 1];
-                System.arraycopy(reply, 0, temp, 0, reply.length);
-                tempList[tempList.length - 1] = "right";
-                reply = tempList;
-            }
-            if((temp - 1) > 0){
-                temp = temp - 1;
-                String[] tempList = new String[reply.length + 1];
-                System.arraycopy(reply, 0, temp, 0, reply.length);
-                tempList[tempList.length - 1] = "down";
-                reply = tempList;
-            }
-        }
-        return reply;
-    }
-
     /**
      * Setters
      */
@@ -141,10 +68,9 @@ public void compareNextRoom(RoomNode other) {
         }
     }
 
-    public void setExit(){
-        exit = true;
-        // adds a south door to Out of Bounds of the 2D Maze array
-        door += 1;
+    public void setExit(RoomNode exit){
+        setDoor( 2,exit);
+
     }
 
     
@@ -175,7 +101,8 @@ public void compareNextRoom(RoomNode other) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomNode roomNode = (RoomNode) o;
-        return door == roomNode.door && x == roomNode.x && y == roomNode.y && exit == roomNode.exit;
+        return  x == roomNode.x &&
+                y == roomNode.y;
     }
 }
 
@@ -231,5 +158,68 @@ public void compareNextRoom(RoomNode other) {
  }
  }
  }
+ }
+
+ * Adds doors between this room and the specified neighboring room based on their relative positions.
+ * This method updates the door values in this room so that doors are created in the direction of the neighboring room.
+
+ public void compareNextRoom(RoomNode other) {
+ int tempX = other.getX() - this.x;
+ int tempY = other.getY() - this.y;
+
+ // Check each direction and update the door value accordingly
+ if (tempX < 0) {
+ // East direction (other is to the left)
+ door += 2;
+ } else if (tempX > 0) {
+ // West direction (other is to the right)
+ door += 4;
+ }
+
+ if (tempY < 0) {
+ // South direction (other is below)
+ door += 1;
+ } else if (tempY > 0) {
+ // North direction (other is above)
+ door += 8;
+ }
+ }
+
+
+ public String[] getDoorDirections(){
+ int temp = door;
+ String[] reply = new String[0];
+ while(temp > 0){
+ if((temp - 8) > 0){
+ temp = temp - 8;
+ String[] tempList = new String[reply.length + 1];
+
+ System.arraycopy(reply, 0, temp, 0, reply.length);
+ tempList[tempList.length - 1] = "up";
+ reply = tempList;
+ }
+ if((temp - 4) > 0){
+ temp = temp - 4;
+ String[] tempList = new String[reply.length + 1];
+ System.arraycopy(reply, 0, temp, 0, reply.length);
+ tempList[tempList.length - 1] = "left";
+ reply = tempList;
+ }
+ if((temp - 2) > 0){
+ temp = temp - 2;
+ String[] tempList = new String[reply.length + 1];
+ System.arraycopy(reply, 0, temp, 0, reply.length);
+ tempList[tempList.length - 1] = "right";
+ reply = tempList;
+ }
+ if((temp - 1) > 0){
+ temp = temp - 1;
+ String[] tempList = new String[reply.length + 1];
+ System.arraycopy(reply, 0, temp, 0, reply.length);
+ tempList[tempList.length - 1] = "down";
+ reply = tempList;
+ }
+ }
+ return reply;
  }
  */

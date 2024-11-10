@@ -31,10 +31,8 @@ public class Maze {
         this.width = width;
         this.height = height;
         this.numPlayers = numPlayers;
-
-
         this.playerRoomMap = new HashMap<>(); // Initialize the map
-
+        this.end = new RoomNode()
         // all other Vars are set in
         genMaze();
     }
@@ -59,8 +57,7 @@ public class Maze {
         maze = new RoomNode[width][height];
         this.path = genPath();
         this.start = this.path.getHead();
-        this.end = this.path.getTail();
-        this.end.setExit();
+        this.path.getTail().setExit(this.end);
 
 
         genDoors();
