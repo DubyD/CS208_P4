@@ -6,19 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameScene extends JPanel implements ActionListener {
-    Timer mainTimer;
-    Player[] player;
+    //Timer mainTimer;
+    Player[] players;
     List<Wall> walls;
     List<Gate> gates;
     JButton exitButton;
 
     public GameScene() {
-
+        players = null;
+        walls = null;
+        gates = null;
+        exitButton = null;
     }
 
-    public GameScene(int players) {
+    public GameScene(int numPlayers) {
         setFocusable(true);
-        player = new Player(100, 100);
+        players = new Player[numPlayers];
         walls = new ArrayList<>();
         gates = new ArrayList<>();
         exitButton = new JButton("Exit");
@@ -30,7 +33,11 @@ public class GameScene extends JPanel implements ActionListener {
         // Create a gate
         gates.add(new Gate(500, 300, 50, 50));
 
-        addKeyListener(new KeyAdapt(player));
+
+        /**
+         * Commented out for now, because
+         */
+        //addKeyListener(new KeyAdapt(player));
         /**
          * Unsure if necessary for now
          */
@@ -57,13 +64,18 @@ public class GameScene extends JPanel implements ActionListener {
             gate.draw(g2d);
         }
 
-        player.draw(g2d);
+        //players.draw(g2d);
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /**
+         * Commented out for now
         repaint();
-        player.update(walls, gates); // Pass walls and gates for collision detection
+        players.update(walls, gates); // Pass walls and gates for collision detection
+         */
     }
+
 }
 
