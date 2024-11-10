@@ -53,18 +53,20 @@ public class SceneSwitcher {
         frame.getContentPane().removeAll();
         finishScreen = new GameEnded();
         frame.setContentPane(finishScreen);
+        /**
         finishScreen.getPlayAgainButton().addActionListener(new ActionListener() {
-            @Override
+            //@Override
             public void actionPerformed(ActionEvent e) {
                 showMenu();
             }
         });
         finishScreen.getExitButton().addActionListener(new ActionListener() {
-            @Override
+            //@Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
             }
         });
+         */
         frame.revalidate();
     }
 
