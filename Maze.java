@@ -11,11 +11,13 @@ public class Maze {
     private int height;
     private int numPlayers;
     private RoomNode start;
-    private RoomNode end;
     private SingleLinkedList path;
-    
     private HashMap<Player, RoomNode> playerRoomMap; // Map to track player locations
 
+    // a room outside of the maze
+    // can determine if a player has
+    // completed the maze or not
+    private RoomNode end;
 
 
     public Maze(){
@@ -32,7 +34,7 @@ public class Maze {
         this.height = height;
         this.numPlayers = numPlayers;
         this.playerRoomMap = new HashMap<>(); // Initialize the map
-        this.end = new RoomNode()
+        this.end = new RoomNode();
         // all other Vars are set in
         genMaze();
     }
@@ -41,6 +43,8 @@ public class Maze {
         this.width = 4;
         this.height = 4;
         this.numPlayers = numOfPlayers;
+        this.playerRoomMap = new HashMap<>(); // Initialize the map
+        this.end = new RoomNode();
         // all other Vars are set in
         genMaze();
 
@@ -58,9 +62,8 @@ public class Maze {
         this.path = genPath();
         this.start = this.path.getHead();
         this.path.getTail().setExit(this.end);
-
-
         genDoors();
+        genTraps();
     }
     private void genDoors() {
         for (int i = 0; i < width; i++) {
@@ -186,8 +189,8 @@ public class Maze {
 
     // Adds a player to the specified room
     public void addPlayerToRoom(Player player, RoomNode room) {
-    playerRoomMap.put(player, room);
-}
+        playerRoomMap.put(player, room);
+    }
 
 
 

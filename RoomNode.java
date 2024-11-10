@@ -70,7 +70,7 @@ public class RoomNode {
 
     public void setExit(RoomNode exit){
         setDoor( 2,exit);
-
+        doors[2].setExit();
     }
 
     
