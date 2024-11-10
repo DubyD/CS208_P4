@@ -10,23 +10,29 @@ public class GameScene extends JPanel implements ActionListener {
     Player player;
     List<Wall> walls;
     List<Gate> gates;
+    JButton exitButton;
 
     public GameScene() {
         setFocusable(true);
         player = new Player(100, 100);
         walls = new ArrayList<>();
         gates = new ArrayList<>();
+        exitButton = new JButton("Exit");
 
         // Create walls
-        walls.add(new Wall(200, 150, 10, 300)); // Example wall
-        walls.add(new Wall(300, 200, 300, 10)); // Example wall
+        walls.add(new Wall(200, 150, 10, 300));
+        walls.add(new Wall(300, 200, 300, 10));
 
         // Create a gate
-        gates.add(new Gate(500, 300, 50, 50)); // Example gate
+        gates.add(new Gate(500, 300, 50, 50));
 
         addKeyListener(new KeyAdapt(player));
         mainTimer = new Timer(10, this);
         mainTimer.start();
+    }
+
+    public JButton getExitButton() {
+        return exitButton;
     }
 
     public void paint(Graphics g) {

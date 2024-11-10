@@ -7,11 +7,13 @@ public class SceneSwitcher {
     private JFrame frame;
     private GameScene gameScreen;
     private TitleScene menuScreen;
+    private GameEnded finishScreen;
 
     public SceneSwitcher(JFrame frame) {
         this.frame = frame;
         this.gameScreen = null;
         this.menuScreen = null;
+        this.finishScreen = null;
         this.showMenu();
     }
 
@@ -21,7 +23,9 @@ public class SceneSwitcher {
         menuScreen.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showGame();
+                if(menuScreen.getSelectedOption() > 0){
+                    showGame(menuScreen.getSelectedOption());
+                }
             }
         });
         this.frame.setContentPane(menuScreen);
@@ -30,9 +34,9 @@ public class SceneSwitcher {
 
     }
 
-    private void showGame(){
+    private void showGame(int players){
         this.frame.getContentPane().removeAll();
-        gameScreen = new GameScene();
+        gameScreen = new GameScene(players);
         this.frame.setContentPane(gameScreen);
 
 
@@ -43,6 +47,11 @@ public class SceneSwitcher {
             }
         });
         this.frame.revalidate();
+    }
+
+    private void finishScreen(){
+        this.frame.getContentPane().removeAll();
+        this.finishScreen = new GameEnded();
     }
 
 

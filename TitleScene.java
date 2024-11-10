@@ -1,3 +1,7 @@
+/**
+ * Author: Ali Rohani
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,34 +9,27 @@ import java.awt.event.ActionListener;
 
 public class TitleScene extends JPanel {
 
-    private static final String INSTRUCTIONS = "Traverse a maze using 'W,A,S,D' or 'up, left, down, right' respectively.\n" +
+    private static final String INSTRUCTIONS = "How to play:\n"+
+            "Traverse a maze using 'W,A,S,D' or 'up, left, down, right' respectively.\n" +
             "Avoid pitfalls to survive and find the exit.\n" +
-            "Most importantly, have fun";
+            "Most importantly, have fun!";
 
     private JButton startButton;
     private JButton exitButton;
     private JLabel titleLabel;
     private JTextArea instructions;
-    private JComboBox<String> dropDownMenu; // Drop-down menu declaration
+    private JComboBox<Integer> dropDownMenu; // Drop-down menu declaration
+    private static int selectedOption;
 
-    public TitleScene(JFrame mainFrame) {
+    public TitleScene() {
         startButton = new JButton("Start");
         exitButton = new JButton("Exit");
         titleLabel = setTitle();
         instructions = setInstructions();
+        dropDownMenu = setDropDownMenu();
+        selectedOption = 0;
 
-        // Initialize drop-down menu
-        String[] menuOptions = {"Select an option", "1 player", "2 player", "3 player"};
-        dropDownMenu = new JComboBox<>(menuOptions);
 
-        // Add action listener to handle drop-down menu selection
-        dropDownMenu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selectedOption = (String) dropDownMenu.getSelectedItem();
-                JOptionPane.showMessageDialog(TitleScene.this, "You selected: " + selectedOption);
-            }
-        });
 
         // Set the layout for the main panel
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -72,11 +69,41 @@ public class TitleScene extends JPanel {
         });*/
     }
 
-    public JButton getStartButton() {
-        return startButton;
-    }
-    public JButton getExitButton() {
-        return exitButton;
+    private JComboBox<Integer> setDropDownMenu() {
+        // Initialize drop-down menu
+        Integer[] menuOptions = {-1,1, 2, 3, 4};
+        JComboBox<Integer> reply = new JComboBox<>(menuOptions);
+        reply.setMinimumSize(new Dimension(250, 30));
+        reply.setMaximumSize(new Dimension(250, 30));
+        reply.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value instanceof Integer && (Integer) value == -1) {
+                    setText("Select number of players");
+                } else {
+                    setText(value.toString());
+                }
+                return this;
+            }
+        });
+
+        /**
+         * Cool action but might be confusing in this use-case -WD
+         * */
+        // Add action listener to handle drop-down menu selection
+        reply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if((Integer)reply.getSelectedItem() != -1) {
+                    String option = reply.getSelectedItem().toString();
+                    JOptionPane.showMessageDialog(TitleScene.this, "You selected: " + option);
+                    selectedOption = (int) reply.getSelectedItem();
+                }
+            }
+        });
+        //*/
+        return reply;
     }
 
     private JLabel setTitle() {
@@ -95,6 +122,16 @@ public class TitleScene extends JPanel {
         reply.setLineWrap(true); // Enable line wrap
         reply.setAlignmentX(CENTER_ALIGNMENT); // Center alignment
         return reply;
+    }
+
+    public JButton getStartButton() {
+        return startButton;
+    }
+    public JButton getExitButton() {
+        return exitButton;
+    }
+    public int getSelectedOption() {
+        return selectedOption;
     }
 
     public static void main(String[] args) {
