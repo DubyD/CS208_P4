@@ -238,10 +238,10 @@ public void compareNextRoom(RoomNode other) {
     public int hashCode(){
         final int prime = 31; //prime number used to avoid collisions
         int result = 1;
-        result = result * prime + (exit ? 0 : 1);
+        //result = result * prime + (exit ? 0 : 1);
         result = result * prime + x;
         result = result * prime + y;
-        result = result * prime + door;
+        //result = result * prime + door;
         return result;
     }
 

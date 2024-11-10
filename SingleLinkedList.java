@@ -88,23 +88,19 @@ public class SingleLinkedList {
         if (this == obj) {
             return true;
         }
-
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
 
         SingleLinkedList that = (SingleLinkedList) obj;
-
         if(this.getSize() != that.getSize()){
             return false;
         }
-
         for(int i = 0; i < toList().size(); i++){
             if(this.toList().get(i) != that.toList().get(i)){
                 return false;
             }
         }
-
         return true;
     }
 
