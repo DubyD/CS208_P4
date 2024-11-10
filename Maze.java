@@ -228,6 +228,12 @@ public class Maze {
 
     }
     
+    /// @param p The player to get the position of
+    /// @return the room the player is currently in 
+    public RoomNode getPlayerPosition(Player p){
+        return playerRoomMap.get(p);
+    }
+
     public RoomNode getNode(int x, int y){
             if(x >= 0 && x <= width && y >= 0 && y <= height) {//avoid index out of bounds
                 return maze[y][x];
