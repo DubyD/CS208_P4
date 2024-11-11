@@ -69,7 +69,6 @@ public class RoomNode extends JLabel{
     public void setDoor(int direction, RoomNode neighbor) {
         if (direction >= 0 && direction < 4) { // Ensure direction is within bounds
             this.doors[direction] = new Door(direction, neighbor);
-            this.add(doors[direction]);
         }
     }
 
@@ -123,6 +122,28 @@ public class RoomNode extends JLabel{
                 g2d.fillOval(this.getWidth() / 8, this.getHeight() / 2, this.getWidth() / 8, this.getWidth() / 8);
             }
         }
+        g2d.setColor(new Color(94, 38, 0));//Brown
+        for(Door door : doors){
+            if(door != null){
+                switch(door.getDirection()){
+                    //0 = up, 1 = right, 2 = down, 3 = left
+                    case 0:
+                        g2d.fillRect(3*(getWidth()/7), 0, ((getWidth()/5)), (getHeight()/10));
+                        break;
+                    case 1:
+                        g2d.fillRect(this.getWidth()-((getWidth()/15)), ((getHeight()/3)), ((getWidth()/15)), (getHeight()/3));
+                        break;
+                    case 2:
+                        g2d.fillRect((3*(getWidth()/7)), this.getHeight()-((getHeight()/10)), ((getWidth()/5)), (getHeight()/10));
+                        break;
+                    case 3:
+                        g2d.fillRect(0, ((getHeight()/3)), ((getWidth()/15)), (getHeight()/3));
+                        break;
+                }
+            }
+
+        }
+
     }
 
 }
