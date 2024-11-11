@@ -19,7 +19,7 @@ public class TitleScene extends JPanel {
     private JTextArea instructions;
     private JComboBox<Integer> dropDownMenu; // Drop-down menu declaration
     private JPanel buttonPanel;
-    private static int selectedOption;
+    private int selectedOption;
 
     public TitleScene() {
         startButton = new JButton("Start");
@@ -28,8 +28,6 @@ public class TitleScene extends JPanel {
         instructions = setInstructions();
         dropDownMenu = setDropDownMenu();
         selectedOption = 0;
-
-
 
         // Set the layout for the main panel
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -89,6 +87,7 @@ public class TitleScene extends JPanel {
                     setText("Select number of players");
                 } else {
                     setText(value.toString());
+                    selectedOption = (int) value;
                 }
                 return this;
             }
