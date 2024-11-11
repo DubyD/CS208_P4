@@ -13,6 +13,7 @@ public class Main {
             new SceneSwitcher(frame);
 //            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+
         });
     }
 }
