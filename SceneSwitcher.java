@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SceneSwitcher {
-    private JFrame frame;
+    private final JFrame frame;
     private GameScene gameScreen;
     private TitleScene menuScreen;
     private GameEnded finishScreen;
@@ -28,13 +28,7 @@ public class SceneSwitcher {
                 }
             }
         });
-        menuScreen.getExitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-            }
-        });
-
+        menuScreen.setOpaque(true);
         this.frame.setContentPane(menuScreen);
 
         this.frame.revalidate();
@@ -44,7 +38,6 @@ public class SceneSwitcher {
     private void showGame(int players){
         this.frame.getContentPane().removeAll();
         gameScreen = new GameScene(players);
-        this.frame.setContentPane(gameScreen);
 
 
         gameScreen.getExitButton().addActionListener(new ActionListener() {
@@ -53,7 +46,11 @@ public class SceneSwitcher {
                 showMenu();
             }
         });
-        this.frame.revalidate();
+        gameScreen.setVisible(true);
+        gameScreen.setOpaque(true);
+        this.frame.setContentPane(gameScreen);
+        this.frame.pack();
+        this.frame.setVisible(true);
     }
 
     private void finishScreen(){
@@ -76,6 +73,8 @@ public class SceneSwitcher {
 
         frame.revalidate();
     }
+
+
 
     /**
      * Getters
