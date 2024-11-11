@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class Maze {
     private RoomNode[][] maze;
-    private int width;
-    private int height;
+    private final int WIDTH;
+    private final int HEIGHT;
     private int numPlayers;
     private RoomNode start;
     private SingleLinkedList path;
@@ -21,8 +21,8 @@ public class Maze {
 
 
     public Maze(){
-        this.width = 0;
-        this.height = 0;
+        WIDTH = 5;
+        HEIGHT = 5;
         this.numPlayers = 0;
         this.start = null;
         this.path = null;
@@ -30,24 +30,23 @@ public class Maze {
 
     // If we get a working version we will create dynamic sizing
     public Maze(int width, int height, int numPlayers){
-        this.width = width;
-        this.height = height;
+        this.WIDTH = width;
+        this.HEIGHT = height;
         this.numPlayers = numPlayers;
-        this.playerRoomMap = new HashMap<>(); // Initialize the map
-        this.end = new RoomNode();
+        //this.playerRoomMap = new HashMap<>(); // Initialize the map
+        //this.end = new RoomNode();
         // all other Vars are set in
         genMaze();
     }
 
     public Maze(int numOfPlayers){
-        this.width = 4;
-        this.height = 4;
+        this.WIDTH = 5;
+        this.HEIGHT = 5;
         this.numPlayers = numOfPlayers;
         this.playerRoomMap = new HashMap<>(); // Initialize the map
         this.end = new RoomNode();
         // all other Vars are set in
         genMaze();
-
 
     }
 
@@ -58,16 +57,26 @@ public class Maze {
      *
      */
     private void genMaze(){
-        maze = new RoomNode[width][height];
-        this.path = genPath();
-        this.start = this.path.getHead();
-        this.path.getTail().setExit(this.end);
+        maze = new RoomNode[WIDTH][HEIGHT];
+        for(int y = 0; y < maze.length; y++){
+            for(int x = 0; x < maze[0].length ; x++) {
+                //JLabel node = new JLabel("x: " + x + ", y: " + y);
+                maze[y][x] = new RoomNode(x,y);
+
+            }
+        }
+
+
+        //this.path = genPath();
+        //this.start = this.path.getHead();
+        //this.path.getTail().setExit(this.end);
         genDoors();
-        genTraps();
+        //genTraps();
     }
     private void genTraps(){
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < height; j++){
+        System.out.println("Generating traps...");
+        for(int i = 0; i < WIDTH; i++){
+            for(int j = 0; j < HEIGHT; j++){
                 if(!path.inList(maze[i][j])){
                     Random rand = new Random();
                     int x = rand.nextInt(10);
@@ -79,14 +88,15 @@ public class Maze {
         }
     }
     private void genDoors() {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        System.out.println("Generating doors...");
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
                 RoomNode room = maze[i][j];
-                
+
                 // Create doors in possible directions
                 if (i > 0) room.setDoor(0, maze[i - 1][j]);     // Up
-                if (j < height - 1) room.setDoor(1, maze[i][j + 1]); // Right
-                if (i < width - 1) room.setDoor(2, maze[i + 1][j]); // Down
+                if (j < HEIGHT - 1) room.setDoor(1, maze[i][j + 1]); // Right
+                if (i < WIDTH - 1) room.setDoor(2, maze[i + 1][j]); // Down
                 if (j > 0) room.setDoor(3, maze[i][j - 1]);     // Left
             }
         }
@@ -96,21 +106,18 @@ public class Maze {
      * Ensures that a solid path and exit are generated
      */
     private SingleLinkedList genPath(){
+        System.out.println("Generating path...");
         // for dynamic sizing
-        int i;
         int j = 0;
-        if(width % 2 == 1){
-            i = (width + 1) / 2;
-        }else{
-            i = width / 2;
-        }
+        int i = (WIDTH % 2 == 1) ? ((WIDTH + 1) / 2) : (WIDTH / 2); //changed to ternary for compression - gus
+
             // Creates the path
         int lastRoom = 0;
         RoomNode lastRoomNode = maze[j][i];
         SingleLinkedList temp = new SingleLinkedList();
         boolean looping = true;
         while(looping){
-            temp.insertAtTail(lastRoomNode);
+            //temp.insertAtTail(lastRoomNode);
             lastRoom = dirCheck(lastRoomNode, lastRoom);
             if(lastRoom == -1){
                 looping = false;
@@ -134,7 +141,7 @@ public class Maze {
             }
 
         }
-        /**
+        /*
          * if doors are randomly generated this will
          * ensure that there is a path to the exit
 
@@ -151,7 +158,6 @@ public class Maze {
     /**
      * Used in genPath()
      */
-
     private int dirCheck(RoomNode room, int lastRoom){
         Random rand = new Random();
         int nextRoom;
@@ -235,11 +241,13 @@ public class Maze {
     }
 
     public RoomNode getNode(int x, int y){
-            if(x >= 0 && x <= width && y >= 0 && y <= height) {//avoid index out of bounds
-                return maze[y][x];
-            }
-            return null;
-
+//            if(x >= 0 && x <= WIDTH && y >= 0 && y <= HEIGHT) {//avoid index out of bounds
+        if(maze[y][x] == null){
+            System.out.println("Null node!");
+            maze[y][x] = new RoomNode(x, y);
+        }
+        System.out.println("Getting node (" + x + ", " + y +")");
+        return maze[y][x];
     }
 
     public RoomNode getStart(){
@@ -255,6 +263,12 @@ public class Maze {
     }
     public RoomNode[][] getMaze(){
         return maze;
+    }
+    public int getHeight(){
+         return HEIGHT;
+    }
+    public int getWidth(){
+         return WIDTH;
     }
 
 

@@ -1,13 +1,16 @@
-public class RoomNode {
+import javax.swing.*;
+import java.awt.*;
 
+public class RoomNode extends JLabel{
     private Door[] doors;
     private Player[] occupants;
     //Used if on the path
     private RoomNode nextNode;
-    private int door;
+    private final int door;
     private final int x;
     private final int y;
-
+    private final int WIDTH = 20;
+    private final int HEIGHT = 20;
 
     private boolean trap;
 
@@ -26,6 +29,7 @@ public class RoomNode {
         this.trap = false;
         occupants = new Player[4];
         doors = new Door[4];
+        this.setOpaque(true);
     }
 
     public boolean addPlayer(Player player){
@@ -41,10 +45,10 @@ public class RoomNode {
         return doors;
     }
 
-    public int getX() {
+    public int getXIndex() {
         return x;
     }
-    public int getY(){
+    public int getYIndex(){
         return y;
     }
     public int getDoorValue(){
@@ -65,6 +69,7 @@ public class RoomNode {
     public void setDoor(int direction, RoomNode neighbor) {
         if (direction >= 0 && direction < 4) { // Ensure direction is within bounds
             this.doors[direction] = new Door(direction, neighbor);
+            this.add(doors[direction]);
         }
     }
 
@@ -103,10 +108,27 @@ public class RoomNode {
         return  x == roomNode.x &&
                 y == roomNode.y;
     }
+    public String toString(){
+        return "Room ("  +x+ "," +y+")";
+    }
+    protected void paintComponent(Graphics g){
+        Graphics2D g2d = (Graphics2D) g;
+        g.setColor(Color.BLACK);
+        g2d.fillRect(0,0,this.getWidth(),this.getHeight());
+        g.setColor(Color.LIGHT_GRAY);
+        g2d.fillRect(5,5, this.getWidth()-10, this.getHeight()-10);
+        for (Player occupant : occupants) {
+            if (occupant != null) {
+                g2d.setColor(occupant.getColor());
+                g2d.fillOval(this.getWidth() / 8, this.getHeight() / 2, this.getWidth() / 8, this.getWidth() / 8);
+            }
+        }
+    }
+
 }
 
 
-/**
+/*
  * Code that is boring simple logic
  * with the same results as
  * getDoorDirection()

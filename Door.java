@@ -1,18 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Door{
-//    private boolean isOpening; // True if the door is opening, false if closing
-//    private int doorWidth; // Width of the door
-//    private Thread t;
+public class Door extends JComponent{
+
     private int direction;
     private RoomNode destination;
     private boolean exit;
     public Door() {
-//        this.doorWidth = 0; // Start with the door closed
-//        this.isOpening = true; // Start the door opening
-//        t = new Thread(this);
-//        t.start();
+
     }
     public Door(int direction, RoomNode destination){
         this.direction = direction; //which side of the room it is on
@@ -26,6 +21,25 @@ public class Door{
     }
     public int getDirection() { return direction;}
     public void setExit() { exit = true;}
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.BLUE);
+        switch(this.direction){
+            case 0:
+                g2d.fillRect(3*(getWidth()/7), 0, ((getWidth()/7)), (getHeight()/10));
+                break;
+            case 1:
+                g2d.fillRect(this.getWidth()-((getWidth()/10)), (2*(getHeight()/5)), ((getWidth()/10)), (getWidth()/5));
+                break;
+            case 2:
+                g2d.fillRect((3*(getWidth()/7)), this.getHeight()-((getHeight()/10)), ((getWidth()/5)), (getHeight()/10));
+                break;
+            case 3:
+                g2d.fillRect(0, (2*(getHeight()/5)), ((getWidth()/10)), (getWidth()/5));
+                break;
+        }
+    }
     //    public void run() {
 //        while (true) {
 //            try {

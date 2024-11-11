@@ -13,7 +13,7 @@ public class GameEnded extends JPanel {
     private JPanel buttonPanel;
 
     public GameEnded() {
-        setLayout(new BorderLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         prompt = new JTextArea("Instructions:\nYou have reached the exit gate.\nThank you for playing our game!");
         prompt.setEditable(false);

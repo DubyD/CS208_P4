@@ -75,6 +75,12 @@ public class TitleScene extends JPanel {
         JComboBox<Integer> reply = new JComboBox<>(menuOptions);
         reply.setMinimumSize(new Dimension(250, 30));
         reply.setMaximumSize(new Dimension(250, 30));
+        reply.addActionListener(e ->{
+            if(reply.getSelectedItem() != null){
+                selectedOption = (int) reply.getSelectedItem();
+            }
+
+        });
         reply.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
