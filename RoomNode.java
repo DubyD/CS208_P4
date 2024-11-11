@@ -32,6 +32,23 @@ public class RoomNode extends JLabel{
         this.setOpaque(true);
     }
 
+    public void leavingRoom(Player player){
+        for(int i = 0; i < occupants.length; i++){
+            if(occupants[i] == player){
+                occupants[i] = null;
+            }
+        }
+    }
+
+    public boolean hasPlayer(Player player){
+        for(Player p : occupants){
+            if(p.equals(player)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean addPlayer(Player player){
         for(int i = 0; i < 4; i++){
             if(occupants[i] == null){
