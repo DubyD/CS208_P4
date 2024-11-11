@@ -223,7 +223,7 @@ public class Maze {
      /// 0 = up, 1 = right, 2 = down, 3 = left
      /// @return true if successful, false if p cannot move to desired destination
     
-     public boolean travel(Player p, int direction) {
+     /*public boolean travel(Player p, int direction) {
         Door[] doors = p.getRoom().getDoors();
         if(doors[direction] != null){
             RoomNode newRoom = doors[direction].getDestination();
@@ -238,6 +238,28 @@ public class Maze {
         }
 
     }
+    */
+    public boolean travel(Player p, int direction) {
+        // First, remove the player from the current room
+        p.getRoom().leavingRoom(p);
+    
+        // Check if the move is possible based on available doors
+        Door[] doors = p.getRoom().getDoors();
+        if (doors[direction] != null) {
+            RoomNode newRoom = doors[direction].getDestination();
+    
+            // Move the player to the new room
+            p.setRoom(newRoom);
+            playerRoomMap.put(p, newRoom); // Update the player's room in the map
+    
+            // Add player to the new room
+            newRoom.addPlayer(p);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     
     /// @param p The player to get the position of
     /// @return the room the player is currently in 
