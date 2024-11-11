@@ -65,7 +65,12 @@ public class Maze {
 
             }
         }
-
+        start = maze[0][0];
+        for(int i = 0; i < numPlayers; i++){
+            Player player = new Player();
+            player.setRoom(start);
+            start.addPlayer(player);
+        }
 
         //this.path = genPath();
         //this.start = this.path.getHead();
