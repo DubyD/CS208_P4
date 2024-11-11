@@ -4,6 +4,9 @@ import java.awt.*;
 public class Player {
     public RoomNode room;
     private Color color;
+    public Player(){
+        color = Color.RED;
+    }
     public Player(int x, int y) {
         color = Color.red;
     }

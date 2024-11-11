@@ -4,6 +4,7 @@ import javax.swing.*;
 
 
 public class GameScene extends JPanel{
+
     Player[] players;
     JButton exitButton;
     Maze maze;
