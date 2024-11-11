@@ -223,7 +223,7 @@ public class Maze {
      /// 0 = up, 1 = right, 2 = down, 3 = left
      /// @return true if successful, false if p cannot move to desired destination
     
-     private boolean travel(Player p, int direction) {
+     public boolean travel(Player p, int direction) {
         Door[] doors = p.getRoom().getDoors();
         if(doors[direction] != null){
             RoomNode newRoom = doors[direction].getDestination();
