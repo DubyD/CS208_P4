@@ -116,10 +116,11 @@ public class RoomNode extends JLabel{
         g2d.fillRect(0,0,this.getWidth(),this.getHeight());
         g.setColor(Color.LIGHT_GRAY);
         g2d.fillRect(5,5, this.getWidth()-10, this.getHeight()-10);
-        for (Player occupant : occupants) {
+        for (int i = 0; i < occupants.length; i++) {
+            Player occupant = occupants[i];
             if (occupant != null) {
                 g2d.setColor(occupant.getColor());
-                g2d.fillOval(this.getWidth() / 8, this.getHeight() / 2, this.getWidth() / 8, this.getWidth() / 8);
+                g2d.fillOval(((i) * (this.getWidth() / 5)) + (getWidth()/8), this.getHeight() / 2, this.getWidth() / 9, this.getWidth() / 9);
             }
         }
         g2d.setColor(new Color(94, 38, 0));//Brown
