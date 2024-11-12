@@ -5,7 +5,7 @@
  *
  */
 
-import java.util.HashMap;
+
 import java.util.Random;
 
 public class Maze {
@@ -15,7 +15,8 @@ public class Maze {
     private int numPlayers;
     private RoomNode start;
     private SingleLinkedList path;
-    private HashMap<Player, RoomNode> playerRoomMap; // Map to track player locations
+    private Mapp playerLocations = new Mapp(30); // Use an appropriate capacity as needed
+
 
     // a room outside of the maze
     // can determine if a player has
@@ -30,7 +31,7 @@ public class Maze {
         this.start = null;
         this.path = null;
         this.maze = null;
-        this.playerRoomMap = null;
+        this.playerLocations = null;
         this.end = null;
     }
 
@@ -39,7 +40,7 @@ public class Maze {
         this.WIDTH = width; //the same as GameScene
         this.HEIGHT = height; //the same as GameScene
         this.numPlayers = numPlayers;
-        //this.playerRoomMap = new HashMap<>(); // Initialize the map
+        //this.playerLocations = new HashMap<>(); // Initialize the map
         //this.end = new RoomNode();
         // all other Vars are set in
         genMaze();
@@ -54,7 +55,7 @@ public class Maze {
         this.WIDTH = 5;
         this.HEIGHT = 5;
         this.numPlayers = numOfPlayers;
-        this.playerRoomMap = new HashMap<>(); // Initialize the map
+        this.playerLocations = new Mapp(10); // Initialize the map
         this.end = new RoomNode();
         /**genMaze();
         this.path = genPath();
@@ -62,7 +63,6 @@ public class Maze {
         this.path.getTail().setExit(this.end);*/
         genDoors();
         genTraps();
-
     }
 
     /**
@@ -215,7 +215,7 @@ public class Maze {
     /// @param player The player to be added to the room
      /// @param room the room to add the player to
     public void addPlayerToRoom(Player player, RoomNode room) {
-        playerRoomMap.put(player, room);
+        room.addPlayer(player);
     }
 
 
@@ -231,7 +231,7 @@ public class Maze {
             RoomNode newRoom = doors[direction].getDestination();
 
              p.setRoom(newRoom);
-             playerRoomMap.put(p, newRoom); // Update the player’s room in the map
+             playerLocations.put(p, newRoom); // Update the player’s room in the map
 
              return true;
         }
@@ -242,32 +242,26 @@ public class Maze {
     }
     */
     public boolean travel(Player p, int direction) {
-        // First, remove the player from the current room
         p.getRoom().leavingRoom(p);
-    
-        // Check if the move is possible based on available doors
         Door[] doors = p.getRoom().getDoors();
+    
         if (doors[direction] != null) {
             RoomNode newRoom = doors[direction].getDestination();
-    
-            // Move the player to the new room
             p.setRoom(newRoom);
-            playerRoomMap.put(p, newRoom); // Update the player's room in the map
-    
-            // Add player to the new room
+            playerLocations.put(p, newRoom);
             newRoom.addPlayer(p);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
     
     
     /// @param p The player to get the position of
     /// @return the room the player is currently in 
-    public RoomNode getPlayerPosition(Player p){
-        return playerRoomMap.get(p);
-    }
+    public RoomNode getPlayerPosition(Player p) {
+        return playerLocations.get(p);
+    }   
+    
     ///@param x x coordinate of the node (relative to room layout, not the pixel coordinate)
      /// @param y coordinate of the node (same as above)
      /// @return the requested room node

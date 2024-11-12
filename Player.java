@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class Player {
     public RoomNode room;
@@ -28,15 +29,22 @@ public class Player {
     public void removePlayer(){
         playerCount--;
     }
-
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (room == null ? 0 : room.hashCode()); // Player's room as a factor
-        result = prime * result + color.hashCode(); // Color of the player
+        result = prime * result + Objects.hash(room, color);
         return result;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Player other = (Player) obj;
+        return Objects.equals(getRoom(), other.getRoom());
+    }
+    
     
     public void setColor(Color c){
         this.color = c;
