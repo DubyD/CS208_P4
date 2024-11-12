@@ -37,16 +37,20 @@ public class SingleLinkedList {
     }
 
     public void insertAtTail(RoomNode newNode) {
+        //System.out.print("Inserting room node " + newNode.getXIndex() + newNode.getYIndex() + "\n");
         if (isEmpty()) {
             head = newNode;
             size++;
+        }else {
+            RoomNode temp = head;
+            while (temp.hasNext()) {
+                temp = temp.getNextNode();
+                //System.out.print("Inserting room node " + temp.getXIndex() + temp.getYIndex() + "\n");
+            }
+            temp.setNext(newNode);
+            size++;
         }
-        RoomNode temp = head;
-        while(temp.hasNext()){
-            temp = temp.getNextNode();
-        }
-        temp.setNext(newNode);
-        size++;
+
     }
 
     public List<RoomNode> toList() {

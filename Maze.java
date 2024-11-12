@@ -26,6 +26,9 @@ public class Maze {
         this.numPlayers = 0;
         this.start = null;
         this.path = null;
+        this.maze = null;
+        this.playerRoomMap = null;
+        this.end = null;
     }
 
     // If we get a working version we will create dynamic sizing
@@ -37,6 +40,11 @@ public class Maze {
         //this.end = new RoomNode();
         // all other Vars are set in
         genMaze();
+        genDoors();
+        genTraps();
+        /**this.path = genPath();
+        this.start = this.path.getHead();
+        this.path.getTail().setExit(this.end);*/
     }
 
     public Maze(int numOfPlayers){
@@ -45,8 +53,12 @@ public class Maze {
         this.numPlayers = numOfPlayers;
         this.playerRoomMap = new HashMap<>(); // Initialize the map
         this.end = new RoomNode();
-        // all other Vars are set in
-        genMaze();
+        /**genMaze();
+        this.path = genPath();
+        this.start = this.path.getHead();
+        this.path.getTail().setExit(this.end);*/
+        genDoors();
+        genTraps();
 
     }
 
@@ -57,38 +69,37 @@ public class Maze {
      *
      */
     private void genMaze(){
-        maze = new RoomNode[WIDTH][HEIGHT];
+        maze = new RoomNode[HEIGHT][WIDTH];
         for(int y = 0; y < maze.length; y++){
             for(int x = 0; x < maze[0].length ; x++) {
                 //JLabel node = new JLabel("x: " + x + ", y: " + y);
                 maze[y][x] = new RoomNode(x,y);
+                //System.out.println(y + "," + x +" Assigned maze[][] RoomNode: x=" + maze[y][x].getX() + ", y=" + maze[y][x].getY());
 
             }
         }
-        start = maze[0][0];
+        genPath();
+        int x = (WIDTH/2);
+        start = maze[0][x];
         for(int i = 0; i < numPlayers; i++){
             Player player = new Player();
             player.setRoom(start);
             start.addPlayer(player);
         }
-
-        //this.path = genPath();
-        //this.start = this.path.getHead();
-        //this.path.getTail().setExit(this.end);
-        genDoors();
-        //genTraps();
     }
     private void genTraps(){
         System.out.println("Generating traps...");
-        for(int i = 0; i < WIDTH; i++){
-            for(int j = 0; j < HEIGHT; j++){
-                if(!path.inList(maze[i][j])){
-                    Random rand = new Random();
-                    int x = rand.nextInt(10);
-                    if(x > 7){
-                        maze[i][j].setTrap();
-                    }
+        for(int i = 0; i < WIDTH - 1; i++){
+            for(int j = 0; j < HEIGHT - 1; j++){
+                //if(!path.inList(maze[j][i])){
+
+                Random rand = new Random();
+                int x = rand.nextInt(10);
+                if(x > 7){
+                    maze[j][i].setTrap();
                 }
+
+                //}
             }
         }
     }
@@ -111,52 +122,62 @@ public class Maze {
      * Ensures that a solid path and exit are generated
      */
     private SingleLinkedList genPath(){
-        System.out.println("Generating path...");
+        //System.out.println("Generating path...");
         // for dynamic sizing
         int j = 0;
-        int i = (WIDTH % 2 == 1) ? ((WIDTH + 1) / 2) : (WIDTH / 2); //changed to ternary for compression - gus
-
+        int i = (WIDTH / 2);
+        System.out.print(i + " " + j +"\n");
             // Creates the path
         int lastRoom = 0;
-        RoomNode lastRoomNode = maze[j][i];
+        System.out.println(maze[j][i].getXIndex() + " " + maze[j][i].getYIndex() + "\n");
         SingleLinkedList temp = new SingleLinkedList();
         boolean looping = true;
         while(looping){
-            //temp.insertAtTail(lastRoomNode);
-            lastRoom = dirCheck(lastRoomNode, lastRoom);
+            int reRoll = lastRoom;
+            lastRoom = dirCheck(maze[j][i], lastRoom);
+            System.out.print(maze[j][i].getXIndex() + " " + maze[j][i].getYIndex() + " set path " + lastRoom+ "\n");
+                //If the direction would backtrack reroll dirCheck
+            if(lastRoom == 0){
+                lastRoom = reRoll;
+                continue;
+            }
+
             if(lastRoom == -1){
                 looping = false;
             }
 
             if(lastRoom == 1){
+                if(temp.inList(maze[j+1][i])){
+                    lastRoom = reRoll;
+                    continue;
+                }
                 j += 1;
-                lastRoomNode = maze[j][i];
             }
             if(lastRoom == 2){
+                if(temp.inList(maze[j-1][i])){
+                    lastRoom = reRoll;
+                    continue;
+                }
                 j -= 1;
-                lastRoomNode = maze[j][i];
             }
             if(lastRoom == 3){
+                if(temp.inList(maze[j][i+1])){
+                    lastRoom = reRoll;
+                    continue;
+                }
                 i += 1;
-                lastRoomNode = maze[j][i];
             }
             if(lastRoom == 4){
+                if(temp.inList(maze[j][i-1])){
+                    lastRoom = reRoll;
+                    continue;
+                }
                 i -= 1;
-                lastRoomNode = maze[j][i];
             }
 
-        }
-        /*
-         * if doors are randomly generated this will
-         * ensure that there is a path to the exit
+            //temp.insertAtTail(maze[j][i]);
 
-            // Ensure the Paths has doors
-        RoomNode tempRoom = temp.getHead();
-        while(tempRoom != null){
-            tempRoom.compareNextRoom(tempRoom.getNextNode());
-            tempRoom = tempRoom.getNextNode();
         }
-         */
         return temp;
     }
 
@@ -170,10 +191,10 @@ public class Maze {
         // South
         if(nextRoom == 1){
             if(lastRoom == 2){
-                return 2;
+                return 0;
             }
             // Creates Exit door
-            if(room.getY() + 1 > 5){
+            if(room.getYIndex() + 1 > HEIGHT - 1){
                 return -1;
             }
             return nextRoom;
@@ -181,9 +202,9 @@ public class Maze {
         // North
         if(nextRoom == 2){
             if(lastRoom == 1){
-                return 1;
+                return 0;
             }
-            if(room.getY() - 1 < 0){
+            if(room.getYIndex() - 1 < 0){
                 return 1;
             }
             return nextRoom;
@@ -191,9 +212,9 @@ public class Maze {
         // East
         if(nextRoom == 3){
             if(lastRoom == 4){
-                return 4;
+                return 0;
             }
-            if(room.getX() + 1 > 5){
+            if(room.getXIndex() + 1 > WIDTH - 1){
                 return 4;
             }
             return nextRoom;
@@ -201,9 +222,9 @@ public class Maze {
         // West
         if(nextRoom == 4){
             if(lastRoom == 3){
-                return 3;
+                return 0;
             }
-            if(room.getX() - 1 < 0){
+            if(room.getXIndex() - 1 < 0){
                 return 3;
             }
             return nextRoom;

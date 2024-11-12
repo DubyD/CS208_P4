@@ -7,21 +7,12 @@ public class RoomNode extends JLabel{
     //Used if on the path
     private RoomNode nextNode;
     private final int door;
-    private final int x;
-    private final int y;
-    private final int WIDTH = 20;
-    private final int HEIGHT = 20;
-
+    private int x;
+    private int y;
     private boolean trap;
 
-    public RoomNode(){
-        door = 0;
-        x = 0;      //Room coords
-        y = 0;      //Top room will be y = 0, x = width/2
-        occupants = new Player[4];
-        doors = new Door[4];
-        trap = false;
-    }
+
+
     public RoomNode(int x, int y){
         this.door = 0;
         this.x = x;
@@ -30,6 +21,10 @@ public class RoomNode extends JLabel{
         occupants = new Player[4];
         doors = new Door[4];
         this.setOpaque(true);
+        nextNode = null;
+    }
+    public RoomNode(){
+        this(-1,-1);
     }
 
     public void leavingRoom(Player player){
@@ -75,11 +70,15 @@ public class RoomNode extends JLabel{
         return trap;
     }
     public boolean hasNext(){
-        return nextNode != null;
+        if(nextNode == null){
+            return false;
+        }
+        return true;
     }
     public RoomNode getNextNode(){
         return nextNode;
     }
+
     /**
      * Setters
      */
@@ -121,8 +120,8 @@ public class RoomNode extends JLabel{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomNode roomNode = (RoomNode) o;
-        return  x == roomNode.x &&
-                y == roomNode.y;
+        return  this.getXIndex() == roomNode.getXIndex() &&
+                this.getYIndex() == roomNode.getYIndex();
     }
     public String toString(){
         return "Room ("  +x+ "," +y+")";
