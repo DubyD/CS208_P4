@@ -24,7 +24,7 @@ public class SingleLinkedList {
         return size;
     }
 
-    public RoomNode getHead() {
+    public RoomNode getHead(){
         return head;
     }
 

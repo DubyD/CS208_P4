@@ -95,15 +95,13 @@ public class Maze {
         System.out.println("Generating traps...");
         for(int i = 0; i < WIDTH - 1; i++){
             for(int j = 0; j < HEIGHT - 1; j++){
-                //if(!path.inList(maze[j][i])){
+
 
                 Random rand = new Random();
                 int x = rand.nextInt(10);
-                if(x > 7){
+                if(x > 4){
                     maze[j][i].setTrap();
                 }
-
-                //}
             }
         }
     }

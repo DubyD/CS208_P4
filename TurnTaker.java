@@ -17,4 +17,13 @@ public class TurnTaker{
         this.gameBoard = gameBoard;
         turnsTaken = 0;
     }
+
+    public int getTurnsTaken(){
+        return turnsTaken;
+    }
+    public void setTurnsTaken(){
+        turnsTaken++;
+    }
+
+    public void takeATurn
 }
