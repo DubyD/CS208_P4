@@ -7,10 +7,10 @@ public class RoomNode extends JLabel{
     //Used if on the path
     private RoomNode nextNode;
     private final int door;
-    private int x;
-    private int y;
+    private final int x; //Notes the room's position in the maze grid
+    private final int y;
     private boolean trap;
-
+    private boolean trapRevealed;
 
 
     public RoomNode(int x, int y){
@@ -124,13 +124,16 @@ public class RoomNode extends JLabel{
                 this.getYIndex() == roomNode.getYIndex();
     }
     public String toString(){
-        return "Room ("  +x+ "," +y+")";
+        return "Room ("+ x + "," + y + ")";
     }
     protected void paintComponent(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         g.setColor(Color.BLACK);
         g2d.fillRect(0,0,this.getWidth(),this.getHeight());
         g.setColor(Color.LIGHT_GRAY);
+        if(trapRevealed){
+            g.setColor(Color.BLACK);
+        }
         g2d.fillRect(5,5, this.getWidth()-10, this.getHeight()-10);
         for (int i = 0; i < occupants.length; i++) {
             Player occupant = occupants[i];

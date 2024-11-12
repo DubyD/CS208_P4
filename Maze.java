@@ -63,7 +63,9 @@ public class Maze {
     }
 
     /**
-     * Generates the Maze
+     * Generates the Maze:
+     * Assigns maze array (2D grid of RoomNodes) new RoomNodes with x and y values that are in accordance to their
+     * array indices.
      * Creates a path with an exit
      * then randomly assigns doors to rooms
      *
@@ -287,14 +289,14 @@ public class Maze {
     public RoomNode getPlayerPosition(Player p){
         return playerRoomMap.get(p);
     }
-
+    ///@param x x coordinate of the node (relative to room layout, not the pixel coordinate)
+     /// @param y coordinate of the node (same as above)
+     /// @return the requested room node
     public RoomNode getNode(int x, int y){
 //            if(x >= 0 && x <= WIDTH && y >= 0 && y <= HEIGHT) {//avoid index out of bounds
         if(maze[y][x] == null){
-            System.out.println("Null node!");
             maze[y][x] = new RoomNode(x, y);
         }
-        System.out.println("Getting node (" + x + ", " + y +")");
         return maze[y][x];
     }
 
@@ -312,9 +314,11 @@ public class Maze {
     public RoomNode[][] getMaze(){
         return maze;
     }
+    ///@return the HEIGHT constant, the amount of cells tall the house is
     public int getHeight(){
          return HEIGHT;
     }
+    ///@return the WIDTH constant, the amount of cells tall the house is
     public int getWidth(){
          return WIDTH;
     }
