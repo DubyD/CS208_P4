@@ -139,7 +139,8 @@ public class Maze {
         while(looping){
             int reRoll = lastRoom;
             lastRoom = dirCheck(maze[j][i], lastRoom);
-            System.out.print(maze[j][i].getXIndex() + " " + maze[j][i].getYIndex() + " set path " + lastRoom+ "\n");
+            System.out.print(maze[j][i].getXIndex() + " " + maze[j][i].getYIndex() + " set path " + lastRoom+ "\n"+
+                             temp.getSize() + " many path nodes \n");
                 //If the direction would backtrack reroll dirCheck
             if(lastRoom == 0){
                 lastRoom = reRoll;
@@ -158,20 +159,13 @@ public class Maze {
                 j += 1;
             }
             if(lastRoom == 2){
-                if(temp.inList(maze[j-1][i])){
-                    lastRoom = reRoll;
-                    continue;
-                }
-                j -= 1;
-            }
-            if(lastRoom == 3){
                 if(temp.inList(maze[j][i+1])){
                     lastRoom = reRoll;
                     continue;
                 }
                 i += 1;
             }
-            if(lastRoom == 4){
+            if(lastRoom == 3){
                 if(temp.inList(maze[j][i-1])){
                     lastRoom = reRoll;
                     continue;
@@ -179,7 +173,7 @@ public class Maze {
                 i -= 1;
             }
 
-            //temp.insertAtTail(maze[j][i]);
+            temp.insertAtTail(maze[j][i]);
 
         }
         return temp;
@@ -193,45 +187,26 @@ public class Maze {
     private int dirCheck(RoomNode room, int lastRoom){
         Random rand = new Random();
         int nextRoom;
-        nextRoom = 1 + rand.nextInt(4);
+        nextRoom = 1 + rand.nextInt(3);
         // South
         if(nextRoom == 1){
-            if(lastRoom == 2){
-                return 0;
-            }
             // Creates Exit door
             if(room.getYIndex() + 1 > HEIGHT - 1){
                 return -1;
             }
             return nextRoom;
         }
-        // North
-        if(nextRoom == 2){
-            if(lastRoom == 1){
-                return 0;
-            }
-            if(room.getYIndex() - 1 < 0){
-                return 1;
-            }
-            return nextRoom;
-        }
         // East
-        if(nextRoom == 3){
-            if(lastRoom == 4){
+        if(nextRoom == 2){
+            if(lastRoom == 3 || room.getXIndex() + 1 > WIDTH - 1){
                 return 0;
-            }
-            if(room.getXIndex() + 1 > WIDTH - 1){
-                return 4;
             }
             return nextRoom;
         }
         // West
-        if(nextRoom == 4){
-            if(lastRoom == 3){
+        if(nextRoom == 3){
+            if(lastRoom == 2 || room.getXIndex() - 1 < 0){
                 return 0;
-            }
-            if(room.getXIndex() - 1 < 0){
-                return 3;
             }
             return nextRoom;
         }
