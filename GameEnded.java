@@ -7,6 +7,9 @@ import java.awt.*;
 
 public class GameEnded extends JPanel {
 
+    private static final String YOUWON = "You have reached the exit gate.\nThank you for playing our game!\n would you like to play again?";
+    private static final String YOULOST = "You have fallen to traps.\nWould you like to play again?";
+
     private JTextArea prompt;
     private JButton replayButton;
     private JButton exitButton;
@@ -15,7 +18,7 @@ public class GameEnded extends JPanel {
     public GameEnded() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        prompt = new JTextArea("Instructions:\nYou have reached the exit gate.\nThank you for playing our game!");
+        prompt = new JTextArea();
         prompt.setEditable(false);
         prompt.setLineWrap(true);
         prompt.setWrapStyleWord(true);
@@ -40,6 +43,14 @@ public class GameEnded extends JPanel {
     public JButton getExitButton() {
         return exitButton;
     }
+    public void setPrompt(boolean didYouWin){
+        if(didYouWin){
+            prompt.setText(YOUWON);
+        }else{
+            prompt.setText(YOULOST);
+        }
+    }
+
     @Override
     public String toString(){
         return "Game over";
