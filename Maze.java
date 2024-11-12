@@ -219,6 +219,11 @@ public class Maze {
     }
 
 
+    public Player[] getPlayers(){
+
+    }
+
+
 
     ///@param p The player that wishes to move
      /// @param direction the direction the player wishes to move

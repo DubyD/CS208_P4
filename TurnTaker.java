@@ -25,5 +25,11 @@ public class TurnTaker{
         turnsTaken++;
     }
 
-    public void takeATurn
+    public void takeATurn(){
+
+        for(Player p : gameBoard.getPlayers()){
+
+        }
+
+    }
 }
