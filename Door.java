@@ -1,26 +1,47 @@
+/**
+ * Door.java
+ * @author Gus Warmington
+ * @author
+ * Door object, to be placed on RoomNodes.
+ * Direction: 0 - UP 1 - RIGHT 2 - DOWN 3 - LEFT
+ */
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class Door extends JComponent{
 
-    private int direction;
-    private RoomNode destination;
+    private final int direction;
+    private final RoomNode destination;
     private boolean exit;
-    public Door() {
 
+    ///default constructor, should probably not be used in this state
+    public Door() {
+        this.direction = 0;
+        this.destination = new RoomNode();
+        this.exit = false;
     }
+    ///@param direction the side of the room for the door to be on
+     /// @param destination the roomnode that this door leads to
     public Door(int direction, RoomNode destination){
         this.direction = direction; //which side of the room it is on
                                     // 0 means up, 1 means right, 2 means down, 3 means left
         this.destination = destination; // where the door leads to
         this.exit = false;
     }
-
+    ///@return the destination roomnode
     public RoomNode getDestination() {
         return destination;
     }
+    ///@return the direction int value
     public int getDirection() { return direction;}
+
+    ///sets this door as the exit door, should only be one per maze
     public void setExit() { exit = true;}
+
+    ///Painting on top of the RoomNode it is positioned on. Should be fine when resizing as well
+    /// @author Gus Warmington
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -40,56 +61,15 @@ public class Door extends JComponent{
                 break;
         }
     }
-    //    public void run() {
-//        while (true) {
-//            try {
-//                // Update the door width based on its state
-//                if (isOpening) {
-//                    doorWidth += 2; // Increase the width to simulate opening
-//                    if (doorWidth >= 200) { // Fully open
-//                        doorWidth = 200; // Set to full width
-//                        isOpening = false; // Start closing
-//                    }
-//                } else {
-//                    doorWidth -= 2; // Decrease the width to simulate closing
-//                    if (doorWidth <= 0) { // Fully closed
-//                        doorWidth = 0; // Set to closed
-//                        isOpening = true; // Start opening
-//                    }
-//                }
-//                Thread.sleep(50); // Sleep for a short time for smooth animation
-//                repaint(); // Request a repaint
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-//
-//    @Override
-//    protected void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-//
-//        // Draw the door frame
-//        g.setColor(new Color(100, 102, 102));
-//        g.fillRect(300, 200, 200, 300); // Door frame
-//        g.setColor(Color.yellow);
-//        g.fillRect(300, 200, 200, 300); // Door background
-//
-//        // Draw the door based on its width
-//        g.setColor(new Color(120, 0, 0));
-//        g.fillRect(300 + (200 - doorWidth), 200, doorWidth, 300); // Draw the door
-//
-//        // Draw the door handle (fixed position)
-//        g.setColor(Color.black);
-//        g.fillRect(375, 350, 10, 10); // Handle
-//    }
-//
-//    public static void main(String[] args) {
-//        JFrame frame = new JFrame("Door Animation");
-//        Door doorAnimation = new Door();
-//        frame.add(doorAnimation);
-//        frame.setSize(800, 600);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setVisible(true);
-//    }
+    ///Equals method
+    /// @param o the object to compare to this
+     /// returns true if direction, exit, and destination match
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Door door = (Door) o;
+        return getDirection() == door.getDirection() && exit == door.exit && this.getDestination().equals(door.getDestination());
+    }
+
 }

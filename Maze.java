@@ -1,5 +1,8 @@
 /**
- * Author Will Duby, Sukhdeep
+ * @author Will Duby
+ * @author Sukhdeep
+ * @author Gus Warmington - some small initial contributions to genMaze
+ *
  */
 
 import java.util.HashMap;
@@ -33,8 +36,8 @@ public class Maze {
 
     // If we get a working version we will create dynamic sizing
     public Maze(int width, int height, int numPlayers){
-        this.WIDTH = width;
-        this.HEIGHT = height;
+        this.WIDTH = width; //the same as GameScene
+        this.HEIGHT = height; //the same as GameScene
         this.numPlayers = numPlayers;
         //this.playerRoomMap = new HashMap<>(); // Initialize the map
         //this.end = new RoomNode();
@@ -74,7 +77,6 @@ public class Maze {
         maze = new RoomNode[HEIGHT][WIDTH];
         for(int y = 0; y < maze.length; y++){
             for(int x = 0; x < maze[0].length ; x++) {
-                //JLabel node = new JLabel("x: " + x + ", y: " + y);
                 maze[y][x] = new RoomNode(x,y);
                 //System.out.println(y + "," + x +" Assigned maze[][] RoomNode: x=" + maze[y][x].getX() + ", y=" + maze[y][x].getY());
 
@@ -186,6 +188,8 @@ public class Maze {
     /**
      * Used in genPath()
      */
+    ///@param room The room node to check
+     /// @param lastRoom the previous room
     private int dirCheck(RoomNode room, int lastRoom){
         Random rand = new Random();
         int nextRoom;
@@ -234,7 +238,9 @@ public class Maze {
         return lastRoom;
     }
 
-    // Adds a player to the specified room
+    ///Adds a player to the specified room
+    /// @param player The player to be added to the room
+     /// @param room the room to add the player to
     public void addPlayerToRoom(Player player, RoomNode room) {
         playerRoomMap.put(player, room);
     }
@@ -293,24 +299,29 @@ public class Maze {
      /// @param y coordinate of the node (same as above)
      /// @return the requested room node
     public RoomNode getNode(int x, int y){
-//            if(x >= 0 && x <= WIDTH && y >= 0 && y <= HEIGHT) {//avoid index out of bounds
-        if(maze[y][x] == null){
-            maze[y][x] = new RoomNode(x, y);
+        if(x >= 0 && x <= WIDTH && y >= 0 && y <= HEIGHT) {//avoid index out of bounds
+            if (maze[y][x] == null) { //avoid null if in bounds
+                maze[y][x] = new RoomNode(x, y);
+            }
+            return maze[y][x];
         }
-        return maze[y][x];
+        else{
+            return null;
+        }
     }
-
+    ///@return the starting node, to initially place players.
     public RoomNode getStart(){
         return start;
     }
-
+    ///@return the final room, the exit node
     public RoomNode getFinish(){
         return path.getTail();
     }
-
+    ///@return number of players, set from GameScene
     public int numPlayers(){
         return numPlayers;
     }
+    ///@return the maze 2D array itself
     public RoomNode[][] getMaze(){
         return maze;
     }
