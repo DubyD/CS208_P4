@@ -71,5 +71,8 @@ public class Door extends JComponent{
         Door door = (Door) o;
         return getDirection() == door.getDirection() && exit == door.exit && this.getDestination().equals(door.getDestination());
     }
-
+    @Override
+    public String toString() {
+        return "This is a portal that connect rooms";
+    }
 }

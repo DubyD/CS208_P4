@@ -71,7 +71,7 @@ public class Mapp {
     }
         // Used for player allocation
     private boolean isEmpty(int hashCode){
-        return table[getBucketIndex(hashCode)] == null;
+        return table[getBucketIndex(hashCode)].value == null;
     }
         // Used for room search
     private boolean isEmptyFromStart(int hashCode){
@@ -97,28 +97,23 @@ public class Mapp {
         int collisions = 0;
         while(true){
             if(checkCoordinates(x, y, getHashCode(x, y) * offset(collisions))){
-                return table[getBucketIndex(getHashCode(x, y) * offset(collisions))]
+                return table[getBucketIndex(getHashCode(x, y) * offset(collisions))].value;
             }
             collisions++;
         }
     }
 
         // Insert or update a key-value pair
-    public void put(Player key, RoomNode value) {
+    public void put(Player key, RoomNode oldRoom, int direction) {
         int collisions = 0;
-        int index = getBucketIndex(key.hashCode() * offset(collisions));
-        Entry bucket = table[index];
+        while(true){
+            if(checkCoordinates(key.getX(), key.getY(), key.hashCode() * offset(collisions))){
 
-        for (Entry entry : bucket) {
-            if (entry.key.equals(key)) {
-                entry.value = value; // Update value if key already exists
-                return;
             }
         }
-        
-        // If key is not found, add a new entry
-        bucket.add(new Entry(key, value));
-        size++;
+    }
+    public RoomNode get(){
+
     }
     /**
      * Working space, I need to check and possibly
