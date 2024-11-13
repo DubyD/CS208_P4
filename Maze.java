@@ -15,7 +15,7 @@ public class Maze {
     private int numPlayers;
     private RoomNode start;
     private SingleLinkedList path;
-    private Mapp playerLocations = new Mapp(30); // Use an appropriate capacity as needed
+    private Mapp playerLocations; // Use an appropriate capacity as needed
 
 
     // a room outside of the maze
@@ -33,6 +33,7 @@ public class Maze {
         this.maze = null;
         this.playerLocations = null;
         this.end = null;
+        this.playerLocations = null;
     }
 
     // If we get a working version we will create dynamic sizing
@@ -49,13 +50,14 @@ public class Maze {
         /**this.path = genPath();
         this.start = this.path.getHead();
         this.path.getTail().setExit(this.end);*/
+        this.playerLocations = new Mapp(this);
     }
 
     public Maze(int numOfPlayers){
         this.WIDTH = 5;
         this.HEIGHT = 5;
         this.numPlayers = numOfPlayers;
-        this.playerLocations = new Mapp(10); // Initialize the map
+        this.playerLocations = new Mapp(this); // Initialize the map
         this.end = new RoomNode();
         /**genMaze();
         this.path = genPath();
@@ -63,6 +65,7 @@ public class Maze {
         this.path.getTail().setExit(this.end);*/
         genDoors();
         genTraps();
+        this.playerLocations = new Mapp(this);
     }
 
     /**
@@ -221,6 +224,10 @@ public class Maze {
 
     public Player[] getPlayers(){
 
+    }
+
+    public RoomNode[][] getGame(){
+        return maze;
     }
 
 

@@ -3,8 +3,10 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Player {
-    public RoomNode room;
+    private RoomNode room;
     private Color color;
+    private int x;
+    private int y;
 
     private static final Color[] predefinedColors = {
         new Color(255, 0, 0),   // Red
@@ -31,9 +33,10 @@ public class Player {
     }
     @Override
     public int hashCode() {
-        final int prime = 31;
+        final int prime = 31; //prime number used to avoid collisions
         int result = 1;
-        result = prime * result + Objects.hash(room, color);
+        result = result * prime + x;
+        result = result * prime + y;
         return result;
     }
 
@@ -60,9 +63,17 @@ public class Player {
 
     public void setRoom(RoomNode room){
         this.room = room;
+        this.x = room.getXIndex();
+        this.y = room.getYIndex();
     }
     public RoomNode getRoom(){
         return room;
+    }
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
     }
 
 }
