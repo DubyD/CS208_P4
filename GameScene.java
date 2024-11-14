@@ -88,6 +88,46 @@ public class GameScene extends JPanel{
 
     }
 
+     
+/*
+  // Add this method for moving the player within the maze
+private void movePlayer(Player player, int dx, int dy) {
+    int newX = player.getX() + dx;
+    int newY = player.getY() + dy;
+
+    // Ensure the new position is within maze boundaries
+    if (newX >= 0 && newX < WIDTH && newY >= 0 && newY < HEIGHT) {
+        RoomNode newRoom = maze.getNode(newX, newY);
+        player.setRoom(newRoom); // Update player room
+        repaint(); // Repaint to show updated position
+    }
+}
+ *  setFocusable(true);
+        requestFocusInWindow();
+    
+        addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                movePlayer(players[0], 0, -1);
+                System.out.println("Moved Up");//to debug, same for all other keys
+
+            } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                movePlayer(players[0], 0, 1);
+
+                System.out.println("Moved Down");
+            } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                movePlayer(players[0], -1, 0);
+                
+                System.out.println("Moved Left");
+            } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                movePlayer(players[0], 1, 0);
+                
+                System.out.println("Moved Right");
+            }
+        }
+    });
+ */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
