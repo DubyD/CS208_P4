@@ -26,6 +26,9 @@ public class SceneSwitcher {
     private void showMenu(){
         this.frame.getContentPane().removeAll();
         menuScreen = new TitleScene();
+        menuScreen.getExitButton().addActionListener(e ->{
+            System.exit(0);
+        });
         menuScreen.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,7 +52,8 @@ public class SceneSwitcher {
         gameScreen.getExitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showMenu();
+                //showMenu();
+                finishScreen();
             }
         });
         gameScreen.setVisible(true);

@@ -73,6 +73,7 @@ public class Door extends JComponent{
     }
     @Override
     public String toString() {
-        return "This is a portal that connect rooms";
+        return "This is a portal that connect rooms. Direction: " + direction + ", Destination: " + destination.toString()
+                + ". Is this door an exit? -> " + exit;
     }
 }
