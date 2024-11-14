@@ -228,6 +228,9 @@ public class Maze {
     public RoomNode[][] getGame(){
         return maze;
     }
+    public RoomNode getEndNode(){
+        return end;
+    }
 
     public boolean travel(Player p, int direction){
         RoomNode leaving = p.getRoom();

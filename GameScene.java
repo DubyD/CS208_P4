@@ -77,6 +77,12 @@ public class GameScene extends JPanel{
     public JButton getExitButton() {
         return exitButton;
     }
+    public boolean getFinished(){
+        return finishedGame;
+    }
+    public Maze getMaze() {
+        return maze;
+    }
 
     ///Paints house background and roof
     @Override
@@ -93,8 +99,6 @@ public class GameScene extends JPanel{
 
 
 
-
-/*
   // Add this method for moving the player within the maze
 private void movePlayer(Player player, int dx, int dy) {
     int newX = player.getX() + dx;
@@ -106,7 +110,7 @@ private void movePlayer(Player player, int dx, int dy) {
         player.setRoom(newRoom); // Update player room
         repaint(); // Repaint to show updated position
     }
-}
+}/**
  *  setFocusable(true);
         requestFocusInWindow();
 
@@ -151,7 +155,7 @@ private void movePlayer(Player player, int dx, int dy) {
     public void takeTurn(){
 
         for(Player player : maze.getPlayers()){
-
+            movePlayer(player)
         }
 
     }

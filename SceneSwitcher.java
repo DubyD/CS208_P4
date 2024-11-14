@@ -61,9 +61,14 @@ public class SceneSwitcher {
         this.frame.setContentPane(gameScreen);
         this.frame.pack();
         this.frame.setVisible(true);
+
+        while(!gameScreen.getFinished()){
+            gameScreen.takeTurn();
+        }
+        finishScreen(gameScreen.getMaze().getEndNode())
     }
 
-    private void finishScreen(){
+    private void finishScreen(RoomNode winners){
         frame.getContentPane().removeAll();
         finishScreen = new GameEnded();
         frame.setContentPane(finishScreen);
