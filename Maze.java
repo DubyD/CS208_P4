@@ -82,8 +82,6 @@ public class Maze {
         for(int y = 0; y < maze.length; y++){
             for(int x = 0; x < maze[0].length ; x++) {
                 maze[y][x] = new RoomNode(x,y);
-                //System.out.println(y + "," + x +" Assigned maze[][] RoomNode: x=" + maze[y][x].getX() + ", y=" + maze[y][x].getY());
-
             }
         }
         genPath();
@@ -99,7 +97,6 @@ public class Maze {
         }
     }
     private void genTraps(){
-        System.out.println("Generating traps...");
         for(int i = 0; i < WIDTH - 1; i++){
             for(int j = 0; j < HEIGHT - 1; j++){
 
@@ -113,7 +110,6 @@ public class Maze {
         }
     }
     private void genDoors() {
-        System.out.println("Generating doors...");
         for (int i = 0; i < WIDTH; i++) {
             for (int j = 0; j < HEIGHT; j++) {
                 RoomNode room = maze[i][j];
@@ -135,17 +131,14 @@ public class Maze {
         // for dynamic sizing
         int j = 0;
         int i = (WIDTH / 2);
-        System.out.print(i + " " + j +"\n");
             // Creates the path
         int lastRoom = 0;
-        System.out.println(maze[j][i].getXIndex() + " " + maze[j][i].getYIndex() + "\n");
         SingleLinkedList temp = new SingleLinkedList();
         boolean looping = true;
         while(looping){
             int reRoll = lastRoom;
             lastRoom = dirCheck(maze[j][i], lastRoom);
-            System.out.print(maze[j][i].getXIndex() + " " + maze[j][i].getYIndex() + " set path " + lastRoom+ "\n"+
-                             temp.getSize() + " many path nodes \n");
+
                 //If the direction would backtrack reroll dirCheck
             if(lastRoom == 0){
                 lastRoom = reRoll;
@@ -177,11 +170,9 @@ public class Maze {
                 }
                 i -= 1;
             }
-
-            temp.insertAtTail(maze[j][i]);
-            temp.getTail().setExit(end);
-
         }
+        temp.insertAtTail(maze[j][i]);
+        temp.getTail().setExit(end);
         return temp;
     }
 
@@ -241,7 +232,7 @@ public class Maze {
         Door[] doors = leaving.getDoors();
         if (doors[direction] != null) {
             leaving.leavingRoom(p);
-            playerMapp.put(p, leaving, direction);
+            playerMapp.put(p, direction);
             return true;
         }
         return false;
@@ -260,10 +251,6 @@ public class Maze {
      /// @param y coordinate of the node (same as above)
      /// @return the requested room node
     public RoomNode getNode(int x, int y){
-        return playerMapp.getRoom(x,y);
-        /**
-         * ^^^^^I think this would be computationally faster^^^^^^^^
-
         if(x >= 0 && x <= WIDTH && y >= 0 && y <= HEIGHT) {//avoid index out of bounds
             if (maze[y][x] == null) { //avoid null if in bounds
                 maze[y][x] = new RoomNode(x, y);
@@ -272,7 +259,7 @@ public class Maze {
         }
         else{
             return null;
-        }*/
+        }
     }
     ///@return the starting node, to initially place players.
     public RoomNode getStart(){
@@ -280,7 +267,7 @@ public class Maze {
     }
     ///@return the final room, the exit node
     public RoomNode getFinish(){
-        return path.getTail();
+        return end;
     }
     ///@return number of players, set from GameScene
     public int numPlayers(){
