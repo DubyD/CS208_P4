@@ -7,6 +7,8 @@
  */
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Objects;
 import javax.swing.*;
 
@@ -111,31 +113,7 @@ private void movePlayer(Player player, int dx, int dy) {
         repaint(); // Repaint to show updated position
     }
 }/**
- *  setFocusable(true);
-        requestFocusInWindow();
-
-        addKeyListener(new KeyAdapter() {
-        @Override
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
-                movePlayer(players[0], 0, -1);
-                System.out.println("Moved Up");//to debug, same for all other keys
-
-            } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                movePlayer(players[0], 0, 1);
-
-                System.out.println("Moved Down");
-            } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                movePlayer(players[0], -1, 0);
-
-                System.out.println("Moved Left");
-            } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                movePlayer(players[0], 1, 0);
-
-                System.out.println("Moved Right");
-            }
-        }
-    });
+ *
  */
     @Override
     public boolean equals(Object o) {
@@ -155,41 +133,38 @@ private void movePlayer(Player player, int dx, int dy) {
     public void takeTurn(){
 
         for(Player player : maze.getPlayers()){
-            movePlayer(player)
+            setFocusable(true);
+            requestFocusInWindow();
+
+            addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP) {
+                        movePlayer(player, 0, -1);
+                        System.out.println("Moved Up");//to debug, same for all other keys
+
+                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                        movePlayer(player, 0, 1);
+
+                        System.out.println("Moved Down");
+                    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                        movePlayer(player, -1, 0);
+
+                        System.out.println("Moved Left");
+                    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                        movePlayer(player, 1, 0);
+
+                        System.out.println("Moved Right");
+                    }
+                }
+            });
+            drawMaze();
         }
 
+
     }
 
-/*
- *  // Set up key listener for player movement
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                boolean playerDied = false;
-                if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    playerDied = castleGame.movePlayer(0, -1);
-                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                    playerDied = castleGame.movePlayer(0, 1);
-                } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    playerDied = castleGame.movePlayer(-1, 0);
-                } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    playerDied = castleGame.movePlayer(1, 0);
-                }
 
-                if (playerDied) {
-                    Player currentPlayer = castleGame.getPlayers().get(castleGame.getCurrentPlayerIndex());
-                    statusTextArea.append(currentPlayer.getName() + " stepped on a trap and died!\n");
-                    castleGame.getPlayers().remove(currentPlayer);  // Remove the player from the game
-                }
-
-                castleGame.nextTurn();
-                repaint();
-            }
-        });
-
-        setFocusable(true);  // Ensure the panel is focused to capture key events
-    }
- */
 
 }
 
