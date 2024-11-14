@@ -54,6 +54,14 @@ public class RoomNode extends JLabel{
         }
         return false;
     }
+    public boolean isEmpty(){
+        for(int i = 0; i < 4; i++){
+            if(occupants[i] != null){
+                return false;
+            }
+        }
+        return true;
+    }
     ///@param player to be added to this room
      /// @return true on success
     public boolean addPlayer(Player player){
@@ -122,9 +130,6 @@ public class RoomNode extends JLabel{
     }
 
 
-    /**
-     * Gus wrote the hashcode not will
-     */
     @Override
     public int hashCode(){
         final int prime = 31; //prime number used to avoid collisions
@@ -152,10 +157,10 @@ public class RoomNode extends JLabel{
         g2d.fillRect(0,0,this.getWidth(),this.getHeight());
         g.setColor(Color.LIGHT_GRAY);
         if(trapRevealed){
-            g.setColor(Color.BLACK);
+            g.setColor(Color.BLACK); //Change color when trap is revealed
         }
         g2d.fillRect(5,5, this.getWidth()-10, this.getHeight()-10);
-        for (int i = 0; i < occupants.length; i++) {
+        for (int i = 0; i < occupants.length; i++) { //Paint players/occupants in the room
             Player occupant = occupants[i];
             if (occupant != null) {
                 g2d.setColor(occupant.getColor());
@@ -163,7 +168,7 @@ public class RoomNode extends JLabel{
             }
         }
         g2d.setColor(new Color(94, 38, 0));//Brown
-        for(Door door : doors){
+        for(Door door : doors){     //Paint doors in rooms
             if(door != null){
                 switch(door.getDirection()){
                     //0 = up, 1 = right, 2 = down, 3 = left

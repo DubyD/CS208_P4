@@ -52,8 +52,8 @@ public class SceneSwitcher {
         gameScreen.getExitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //showMenu();
-                finishScreen();
+                showMenu();
+                //finishScreen(gameScreen.maze.getEndNode()); -> needs to be tied to game finishing
             }
         });
         gameScreen.setVisible(true);
@@ -61,16 +61,11 @@ public class SceneSwitcher {
         this.frame.setContentPane(gameScreen);
         this.frame.pack();
         this.frame.setVisible(true);
-
-        while(!gameScreen.getFinished()){
-            gameScreen.takeTurn();
-        }
-        finishScreen(gameScreen.getMaze().getEndNode())
     }
 
     private void finishScreen(RoomNode winners){
         frame.getContentPane().removeAll();
-        finishScreen = new GameEnded();
+        finishScreen = new GameEnded(winners);
         frame.setContentPane(finishScreen);
 
         finishScreen.getReplayButton().addActionListener(new ActionListener() {

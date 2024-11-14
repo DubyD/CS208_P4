@@ -32,7 +32,7 @@ public class TitleScene extends JPanel {
 
 
         // Set the layout for the main panel
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new GridLayout(4,3));
 
         // Create a panel for the buttons and set its layout
         buttonPanel = new JPanel();
@@ -41,11 +41,26 @@ public class TitleScene extends JPanel {
         buttonPanel.add(exitButton);
 
         // Add components to the main panel
-        this.add(Box.createVerticalStrut(150)); // Add vertical space at the top
-        this.add(titleLabel); // Adding title label
+
+        this.add(new JLabel()); // Add vertical space at the top
+        JLabel img = new JLabel(new ImageIcon("title.gif"), JLabel.CENTER);
+        this.add(img);
+        this.add(new JLabel());
+
+        this.add(new JLabel());
         this.add(instructions); // Adding instructions
-        this.add(dropDownMenu); // Adding the drop-down menu
+        this.add(new JLabel());
+
+        this.add(new JLabel());
+        JPanel dropDownPanel = new JPanel();
+        dropDownPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        dropDownPanel.add(dropDownMenu); // Adding the drop-down menu
+        this.add(dropDownPanel);
+        this.add(new JLabel());
+
+        this.add(new JLabel());
         this.add(buttonPanel); // Adding the button panel
+        this.add(new JLabel());
 
         /**
          * This is not OOP and needs to be handled in SceneSwitcher to allow the program

@@ -8,17 +8,23 @@ import java.util.Objects;
 
 public class GameEnded extends JPanel {
 
-    private static final String WIN = "You have reached the exit gate.\nThank you for playing our game!\n would you like to play again?";
+    private static final String WIN = "You have reached the exit gate!\nThank you for playing our game!\n would you like to play again?";
     private static final String LOSS = "Everyone has fallen to traps.\nWould you like to play again?";
 
     private JTextArea prompt;
     private JButton replayButton;
     private JButton exitButton;
     private JPanel buttonPanel;
-
-    public GameEnded() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
+    public GameEnded(RoomNode end) {
+        setLayout(new GridLayout(4,3));
+        this.add(new JLabel());
+        this.add(new JLabel());
+        this.add(new JLabel());
+        JLabel img = new JLabel();
+        this.add(new JLabel());
+        this.add(end); //end room in middle top, blank jlabels as padding
+        this.add(img);
+        System.out.println(end);
         prompt = new JTextArea();
         prompt.setEditable(false);
         prompt.setLineWrap(true);
@@ -32,12 +38,29 @@ public class GameEnded extends JPanel {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Center alignment for buttons
         buttonPanel.add(replayButton);
         buttonPanel.add(exitButton);
-        RoomNode displayRoom = new RoomNode(-1,-1);
 
-        this.add(prompt, BorderLayout.CENTER);
-        this.add(buttonPanel, BorderLayout.NORTH);
+//        c.gridx = 0;
+//        c.gridy = 1;
+//        c.gridwidth = 3;
+        if(end.isEmpty()){
+            img.setIcon(new ImageIcon("defeat.gif"));
+            prompt.setText(LOSS);
+        }
+        else{
+            img.setIcon(new ImageIcon("victory.gif"));
+            prompt.setText(WIN);
+        }
+        this.add(new JLabel());
+        this.add(prompt);
+        this.add(new JLabel());
+//        c.gridwidth = 1;
+//        c.gridx = 1;
+//        c.gridy = 2;
+        this.add(new JLabel());
+        this.add(buttonPanel);
+        this.add(new JLabel());
+        this.revalidate();
 
-        this.add(displayRoom);
     }
 
     public JButton getReplayButton() {
