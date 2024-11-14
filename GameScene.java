@@ -101,5 +101,37 @@ public class GameScene extends JPanel{
         return "The main game screen. Current game session has " + maze.numPlayers() + "players, and the maze is " + HEIGHT +
                 " rooms tall and " + WIDTH + " rooms wide.";
     }
+
+/*
+ *  // Set up key listener for player movement
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                boolean playerDied = false;
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    playerDied = castleGame.movePlayer(0, -1);
+                } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    playerDied = castleGame.movePlayer(0, 1);
+                } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    playerDied = castleGame.movePlayer(-1, 0);
+                } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    playerDied = castleGame.movePlayer(1, 0);
+                }
+
+                if (playerDied) {
+                    Player currentPlayer = castleGame.getPlayers().get(castleGame.getCurrentPlayerIndex());
+                    statusTextArea.append(currentPlayer.getName() + " stepped on a trap and died!\n");
+                    castleGame.getPlayers().remove(currentPlayer);  // Remove the player from the game
+                }
+
+                castleGame.nextTurn();
+                repaint();
+            }
+        });
+
+        setFocusable(true);  // Ensure the panel is focused to capture key events
+    }
+ */
+
 }
 
