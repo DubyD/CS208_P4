@@ -48,6 +48,15 @@ public class Player {
         return Objects.equals(getRoom(), other.getRoom());
     }
     
+    @Override
+    public String toString() {
+        return "Player{" +
+               "room=" + room +
+               ", color=" + color +
+               ", x=" + x +
+               ", y=" + y +
+               '}';
+    }
     
     public void setColor(Color c){
         this.color = c;
@@ -77,4 +86,3 @@ public class Player {
     }
 
 }
-

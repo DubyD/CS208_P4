@@ -145,7 +145,7 @@ public class TitleScene extends JPanel {
         return  "This is the main menu of a maze game with instructions on how to play" +
                 "and where you select the number of players playing";
     }
-    /**
+    
     //@Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -157,11 +157,11 @@ public class TitleScene extends JPanel {
         }
 
         TitleScene that = (TitleScene) obj;
-        if (selectedOption != that.selectedOption) {
+        if (TitleScene.selectedOption != that.getSelectedOption()) {
             return false;
         }
-        return;
-    }*/
+        return true;
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

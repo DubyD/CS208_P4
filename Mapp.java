@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 
 public class Mapp {
         // Define an Entry class to hold key-value pairs
@@ -155,6 +154,52 @@ public class Mapp {
                 return null;
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        
+        Mapp other = (Mapp) obj;
+        if (size != other.size) return false;
+        
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] == null) {
+                if (other.table[i] != null) return false;
+            } else if (other.table[i] == null) {
+                return false;
+            } else {
+                if (table[i].value != other.table[i].value || 
+                    table[i].clean != other.table[i].clean) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Mapp{size=").append(size).append(", table=[");
+        for (int i = 0; i < table.length; i++) {
+            if (table[i] != null) {
+                sb.append("\n  [").append(i).append("]: ");
+                if (table[i].value != null) {
+                    sb.append("Room at (")
+                      .append(table[i].value.getXIndex())
+                      .append(",")
+                      .append(table[i].value.getYIndex())
+                      .append(")");
+                } else {
+                    sb.append("Empty");
+                }
+                sb.append(", clean=").append(table[i].clean);
+            }
+        }
+        sb.append("\n]}");
+        return sb.toString();
     }
     /**
     // Remove a key-value pair

@@ -4,6 +4,7 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class GameEnded extends JPanel {
 
@@ -56,4 +57,15 @@ public class GameEnded extends JPanel {
         return "Game over";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        GameEnded gameEnded = (GameEnded) o;
+        return Objects.equals(prompt, gameEnded.prompt) &&
+               Objects.equals(replayButton, gameEnded.replayButton) &&
+               Objects.equals(exitButton, gameEnded.exitButton) &&
+               Objects.equals(buttonPanel, gameEnded.buttonPanel);
+    }
 }

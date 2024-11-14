@@ -7,6 +7,8 @@
 
 
 import java.util.Random;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Maze {
     private RoomNode[][] maze;
@@ -286,5 +288,35 @@ public class Maze {
          return WIDTH;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        
+        Maze other = (Maze) obj;
+        return WIDTH == other.WIDTH &&
+               HEIGHT == other.HEIGHT &&
+               numPlayers == other.numPlayers &&
+               Arrays.deepEquals(maze, other.maze) &&
+               Objects.equals(start, other.start) &&
+               Objects.equals(end, other.end) &&
+               Objects.equals(path, other.path) &&
+               Objects.equals(playerMapp, other.playerMapp) &&
+               Arrays.equals(players, other.players);
+    }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Maze{");
+        sb.append("width=").append(WIDTH);
+        sb.append(", height=").append(HEIGHT);
+        sb.append(", numPlayers=").append(numPlayers);
+        sb.append(", start=").append(start);
+        sb.append(", end=").append(end);
+        sb.append(", maze=").append(Arrays.deepToString(maze));
+        sb.append(", players=").append(Arrays.toString(players));
+        sb.append("}");
+        return sb.toString();
+    }
 }

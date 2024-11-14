@@ -1,5 +1,5 @@
 /**
- *
+ * @author: Will Duby
  */
 
 public class TurnTaker{
@@ -31,5 +31,27 @@ public class TurnTaker{
 
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "TurnTaker [gameBoard=" + gameBoard + ", turnsTaken=" + turnsTaken + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TurnTaker other = (TurnTaker) obj;
+        if (gameBoard == null) {
+            if (other.gameBoard != null)
+                return false;
+        } else if (!gameBoard.equals(other.gameBoard))
+            return false;
+        return true;
     }
 }

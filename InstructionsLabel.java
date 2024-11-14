@@ -7,6 +7,7 @@
 import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Arrays;
 
 public class InstructionsLabel extends JLabel {
     private final String[] message = new String[]{"Watch out for traps!",  "Be first to escape...", "Click to navigate rooms."};
@@ -35,4 +36,21 @@ public class InstructionsLabel extends JLabel {
             messageNum = 0;
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
+        
+        InstructionsLabel that = (InstructionsLabel) obj;
+        return messageNum == that.messageNum && Arrays.equals(message, that.message);
+    }
+
+    
+    @Override
+    public String toString() {
+        return "A JLabel that cycles through instructional messages on a timer.";
+    }
+    
 }
