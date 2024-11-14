@@ -1,3 +1,9 @@
+/**
+ * @author Will Duby
+ * @author Gus Warmington
+ * @author Ali
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

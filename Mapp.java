@@ -1,4 +1,6 @@
-
+/**
+ * @author Will Duby
+ */
 public class Mapp {
         // Define an Entry class to hold key-value pairs
     private static class Entry {
@@ -68,7 +70,7 @@ public class Mapp {
         return Math.abs(hashCode % table.length);
     }
     private int offset(int collisons){
-        return collisons * 5;
+        return collisons * (int) Math.round(Math.sqrt(size));
     }
 
         // Used for player allocation

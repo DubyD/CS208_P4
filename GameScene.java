@@ -13,30 +13,33 @@ import javax.swing.*;
 
 public class GameScene extends JPanel{
 
-    Player[] players; //array of current players
     JButton exitButton = new JButton("Exit");; //persistent exit button
     Maze maze; //instance of maze object, instantiated in constructor
     RoomNode[][] grid; //maze grid, received from maze object
 
     private final int HEIGHT = 5; //Number of rows
     private final int WIDTH = 5; //number of columns
+    private static int turnsTaken;
+    private boolean finishedGame;
     ///default constructor
     public GameScene() {
         //default only 1 player
-        players = new Player[1];
-        maze = new Maze();
-        grid = maze.getMaze();
-
+        maze = null;
+        grid = null;
+        finishedGame = false;
+        turnsTaken = 0;
         this.drawMaze();
     }
+
     ///@param numPlayers the number of players in the game
     public GameScene(int numPlayers) {
-        players = new Player[numPlayers];
         maze = new Maze(WIDTH, HEIGHT, numPlayers);
         grid = maze.getMaze();
-
+        finishedGame = false;
+        turnsTaken = 0;
         this.drawMaze();
     }
+
     ///Lays out the grid of RoomNodes, also adds in two JLabels for flavor text, and the exit button
     private void drawMaze(){
         JLabel buttonContainer = new JLabel(); //blank jlabel to hold a smaller button
@@ -88,7 +91,9 @@ public class GameScene extends JPanel{
 
     }
 
-     
+
+
+
 /*
   // Add this method for moving the player within the maze
 private void movePlayer(Player player, int dx, int dy) {
@@ -104,7 +109,7 @@ private void movePlayer(Player player, int dx, int dy) {
 }
  *  setFocusable(true);
         requestFocusInWindow();
-    
+
         addKeyListener(new KeyAdapter() {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -118,11 +123,11 @@ private void movePlayer(Player player, int dx, int dy) {
                 System.out.println("Moved Down");
             } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                 movePlayer(players[0], -1, 0);
-                
+
                 System.out.println("Moved Left");
             } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
                 movePlayer(players[0], 1, 0);
-                
+
                 System.out.println("Moved Right");
             }
         }
@@ -133,13 +138,22 @@ private void movePlayer(Player player, int dx, int dy) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GameScene gameScene = (GameScene) o;
-        return Objects.deepEquals(players, gameScene.players) && Objects.equals(getExitButton(), gameScene.getExitButton()) && Objects.equals(maze, gameScene.maze) && Objects.deepEquals(grid, gameScene.grid);
+        return Objects.equals(getExitButton(), gameScene.getExitButton()) && Objects.equals(maze, gameScene.maze) && Objects.deepEquals(grid, gameScene.grid);
     }
 
     @Override
     public String toString() {
         return "The main game screen. Current game session has " + maze.numPlayers() + "players, and the maze is " + HEIGHT +
                 " rooms tall and " + WIDTH + " rooms wide.";
+    }
+
+
+    public void takeTurn(){
+
+        for(Player player : maze.getPlayers()){
+
+        }
+
     }
 
 /*
