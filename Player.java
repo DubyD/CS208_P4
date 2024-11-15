@@ -3,7 +3,6 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Player {
-    private RoomNode room;
     private Color color;
     private int x;
     private int y;
@@ -45,39 +44,28 @@ public class Player {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Player other = (Player) obj;
-        return Objects.equals(getRoom(), other.getRoom());
+        return Objects.equals(this.x, other.x) && Objects.equals(this.y, other.y) && Objects.equals(this.color, other.color);
     }
     
     @Override
     public String toString() {
         return "Player{" +
-               "room=" + room +
                ", color=" + color +
                ", x=" + x +
                ", y=" + y +
                '}';
     }
     
-    public void setColor(Color c){
-        this.color = c;
-    }
+
     public Color getColor(){
         return color;
     }
-    public Image getPlayerImg(){
-        ImageIcon ic = new ImageIcon("/Users/alirezarohani-rankouhi/Stick_Image/tick-man-smiley.png");
-        return  ic.getImage();
-    }
 
-
-    public void setRoom(RoomNode room){
-        this.room = room;
+    public void setCoords(RoomNode room){
         this.x = room.getXIndex();
         this.y = room.getYIndex();
     }
-    public RoomNode getRoom(){
-        return room;
-    }
+
     public int getX(){
         return x;
     }

@@ -15,20 +15,19 @@ import javax.swing.*;
 
 public class GameScene extends JPanel{
 
-    JButton exitButton = new JButton("Exit");; //persistent exit button
-    Maze maze; //instance of maze object, instantiated in constructor
-    RoomNode[][] grid; //maze grid, received from maze object
+    private JButton startButton = new JButton("Start");
+    private JButton exitButton = new JButton("Exit");; //persistent exit button
+    private Maze maze; //instance of maze object, instantiated in constructor
+    private RoomNode[][] grid; //maze grid, received from maze object
 
     private final int HEIGHT = 5; //Number of rows
     private final int WIDTH = 5; //number of columns
     private static int turnsTaken;
-    private boolean finishedGame;
     ///default constructor
     public GameScene() {
         //default only 1 player
         maze = null;
         grid = null;
-        finishedGame = false;
         turnsTaken = 0;
         this.drawMaze();
     }
@@ -37,7 +36,6 @@ public class GameScene extends JPanel{
     public GameScene(int numPlayers) {
         maze = new Maze(WIDTH, HEIGHT, numPlayers);
         grid = maze.getMaze();
-        finishedGame = false;
         turnsTaken = 0;
         this.drawMaze();
     }
@@ -61,7 +59,10 @@ public class GameScene extends JPanel{
                     this.add(node);
                 }
                 else{
-                    if(x != WIDTH -1){
+                    if(x == 0){
+                        buttonContainer.add(startButton);
+                    }
+                    if(x != WIDTH -1 && x != 0){
                         this.add(new JLabel());
                     }
                     else{
@@ -79,8 +80,8 @@ public class GameScene extends JPanel{
     public JButton getExitButton() {
         return exitButton;
     }
-    public boolean getFinished(){
-        return finishedGame;
+    public JButton getStartButton() {
+        return startButton;
     }
     public Maze getMaze() {
         return maze;
@@ -90,40 +91,68 @@ public class GameScene extends JPanel{
      * The main component to cycle through each turn
      */
     public void takeTurn(){
+        boolean finished = false;
+        while(!finished){
 
-        for(Player player : maze.getPlayers()){
-            setFocusable(true);
-            requestFocusInWindow();
+            for (Player player : maze.getPlayers()) {
 
-            addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    if (e.getKeyCode() == KeyEvent.VK_UP) {
-                        maze.travel(player, 0, -1);
-                        System.out.println("Moved Up");//to debug, same for all other keys
+                setFocusable(true);
+                requestFocusInWindow();
 
-                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                        maze.travel(player, 0, 1);
+                addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        boolean validMove = false;
+                        while(!validMove) {
+                            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                                validMove = maze.travel(player, 0, -1);
+                                if (validMove) {
+                                    System.out.println("Moved Up");//to debug, same for all other keys
+                                } else {
+                                    System.out.println("Invalid Space move a different direction");
+                                }
 
-                        System.out.println("Moved Down");
-                    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                        maze.travel(player, -1, 0);
+                            } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                                validMove = maze.travel(player, 0, 1);
+                                if (validMove) {
+                                    System.out.println("Moved Down");//to debug, same for all other keys
+                                } else {
+                                    System.out.println("Invalid Space move a different direction");
+                                }
 
-                        System.out.println("Moved Left");
-                    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        maze.travel(player, 1, 0);
+                            } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                                validMove = maze.travel(player, -1, 0);
+                                if (validMove) {
+                                    System.out.println("Moved Left");//to debug, same for all other keys
+                                } else {
+                                    System.out.println("Invalid Space move a different direction");
+                                }
+                            } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                                validMove = maze.travel(player, 1, 0);
+                                if (validMove) {
+                                    System.out.println("Moved Right");//to debug, same for all other keys
+                                } else {
+                                    System.out.println("Invalid Space move a different direction");
+                                }
 
-                        System.out.println("Moved Right");
+                            }
+                        }
                     }
-                }
-            });
+                });
+                drawMaze();
+
+            }
+            turnsTaken++;
+            maze.trapCheck();
             drawMaze();
+
+            if(!maze.getEndNode().isEmpty()) {
+                finished = true;
+            }
+            if(!maze.hasPlayers()){
+                finished = true;
+            }
         }
-        for(Player player : maze.getPlayers()){
-
-        }
-
-
     }
 
     ///Paints house background and roof

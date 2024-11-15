@@ -113,43 +113,13 @@ public class Mapp {
         }
     }
 
-        // Insert or update a key-value pair
-    public boolean put(Player key, int direction) {
-        int collisions = 0;
-        int x = key.getX();
-        int y = key.getY();
-        if(direction == 0){
-            y -= 1;
-        }
-        if(direction == 1){
-            x += 1;
-        }
-        if(direction == 2){
-            y += 1;
-        }
-        if(direction == 3){
-            x -= 1;
-        }
-        while(true){
-            if(checkCoordinates(x, y, key.hashCode() + offset(collisions))){
-                return getRoom(x,y).addPlayer(key);
-
-            }
-            collisions++;
-            if(collisions == table.length){
-                return false;
-            }
-        }
-    }
-
 
     // Get the room a player is in
     public RoomNode get(Player key) {
         int collisions = 0;
         while(true){
             if(checkCoordinates(key.getX(), key.getY(), key.hashCode() + offset(collisions))){
-                int index = getBucketIndex(key.hashCode() + offset(collisions));
-                return table[index].value;
+                return table[getBucketIndex(key.hashCode() + offset(collisions))].value;
             }
             collisions++;
             if(collisions == table.length){
@@ -203,14 +173,15 @@ public class Mapp {
         sb.append("\n]}");
         return sb.toString();
     }
-    /**
+
     // Remove a key-value pair
     public boolean remove(Player key) {
         int collisions = 0;
         while(true){
             if(checkCoordinates(key.getX(), key.getY(), key.hashCode() + offset(collisions))){
                 Entry bucket = table[getBucketIndex(key.hashCode() + offset(collisions))];
-                return bucket.value.removePlayer(key);
+                table[getBucketIndex(key.hashCode() + offset(collisions))] = new Entry();
+                return bucket.value.leavingRoom(key);
             }
             collisions++;
             if(collisions == table.length){
@@ -220,7 +191,7 @@ public class Mapp {
 
 
          // Key not found
-    }*/
+    }/***/
     /**
      * Working space, I need to check and possibly
      * adapt new logic to these methods

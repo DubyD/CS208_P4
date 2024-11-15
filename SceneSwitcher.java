@@ -61,11 +61,18 @@ public class SceneSwitcher {
         this.frame.setContentPane(gameScreen);
         this.frame.pack();
         this.frame.setVisible(true);
+        gameScreen.getStartButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameScreen.takeTurn();
+                finishScreen(gameScreen.getMaze().getEndNode());
+            }
+        });
 
-        while(!gameScreen.getFinished()){
-            gameScreen.takeTurn();
-        }
-        finishScreen(gameScreen.getMaze().getEndNode());
+
+
+
+
     }
 
     private void finishScreen(RoomNode winners){

@@ -93,7 +93,7 @@ public class Maze {
         players = new Player[numPlayers];
         for(int i = 0; i < numPlayers; i++){
             Player player = new Player();
-            player.setRoom(start);
+            player.setCoords(start);
             start.addPlayer(player);
             players[i] = player;
         }
@@ -231,21 +231,45 @@ public class Maze {
     public RoomNode getEndNode(){
         return end;
     }
+    public boolean hasPlayers(){
+        boolean reply = false;
+        for(Player player : players){
+            if(player != null){
+                reply = true;
+            }
+        }
+        return reply;
+    }
+    private void removePlayer(Player player){
+        for(int i = 0; i < players.length; i++){
+            if(players[i] == player){
+                players[i] = null;
+            }
+        }
+    }
 
+    public void trapCheck(){
+        for(Player player : players){
+            RoomNode check = playerMapp.get(player);
+            if(check.isTrap()){
+                check.setTrapRevealed(true);
+                removePlayer(player);
+            }
+        }
+    }
 
     public boolean travel(Player p, int x, int y){
 
-        if(playerMapp.getRoom(x,y) == null){
+        if(playerMapp.getRoom(p.getX() + x,p.getY() + y) == null){
             return false;
         }
-
-        RoomNode leaving = p.getRoom();
+        RoomNode leaving = playerMapp.get(p);
         RoomNode enteringRoom = playerMapp.getRoom(x,y);
-        p.setRoom(enteringRoom);
-        leaving.leavingRoom(p);
+        p.setCoords(enteringRoom);
 
-        return true;
+        return leaving.leavingRoom(p);
     }
+
 
     /**
      * The player has refference to their position

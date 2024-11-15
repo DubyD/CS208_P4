@@ -37,13 +37,16 @@ public class RoomNode extends JLabel{
         this(-1,-1);
     }
 
-    public void leavingRoom(Player player){
+    public boolean leavingRoom(Player player){
         for(int i = 0; i < occupants.length; i++){
             if(occupants[i] == player){
                 occupants[i] = null;
+                return true;
             }
         }
+        return false;
     }
+
     ///@param player the player to be searched for
      /// @return true if the room contains the specific player
     public boolean hasPlayer(Player player){
@@ -110,6 +113,10 @@ public class RoomNode extends JLabel{
     /**
      * Setters
      */
+    public void setTrapRevealed(boolean trap){
+        this.trapRevealed = trap;
+    }
+
     public void setDoor(int direction, RoomNode neighbor) {
         if (direction >= 0 && direction < 4) { // Ensure direction is within bounds
             this.doors[direction] = new Door(direction, neighbor);
