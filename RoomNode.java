@@ -18,7 +18,8 @@ public class RoomNode extends JLabel{
     private final int x; //Notes the room's position in the maze grid
     private final int y;
     private boolean trap;
-    private boolean trapRevealed; //For use in graphical representation, changes color when entered
+    private boolean trapRevealed;//For use in graphical representation, changes color when entered
+    private boolean isExit;
 
     ///@param x the column this is relative to the maze grid
      /// @param y the row this is in relative to the maze grid
@@ -27,10 +28,11 @@ public class RoomNode extends JLabel{
         this.x = x;
         this.y = y;
         this.trap = false;
-        occupants = new Player[4];
-        doors = new Door[4];
+        this.occupants = new Player[4];
+        this.doors = new Door[4];
         this.setOpaque(true);
-        nextNode = null;
+        this.nextNode = null;
+        this.isExit = true;
     }
     ///default constructor
     public RoomNode(){
@@ -127,6 +129,7 @@ public class RoomNode extends JLabel{
     public void setExit(RoomNode exit){
         setDoor( 2,exit);
         doors[2].setExit();
+        isExit = true;
     }
 
     public void setNext(RoomNode nextRoom){

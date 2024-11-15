@@ -45,10 +45,12 @@ public class GameEnded extends JPanel {
         if(end.isEmpty()){
             img.setIcon(new ImageIcon("defeat.gif"));
             prompt.setText(LOSS);
+            setPrompt(false);
         }
         else{
             img.setIcon(new ImageIcon("victory.gif"));
             prompt.setText(WIN);
+            setPrompt(true);
         }
         this.add(new JLabel());
         this.add(prompt);

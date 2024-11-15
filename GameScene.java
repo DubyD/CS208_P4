@@ -19,7 +19,6 @@ import javax.swing.*;
 
 public class GameScene extends JPanel{
 
-    private JButton startButton = new JButton("Start");
     private JButton exitButton = new JButton("Exit");; //persistent exit button
     private Maze maze; //instance of maze object, instantiated in constructor
     private RoomNode[][] grid; //maze grid, received from maze object
@@ -94,9 +93,6 @@ public class GameScene extends JPanel{
                     this.add(node);
                 }
                 else{
-                    if(x == 0){
-                        buttonContainer.add(startButton);
-                    }
                     if(x != WIDTH -1 && x != 0){
                         this.add(new JLabel());
                     }
@@ -114,9 +110,6 @@ public class GameScene extends JPanel{
     ///@return the exitButton, for use in SceneSwitcher class
     public JButton getExitButton() {
         return exitButton;
-    }
-    public JButton getStartButton() {
-        return startButton;
     }
     public Maze getMaze() {
         return maze;
@@ -194,7 +187,7 @@ public class GameScene extends JPanel{
                         maze.trapCheck();
 
                         // Check if the game is finished
-                        if (!maze.getEndNode().isEmpty() || !maze.hasPlayers()) {
+                        if (!maze.getEndNode().isEmpty()|| !maze.hasPlayers()) {
                             finished = true;
 
                         }

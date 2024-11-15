@@ -44,6 +44,8 @@ public class Maze {
         this.HEIGHT = height; //the same as GameScene
         this.numPlayers = numPlayers;
         genMaze();
+        end = path.getTail();
+        end.setExit(end);
         genDoors();
         genTraps();
         this.playerMapp = new Mapp(this);
@@ -166,8 +168,7 @@ public class Maze {
             }
         }
         temp.insertAtTail(maze[j][i]);
-        temp.getTail().setExit(temp.getTail());
-        end = temp.getTail();
+
         return temp;
     }
 
