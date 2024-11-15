@@ -109,21 +109,6 @@ public class TitleScene extends JPanel {
             }
         });
 
-        /**
-         * Cool action but might be confusing in this use-case -WD
-         *
-        // Add action listener to handle drop-down menu selection
-        reply.addActionListener(new ActionListener() {
-            //@Override
-            public void actionPerformed(ActionEvent e) {
-                if((Integer)reply.getSelectedItem() != -1) {
-                    String option = reply.getSelectedItem().toString();
-                    JOptionPane.showMessageDialog(TitleScene.this, "You selected: " + option);
-                    selectedOption = (int) reply.getSelectedItem();
-                }
-            }
-        });
-        */
         return reply;
     }
 

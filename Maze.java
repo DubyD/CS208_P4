@@ -252,8 +252,10 @@ public class Maze {
         for(Player player : players){
             RoomNode check = playerMapp.get(player);
             if(check.isTrap()){
+
+                check.setTrapRevealed(check.isTrap());
                 playerMapp.remove(player);
-                check.setTrapRevealed(true);
+                check.leavingRoom(player);
                 removePlayer(player);
             }
         }
@@ -261,7 +263,7 @@ public class Maze {
 
     public boolean travel(Player p, int x, int y){
 
-        if(playerMapp.getRoom(p.getX() + x,p.getY() + y) == null){
+        if(playerMapp.getRoom(x,y) == null){
             System.out.println("Cannot Travel");
             return false;
         }
@@ -269,6 +271,8 @@ public class Maze {
         RoomNode leaving = playerMapp.get(p);
         RoomNode enteringRoom = playerMapp.getRoom(x,y);
         enteringRoom.addPlayer(p);
+        System.out.println("X: " + leaving.getXIndex() + ", Y:" + leaving.getYIndex());
+        System.out.println("X: " + enteringRoom.getXIndex() + ", Y:" + enteringRoom.getYIndex());
         p.setCoords(enteringRoom);
 
         return leaving.leavingRoom(p);
@@ -288,15 +292,7 @@ public class Maze {
      /// @param y coordinate of the node (same as above)
      /// @return the requested room node
     public RoomNode getNode(int x, int y){
-        if(x >= 0 && x <= WIDTH && y >= 0 && y <= HEIGHT) {//avoid index out of bounds
-            if (maze[y][x] == null) { //avoid null if in bounds
-                maze[y][x] = new RoomNode(x, y);
-            }
-            return maze[y][x];
-        }
-        else{
-            return null;
-        }
+        return playerMapp.getRoom(x,y);
     }
     ///@return the starting node, to initially place players.
     public RoomNode getStart(){

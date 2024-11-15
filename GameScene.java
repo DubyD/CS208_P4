@@ -30,6 +30,7 @@ public class GameScene extends JPanel{
     private static int turnsTaken = 0;
     private  int playerIndex = 0;
     private static boolean moveMade = false;
+    private boolean finished;
     ///default constructor
     public GameScene() {
         //default only 1 player
@@ -43,6 +44,7 @@ public class GameScene extends JPanel{
     public GameScene(int numPlayers, SceneSwitcher parent) {
         maze = new Maze(WIDTH, HEIGHT, numPlayers);
         grid = maze.getMaze();
+        finished = false;
         this.drawMaze();
         setFocusable(true);
         requestFocusInWindow();
@@ -65,6 +67,8 @@ public class GameScene extends JPanel{
 
     ///Lays out the grid of RoomNodes, also adds in two JLabels for flavor text, and the exit button
     private void drawMaze(){
+        this.removeAll();
+        this.revalidate();
         JLabel buttonContainer = new JLabel(); //blank jlabel to hold a smaller button
         buttonContainer.setLayout(new FlowLayout(FlowLayout.RIGHT,0, 48));
         this.add(new JLabel("Escape the house..."));
@@ -119,25 +123,30 @@ public class GameScene extends JPanel{
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                validMove = maze.travel(player, 0, -1);
+                validMove = maze.travel(player,player.getX() + 0,player.getY() - 1);
                 break;
             case KeyEvent.VK_S:
-                validMove = maze.travel(player, 0, 1);
+                validMove = maze.travel(player,player.getX() + 0,player.getY() + 1);
                 break;
             case KeyEvent.VK_A:
-                validMove = maze.travel(player, -1, 0);
+                validMove = maze.travel(player,player.getX() - 1,player.getY() + 0);
                 break;
             case KeyEvent.VK_D:
-                validMove = maze.travel(player, 1, 0);
+                validMove = maze.travel(player,player.getX() + 1,player.getY() + 0);
                 break;
         }
 
         if (validMove) {
-            System.out.println("Moved " + getDirection(e.getKeyCode())); // Debugging output
+            String option = "Player["+ (playerIndex + 1) + "] Moved " + getDirection(e.getKeyCode());
+            JOptionPane.showMessageDialog(GameScene.this, option);
             moveMade = true; // Mark the move as made to allow loop to continue
+            playerIndex = (playerIndex + 1) % maze.getPlayers().length;
             drawMaze();
         } else {
-            System.out.println("Invalid space, try a different direction.");
+            System.out.println();
+            String option = "Player["+ (playerIndex + 1) + "] tried to move " + getDirection(e.getKeyCode()) + "\n"+
+                            "This is an Invalid space, try a different direction.";
+            JOptionPane.showMessageDialog(GameScene.this, option);
         }
     }
 
@@ -160,15 +169,11 @@ public class GameScene extends JPanel{
         SwingWorker<Void, Void> gameWorker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() {
-                boolean finished = false;
-                int playerIndex = 0;  // Start with the first player
                 while (!finished) {
-                    moveMade = false;  // Reset moveMade for each turn
-                    // Wait for a move to be made
+                    moveMade = false;
                     while (!moveMade) {
                         try {
-                            //System.out.println("Made it to takeTurn()");
-                            Thread.sleep(10);  // Small sleep to prevent tight CPU loop
+                            Thread.sleep(10);
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
                         }
@@ -187,16 +192,16 @@ public class GameScene extends JPanel{
                         }
                     }
 
-                    // Rotate to the next player
-                    playerIndex = (playerIndex + 1) % maze.getPlayers().length;
+
                 }
                 return null;
             }
 
             @Override
             protected void done() {
-                // Call finishScreen() from GameController
-                sceneController.finishScreen(maze.getEndNode());
+                if(finished) {
+                    sceneController.finishScreen(maze.getEndNode());
+                }
             }
         };
 
