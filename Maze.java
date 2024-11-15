@@ -268,6 +268,7 @@ public class Maze {
         System.out.println("Travelling");
         RoomNode leaving = playerMapp.get(p);
         RoomNode enteringRoom = playerMapp.getRoom(x,y);
+        enteringRoom.addPlayer(p);
         p.setCoords(enteringRoom);
 
         return leaving.leavingRoom(p);
