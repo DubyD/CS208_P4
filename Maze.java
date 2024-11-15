@@ -232,15 +232,19 @@ public class Maze {
         return end;
     }
 
-    public boolean travel(Player p, int direction){
-        RoomNode leaving = p.getRoom();
-        Door[] doors = leaving.getDoors();
-        if (doors[direction] != null) {
-            leaving.leavingRoom(p);
-            playerMapp.put(p, direction);
-            return true;
+
+    public boolean travel(Player p, int x, int y){
+
+        if(playerMapp.getRoom(x,y) == null){
+            return false;
         }
-        return false;
+
+        RoomNode leaving = p.getRoom();
+        RoomNode enteringRoom = playerMapp.getRoom(x,y);
+        p.setRoom(enteringRoom);
+        leaving.leavingRoom(p);
+
+        return true;
     }
 
     /**

@@ -86,6 +86,46 @@ public class GameScene extends JPanel{
         return maze;
     }
 
+    /**
+     * The main component to cycle through each turn
+     */
+    public void takeTurn(){
+
+        for(Player player : maze.getPlayers()){
+            setFocusable(true);
+            requestFocusInWindow();
+
+            addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_UP) {
+                        maze.travel(player, 0, -1);
+                        System.out.println("Moved Up");//to debug, same for all other keys
+
+                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                        maze.travel(player, 0, 1);
+
+                        System.out.println("Moved Down");
+                    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                        maze.travel(player, -1, 0);
+
+                        System.out.println("Moved Left");
+                    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                        maze.travel(player, 1, 0);
+
+                        System.out.println("Moved Right");
+                    }
+                }
+            });
+            drawMaze();
+        }
+        for(Player player : maze.getPlayers()){
+
+        }
+
+
+    }
+
     ///Paints house background and roof
     @Override
     protected void paintComponent(Graphics g){
@@ -100,21 +140,9 @@ public class GameScene extends JPanel{
     }
 
 
-
-  // Add this method for moving the player within the maze
-private void movePlayer(Player player, int dx, int dy) {
-    int newX = player.getX() + dx;
-    int newY = player.getY() + dy;
-
-    // Ensure the new position is within maze boundaries
-    if (newX >= 0 && newX < WIDTH && newY >= 0 && newY < HEIGHT) {
-        RoomNode newRoom = maze.getNode(newX, newY);
-        player.setRoom(newRoom); // Update player room
-        repaint(); // Repaint to show updated position
-    }
-}/**
- *
- */
+    /**
+     *
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -128,43 +156,6 @@ private void movePlayer(Player player, int dx, int dy) {
         return "The main game screen. Current game session has " + maze.numPlayers() + "players, and the maze is " + HEIGHT +
                 " rooms tall and " + WIDTH + " rooms wide.";
     }
-
-
-    public void takeTurn(){
-
-        for(Player player : maze.getPlayers()){
-            setFocusable(true);
-            requestFocusInWindow();
-
-            addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    if (e.getKeyCode() == KeyEvent.VK_UP) {
-                        movePlayer(player, 0, -1);
-                        System.out.println("Moved Up");//to debug, same for all other keys
-
-                    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                        movePlayer(player, 0, 1);
-
-                        System.out.println("Moved Down");
-                    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                        movePlayer(player, -1, 0);
-
-                        System.out.println("Moved Left");
-                    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                        movePlayer(player, 1, 0);
-
-                        System.out.println("Moved Right");
-                    }
-                }
-            });
-            drawMaze();
-        }
-
-
-    }
-
-
 
 }
 

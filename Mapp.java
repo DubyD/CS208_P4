@@ -100,7 +100,7 @@ public class Mapp {
         return result;
     }
         // Used to get the room with this x and y coordinates
-    public RoomNode getRoom(int x, int y) {
+    public RoomNode getRoom(int x, int y){
         int collisions = 0;
         while(true){
             if(checkCoordinates(x, y, getHashCode(x, y) + offset(collisions))){
