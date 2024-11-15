@@ -292,7 +292,13 @@ public class Maze {
      /// @param y coordinate of the node (same as above)
      /// @return the requested room node
     public RoomNode getNode(int x, int y){
-        return playerMapp.getRoom(x,y);
+        RoomNode retreiving = playerMapp.getRoom(x,y);
+        if(retreiving == null){
+            retreiving = new RoomNode(x,y);
+            retreiving.setTrapRevealed(true);
+            return retreiving;
+        }
+        return retreiving;
     }
     ///@return the starting node, to initially place players.
     public RoomNode getStart(){

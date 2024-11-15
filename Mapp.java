@@ -74,8 +74,12 @@ public class Mapp {
         // The offset must be calculated before getting here
     private boolean checkCoordinates(int x, int y, int hash){
         RoomNode room = table[getBucketIndex(hash)].value;
-        return  room.getXIndex() == x &&
-                room.getYIndex() == y;
+        if(room != null){
+            return  room.getXIndex() == x &&
+                    room.getYIndex() == y;
+        }
+        return false;
+
     }
         // Used for the hashcode checking
     private int getHashCode(int x, int y){
