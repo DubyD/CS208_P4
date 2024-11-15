@@ -46,7 +46,7 @@ public class SceneSwitcher {
 
     private void showGame(int players){
         this.frame.getContentPane().removeAll();
-        gameScreen = new GameScene(players);
+        gameScreen = new GameScene(players, this);
 
 
         gameScreen.getExitButton().addActionListener(new ActionListener() {
@@ -61,21 +61,18 @@ public class SceneSwitcher {
         this.frame.setContentPane(gameScreen);
         this.frame.pack();
         this.frame.setVisible(true);
+
         gameScreen.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameScreen.takeTurn();
-                finishScreen(gameScreen.getMaze().getEndNode());
+                gameScreen.requestFocusInWindow();
             }
         });
 
-
-
-
-
     }
 
-    private void finishScreen(RoomNode winners){
+    public void finishScreen(RoomNode winners){
         frame.getContentPane().removeAll();
         finishScreen = new GameEnded(winners);
         frame.setContentPane(finishScreen);

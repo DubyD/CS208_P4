@@ -42,22 +42,16 @@ public class Mapp {
         }
 
             //Connecting rooms to Buckets
-        int x = 0;
         for(int i = 0; i < maze[0].length; i++){
             for(int j = 0; j < maze.length; j++){
+
                 int hash = maze[j][i].hashCode();
                 int collisionCount = 0;
                 boolean collision = true;
                 while(collision){
-
-                    //System.out.println(table[getBucketIndex(hash + offset(collisionCount))].clean);
                     if(isEmpty(getBucketIndex(hash + offset(collisionCount)))){
-                        System.out.println("Item number: " + x);
-                        System.out.println("Collisions: " + collisionCount);
-                        System.out.println("Empty bucket");
                         table[getBucketIndex(hash + offset(collisionCount))] = new Entry(maze[j][i]);
                         collision = false;
-                        x++;
                     }
                     collisionCount++;
                 }
@@ -66,24 +60,16 @@ public class Mapp {
     }
         // Hash function
     private int getBucketIndex(int hashCode) {
-        //System.out.println(hashCode % table.length);
         return Math.abs(hashCode % table.length);
     }
     private int offset(int collisons){
         return collisons * (int) Math.round(Math.sqrt(size));
     }
-
         // Used for player allocation
         // The offset must be calculated before getting here
     private boolean isEmpty(int hashCode){
         return table[getBucketIndex(hashCode)].value == null;
     }
-        // Used for room search
-        // The offset must be calculated before getting here
-    private boolean isEmptyFromStart(int hashCode){
-        return table[getBucketIndex(hashCode)].clean;
-    }
-
         // Checks if the rooms x and y matches the parameter x and y
         // The offset must be calculated before getting here
     private boolean checkCoordinates(int x, int y, int hash){
@@ -107,13 +93,11 @@ public class Mapp {
                 return table[getBucketIndex(getHashCode(x, y) + offset(collisions))].value;
             }
             collisions++;
-            if(collisions == table.length){
+            if(collisions == table.length || table[getBucketIndex(getHashCode(x, y) + offset(collisions))].clean){
                 return null;
             }
         }
     }
-
-
     // Get the room a player is in
     public RoomNode get(Player key) {
         int collisions = 0;
@@ -127,12 +111,25 @@ public class Mapp {
             }
         }
     }
-
+    // Remove a key-value pair
+    public boolean remove(Player key) {
+        int collisions = 0;
+        while (true) {
+            if (checkCoordinates(key.getX(), key.getY(), key.hashCode() + offset(collisions))) {
+                Entry bucket = table[getBucketIndex(key.hashCode() + offset(collisions))];
+                table[getBucketIndex(key.hashCode() + offset(collisions))] = new Entry();
+                return bucket.value.leavingRoom(key);
+            }
+            collisions++;
+            if (collisions == table.length) {
+                return false;
+            }
+        }
+    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        
         Mapp other = (Mapp) obj;
         if (size != other.size) return false;
         
@@ -150,7 +147,6 @@ public class Mapp {
         }
         return true;
     }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -174,52 +170,4 @@ public class Mapp {
         return sb.toString();
     }
 
-    // Remove a key-value pair
-    public boolean remove(Player key) {
-        int collisions = 0;
-        while(true){
-            if(checkCoordinates(key.getX(), key.getY(), key.hashCode() + offset(collisions))){
-                Entry bucket = table[getBucketIndex(key.hashCode() + offset(collisions))];
-                table[getBucketIndex(key.hashCode() + offset(collisions))] = new Entry();
-                return bucket.value.leavingRoom(key);
-            }
-            collisions++;
-            if(collisions == table.length){
-                return false;
-            }
-        }
-
-
-         // Key not found
-    }/***/
-    /**
-     * Working space, I need to check and possibly
-     * adapt new logic to these methods
-
-     // Check if the map contains a given key
-    public boolean containsKey(Player key) {
-        int index = getBucketIndex(key.hashCode());
-        LinkedList<Entry> bucket = table[index];
-
-        for (Entry entry : bucket) {
-            if (entry.key.equals(key)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Return the number of key-value pairs in the map
-    public int size() {
-        return size;
-    }
-
-    // Clear all entries in the map
-    public void clear() {
-        for (LinkedList<Entry> bucket : table) {
-            bucket.clear();
-        }
-        size = 0;
-    }
-     */
 }

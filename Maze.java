@@ -252,6 +252,7 @@ public class Maze {
         for(Player player : players){
             RoomNode check = playerMapp.get(player);
             if(check.isTrap()){
+                playerMapp.remove(player);
                 check.setTrapRevealed(true);
                 removePlayer(player);
             }
@@ -261,8 +262,10 @@ public class Maze {
     public boolean travel(Player p, int x, int y){
 
         if(playerMapp.getRoom(p.getX() + x,p.getY() + y) == null){
+            System.out.println("Cannot Travel");
             return false;
         }
+        System.out.println("Travelling");
         RoomNode leaving = playerMapp.get(p);
         RoomNode enteringRoom = playerMapp.getRoom(x,y);
         p.setCoords(enteringRoom);
