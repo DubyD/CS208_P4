@@ -56,7 +56,10 @@ public class GameScene extends JPanel{
                     if(getPlayer(playerIndex) != null){
                         handleKeyPress(e, getPlayer(playerIndex));
                     }else{
-                        playerIndex = (playerIndex + 1) % maze.getPlayers().length;
+                            //This ensures that the playerIndex is incremented for valid players
+                        while(getPlayer(playerIndex) == null){
+                            playerIndex = (playerIndex + 1) % maze.getPlayers().length;
+                        }
                     }
 
                 }
@@ -186,7 +189,7 @@ public class GameScene extends JPanel{
 
                     drawMaze();
 
-                    if (playerIndex == maze.getPlayers().length - 1) {
+                    if (playerIndex == 0) {
                         turnsTaken++;
                         maze.trapCheck();
 

@@ -43,16 +43,9 @@ public class Maze {
         this.WIDTH = width; //the same as GameScene
         this.HEIGHT = height; //the same as GameScene
         this.numPlayers = numPlayers;
-        this.end = new RoomNode();
-        //this.playerLocations = new HashMap<>(); // Initialize the map
-        //this.end = new RoomNode();
-        // all other Vars are set in
         genMaze();
         genDoors();
         genTraps();
-        /**this.path = genPath();
-        this.start = this.path.getHead();
-        this.path.getTail().setExit(this.end);*/
         this.playerMapp = new Mapp(this);
     }
 
@@ -61,11 +54,7 @@ public class Maze {
         this.HEIGHT = 5;
         this.numPlayers = numOfPlayers;
         this.playerMapp = new Mapp(this); // Initialize the map
-        this.end = new RoomNode();
-        /**genMaze();
-        this.path = genPath();
-        this.start = this.path.getHead();
-        this.path.getTail().setExit(this.end);*/
+        genMaze();
         genDoors();
         genTraps();
         this.playerMapp = new Mapp(this);
@@ -86,7 +75,7 @@ public class Maze {
                 maze[y][x] = new RoomNode(x,y);
             }
         }
-        genPath();
+        path = genPath();
         int x = (WIDTH/2);
         int y = 0;
         start = maze[y][x];
@@ -106,6 +95,9 @@ public class Maze {
                 Random rand = new Random();
                 int x = rand.nextInt(10);
                 if(x > 4){
+                    if(path.inList(maze[j][i])){
+                        continue;
+                    }
                     maze[j][i].setTrap();
                 }
             }
@@ -174,7 +166,8 @@ public class Maze {
             }
         }
         temp.insertAtTail(maze[j][i]);
-        temp.getTail().setExit(end);
+        temp.getTail().setExit(temp.getTail());
+        end = temp.getTail();
         return temp;
     }
 
