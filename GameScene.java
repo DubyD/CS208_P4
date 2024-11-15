@@ -53,7 +53,12 @@ public class GameScene extends JPanel{
             public void keyPressed(KeyEvent e) {
                 System.out.println("Key pressed: " + e.getKeyCode());
                 if (!moveMade) {
-                    handleKeyPress(e, getPlayer(playerIndex));
+                    if(getPlayer(playerIndex) != null){
+                        handleKeyPress(e, getPlayer(playerIndex));
+                    }else{
+                        playerIndex = (playerIndex + 1) % maze.getPlayers().length;
+                    }
+
                 }
             }
         });
