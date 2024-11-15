@@ -116,20 +116,35 @@ public class Mapp {
         }
     }
     // Remove a key-value pair
-    public boolean remove(Player key) {
+    public void remove(Player key) {
         int collisions = 0;
-        while (true) {
+        boolean looping = true;
+        while (looping) {
             if (checkCoordinates(key.getX(), key.getY(), key.hashCode() + offset(collisions))) {
-                Entry bucket = table[getBucketIndex(key.hashCode() + offset(collisions))];
-                table[getBucketIndex(key.hashCode() + offset(collisions))] = new Entry();
-                return bucket.value.leavingRoom(key);
+                table[getBucketIndex(key.hashCode() + offset(collisions))].value.leavingRoom(key);
+                looping = false;
             }
             collisions++;
             if (collisions == table.length) {
-                return false;
+                looping = false;
             }
         }
     }
+    public void removeRoom(RoomNode removal){
+        int collisions = 0;
+        boolean looping = true;
+        while (looping) {
+            if (checkCoordinates(removal.getX(), removal.getY(), removal.hashCode() + offset(collisions))) {
+                table[getBucketIndex(removal.hashCode() + offset(collisions))] = new Entry();
+                looping = false;
+            }
+            collisions++;
+            if (collisions == table.length) {
+                looping = false;
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

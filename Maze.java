@@ -166,9 +166,10 @@ public class Maze {
                 }
                 i -= 1;
             }
+
         }
         temp.insertAtTail(maze[j][i]);
-
+        System.out.print("Path x: " + maze[j][i].getX() + " y: " + maze[j][i].getY());
         return temp;
     }
 
@@ -243,15 +244,21 @@ public class Maze {
     }
 
     public void trapCheck(){
+        RoomNode[] removingRooms = new RoomNode[4];
+        int incriment = 0;
         for(Player player : players){
             RoomNode check = playerMapp.get(player);
             if(check.isTrap()){
-
                 check.setTrapRevealed(check.isTrap());
                 playerMapp.remove(player);
-                check.leavingRoom(player);
                 removePlayer(player);
+                removingRooms[incriment] = check;
+                incriment++;
+
             }
+        }
+        for(RoomNode room : removingRooms){
+            playerMapp.removeRoom(room);
         }
     }
 

@@ -50,7 +50,7 @@ public class GameScene extends JPanel{
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("Key pressed: " + e.getKeyCode());
+                //System.out.println("Key pressed: " + e.getKeyCode());
                 if (!moveMade) {
                     if(getPlayer(playerIndex) != null){
                         handleKeyPress(e, getPlayer(playerIndex));
@@ -144,7 +144,7 @@ public class GameScene extends JPanel{
             playerIndex = (playerIndex + 1) % maze.getPlayers().length;
             drawMaze();
         } else {
-            System.out.println();
+            //System.out.println();
             String option = "Player["+ (playerIndex + 1) + "] tried to move " + getDirection(e.getKeyCode()) + "\n"+
                             "This is an Invalid space, try a different direction.";
             JOptionPane.showMessageDialog(GameScene.this, option);
