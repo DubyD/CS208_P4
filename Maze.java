@@ -96,7 +96,7 @@ public class Maze {
 
                 Random rand = new Random();
                 int x = rand.nextInt(10);
-                if(x > 4){
+                if(x > 7){
                     if(path.inList(maze[j][i])){
                         continue;
                     }
@@ -219,6 +219,9 @@ public class Maze {
     public Player[] getPlayers(){
         return players;
     }
+    public int getNumPlayers(){
+        return numPlayers;
+    }
 
     public RoomNode[][] getGame(){
         return maze;
@@ -235,11 +238,23 @@ public class Maze {
         return false;
     }
     private void removePlayer(Player player){
+        boolean removedPlayer = false;
         for(int i = 0; i < players.length; i++){
             if(players[i] == player){
                 players[i] = null;
+                numPlayers--;
+                removedPlayer = true;
             }
         }
+        Player[] temp = new Player[numPlayers];
+        int i = 0;
+        for(Player p : players){
+            if(p != null){
+                temp[i] = p;
+                i++;
+            }
+        }
+        players = temp;
     }
 
     public void trapCheck(){
@@ -256,9 +271,13 @@ public class Maze {
 
             }
         }
+
         for(RoomNode room : removingRooms){
-            playerMapp.removeRoom(room);
+            if(room != null){
+                playerMapp.removeRoom(room);
+            }
         }
+
     }
 
     public boolean travel(Player p, int x, int y){
@@ -271,8 +290,8 @@ public class Maze {
         RoomNode leaving = playerMapp.get(p);
         RoomNode enteringRoom = playerMapp.getRoom(x,y);
         enteringRoom.addPlayer(p);
-        System.out.println("X: " + leaving.getXIndex() + ", Y:" + leaving.getYIndex());
-        System.out.println("X: " + enteringRoom.getXIndex() + ", Y:" + enteringRoom.getYIndex());
+        //System.out.println("X: " + leaving.getXIndex() + ", Y:" + leaving.getYIndex());
+        //System.out.println("X: " + enteringRoom.getXIndex() + ", Y:" + enteringRoom.getYIndex());
         p.setCoords(enteringRoom);
 
         return leaving.leavingRoom(p);

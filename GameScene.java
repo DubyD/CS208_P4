@@ -26,7 +26,7 @@ public class GameScene extends JPanel{
 
     private final int HEIGHT = 5; //Number of rows
     private final int WIDTH = 5; //number of columns
-    private static int turnsTaken = 0;
+    private static int turnsTaken;
     private  int playerIndex = 0;
     private static boolean moveMade = false;
     private boolean finished;
@@ -44,6 +44,7 @@ public class GameScene extends JPanel{
         maze = new Maze(WIDTH, HEIGHT, numPlayers);
         grid = maze.getMaze();
         finished = false;
+        turnsTaken = 0;
         this.drawMaze();
         setFocusable(true);
         requestFocusInWindow();
@@ -58,6 +59,7 @@ public class GameScene extends JPanel{
                             //This ensures that the playerIndex is incremented for valid players
                         while(getPlayer(playerIndex) == null){
                             playerIndex = (playerIndex) % maze.getPlayers().length;
+
                         }
                     }
 
@@ -150,9 +152,10 @@ public class GameScene extends JPanel{
 
         if (validMove) {
             String option = "Player["+ (playerIndex + 1) + "] Moved " + getDirection(e.getKeyCode());
-            JOptionPane.showMessageDialog(GameScene.this, option);
-            moveMade = true; // Mark the move as made to allow loop to continue
-            playerIndex = (playerIndex + 1) % maze.getPlayers().length;
+            System.out.println(option);
+            moveMade = true;
+            playerIndex = (playerIndex + 1) % maze.getNumPlayers();
+
             this.repaint();
         } else {
             //System.out.println();
@@ -190,24 +193,27 @@ public class GameScene extends JPanel{
                             Thread.currentThread().interrupt();
                         }
                     }
-
+                    System.out.println("in TakeTurn");
                     drawMaze();
-                    
 
+                    //System.out.println("isFinished " + finished + " turn " + turnsTaken + " which player " + playerIndex);
                     if (playerIndex == 0) {
                         turnsTaken++;
                         maze.trapCheck();
-
+                        System.out.println("Checked for traps");
+                    }
+                    //System.out.println("Checked for traps");
 
                         // Check if the game is finished
-                        if (!maze.getEndNode().isEmpty()|| !maze.hasPlayers()) {
-                            finished = true;
-
-                        }
+                    if (!maze.getEndNode().isEmpty()|| !maze.hasPlayers()) {
+                        finished = true;
                     }
+                    System.out.println("Made it to the end of TakeTurn");
+
 
 
                 }
+                System.out.println("Out of TakeTurn loop");
                 return null;
             }
 
