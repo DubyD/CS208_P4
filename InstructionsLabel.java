@@ -10,7 +10,7 @@ import java.util.TimerTask;
 import java.util.Arrays;
 
 public class InstructionsLabel extends JLabel {
-    private final String[] message = new String[]{"Watch out for traps!",  "Be first to escape...", "Click to navigate rooms."};
+    private final String[] message = new String[]{"Watch out for traps!",  "Be first to escape...", "Use WASD to navigate rooms."};
     int messageNum;
     ///Default constructor - Establishes
     public InstructionsLabel(){

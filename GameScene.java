@@ -75,7 +75,6 @@ public class GameScene extends JPanel{
     ///Lays out the grid of RoomNodes, also adds in two JLabels for flavor text, and the exit button
     private void drawMaze(){
         this.removeAll();
-        this.revalidate();
         JLabel buttonContainer = new JLabel(); //blank jlabel to hold a smaller button
         buttonContainer.setLayout(new FlowLayout(FlowLayout.RIGHT,0, 48));
         this.add(new JLabel("Escape the house..."));
@@ -124,16 +123,28 @@ public class GameScene extends JPanel{
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                validMove = maze.travel(player,player.getX() + 0,player.getY() - 1);
+                validMove = maze.travel(player,player.getX(),player.getY() - 1);
+                break;
+            case KeyEvent.VK_UP:
+                validMove = maze.travel(player,player.getX(),player.getY() - 1);
                 break;
             case KeyEvent.VK_S:
-                validMove = maze.travel(player,player.getX() + 0,player.getY() + 1);
+                validMove = maze.travel(player,player.getX(),player.getY() + 1);
+                break;
+            case KeyEvent.VK_DOWN:
+                validMove = maze.travel(player,player.getX(),player.getY() + 1);
                 break;
             case KeyEvent.VK_A:
-                validMove = maze.travel(player,player.getX() - 1,player.getY() + 0);
+                validMove = maze.travel(player,player.getX() - 1,player.getY());
+                break;
+            case KeyEvent.VK_LEFT:
+                validMove = maze.travel(player,player.getX() - 1,player.getY());
+                break;
+            case KeyEvent.VK_RIGHT:
+                validMove = maze.travel(player,player.getX() + 1,player.getY());
                 break;
             case KeyEvent.VK_D:
-                validMove = maze.travel(player,player.getX() + 1,player.getY() + 0);
+                validMove = maze.travel(player,player.getX() + 1,player.getY());
                 break;
         }
 
@@ -142,7 +153,7 @@ public class GameScene extends JPanel{
             JOptionPane.showMessageDialog(GameScene.this, option);
             moveMade = true; // Mark the move as made to allow loop to continue
             playerIndex = (playerIndex + 1) % maze.getPlayers().length;
-            drawMaze();
+            this.repaint();
         } else {
             //System.out.println();
             String option = "Player["+ (playerIndex + 1) + "] tried to move " + getDirection(e.getKeyCode()) + "\n"+

@@ -64,14 +64,14 @@ public class SceneSwitcher {
 
         gameScreen.takeTurn();
         gameScreen.requestFocusInWindow();
-        /**
-        gameScreen.getStartButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                gameScreen.takeTurn();
-                gameScreen.requestFocusInWindow();
-            }
-        });*/
+
+//        gameScreen.getStartButton().addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                gameScreen.takeTurn();
+//                gameScreen.requestFocusInWindow();
+//            }
+//        });
 
     }
 
