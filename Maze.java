@@ -227,13 +227,12 @@ public class Maze {
         return end;
     }
     public boolean hasPlayers(){
-        boolean reply = false;
         for(Player player : players){
             if(player != null){
-                reply = true;
+                return true;
             }
         }
-        return reply;
+        return false;
     }
     private void removePlayer(Player player){
         for(int i = 0; i < players.length; i++){

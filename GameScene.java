@@ -57,7 +57,7 @@ public class GameScene extends JPanel{
                     }else{
                             //This ensures that the playerIndex is incremented for valid players
                         while(getPlayer(playerIndex) == null){
-                            playerIndex = (playerIndex + 1) % maze.getPlayers().length;
+                            playerIndex = (playerIndex) % maze.getPlayers().length;
                         }
                     }
 
@@ -192,10 +192,12 @@ public class GameScene extends JPanel{
                     }
 
                     drawMaze();
+                    
 
                     if (playerIndex == 0) {
                         turnsTaken++;
                         maze.trapCheck();
+
 
                         // Check if the game is finished
                         if (!maze.getEndNode().isEmpty()|| !maze.hasPlayers()) {
