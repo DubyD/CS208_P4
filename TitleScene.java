@@ -15,7 +15,6 @@ public class TitleScene extends JPanel {
 
     private JButton startButton;
     private JButton exitButton;
-    private JLabel titleLabel;
     private JTextArea instructions;
     private JComboBox<Integer> dropDownMenu; // Drop-down menu declaration
     private JPanel buttonPanel;
@@ -24,7 +23,6 @@ public class TitleScene extends JPanel {
     public TitleScene() {
         startButton = new JButton("Start");
         exitButton = new JButton("Exit");
-        titleLabel = setTitle();
         instructions = setInstructions();
         dropDownMenu = setDropDownMenu();
         selectedOption = 0;
@@ -109,13 +107,6 @@ public class TitleScene extends JPanel {
             }
         });
 
-        return reply;
-    }
-
-    private JLabel setTitle() {
-        JLabel reply = new JLabel("Mazed and Confused");
-        reply.setFont(new Font("Arial", Font.BOLD, 24)); // Set font for the title
-        reply.setAlignmentX(CENTER_ALIGNMENT); // Center alignment
         return reply;
     }
 

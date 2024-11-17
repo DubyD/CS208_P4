@@ -19,7 +19,6 @@ public class RoomNode extends JLabel{
     private final int y;
     private boolean trap;
     private boolean trapRevealed;//For use in graphical representation, changes color when entered
-    private boolean isExit;
 
     ///@param x the column this is relative to the maze grid
      /// @param y the row this is in relative to the maze grid
@@ -32,7 +31,6 @@ public class RoomNode extends JLabel{
         this.doors = new Door[4];
         this.setOpaque(true);
         this.nextNode = null;
-        this.isExit = true;
     }
     ///default constructor
     public RoomNode(){
@@ -43,17 +41,6 @@ public class RoomNode extends JLabel{
         for(int i = 0; i < occupants.length; i++){
             if(occupants[i] == player){
                 occupants[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    ///@param player the player to be searched for
-     /// @return true if the room contains the specific player
-    public boolean hasPlayer(Player player){
-        for(Player p : occupants){
-            if(p.equals(player)){
                 return true;
             }
         }
@@ -78,10 +65,6 @@ public class RoomNode extends JLabel{
         }
         return false;
     }
-    ///@return array of doors in this room
-    public Door[] getDoors() {
-        return doors;
-    }
     ///@return the X index, or column number.
      /// note: getX is a JComponent function, and as such would conflict
     public int getXIndex() {
@@ -91,10 +74,6 @@ public class RoomNode extends JLabel{
      /// note: getY is a JComponent function, and as such would conflict
     public int getYIndex(){
         return y;
-    }
-    ///Unused? delete if so
-    public int getDoorValue(){
-        return door;
     }
     ///@return true if this room is a pitfall
     public boolean isTrap(){
@@ -129,7 +108,6 @@ public class RoomNode extends JLabel{
     public void setExit(RoomNode exit){
         setDoor( 2,exit);
         doors[2].setExit();
-        isExit = true;
     }
 
     public void setNext(RoomNode nextRoom){

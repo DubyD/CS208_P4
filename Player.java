@@ -27,9 +27,6 @@ public class Player {
         playerCount++; // Increment player count for the next player
     }
 
-    public void removePlayer(){
-        playerCount--;
-    }
     @Override
     public int hashCode() {
         final int prime = 31; //prime number used to avoid collisions

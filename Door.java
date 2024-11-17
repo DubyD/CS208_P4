@@ -19,7 +19,7 @@ public class Door extends JComponent{
     ///default constructor, should probably not be used in this state
     public Door() {
         this.direction = 0;
-        this.destination = new RoomNode();
+        destination = null;
         this.exit = false;
     }
     ///@param direction the side of the room for the door to be on
@@ -29,10 +29,6 @@ public class Door extends JComponent{
                                     // 0 means up, 1 means right, 2 means down, 3 means left
         this.destination = destination; // where the door leads to
         this.exit = false;
-    }
-    ///@return the destination roomnode
-    public RoomNode getDestination() {
-        return destination;
     }
     ///@return the direction int value
     public int getDirection() { return direction;}
@@ -69,11 +65,10 @@ public class Door extends JComponent{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Door door = (Door) o;
-        return getDirection() == door.getDirection() && exit == door.exit && this.getDestination().equals(door.getDestination());
+        return getDirection() == door.getDirection() && exit == door.exit;
     }
     @Override
     public String toString() {
-        return "This is a portal that connect rooms. Direction: " + direction + ", Destination: " + destination.toString()
-                + ". Is this door an exit? -> " + exit;
+        return "This is a portal that connect rooms. Direction: " + direction;
     }
 }

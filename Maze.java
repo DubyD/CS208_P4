@@ -123,8 +123,7 @@ public class Maze {
      * Ensures that a solid path and exit are generated
      */
     private SingleLinkedList genPath(){
-        //System.out.println("Generating path...");
-        // for dynamic sizing
+            // for dynamic sizing
         int j = 0;
         int i = (WIDTH / 2);
             // Creates the path
@@ -238,12 +237,10 @@ public class Maze {
         return false;
     }
     private void removePlayer(Player player){
-        boolean removedPlayer = false;
         for(int i = 0; i < players.length; i++){
             if(players[i] == player){
                 players[i] = null;
                 numPlayers--;
-                removedPlayer = true;
             }
         }
         Player[] temp = new Player[numPlayers];
@@ -283,29 +280,18 @@ public class Maze {
     public boolean travel(Player p, int x, int y){
 
         if(playerMapp.getRoom(x,y) == null){
-            System.out.println("Cannot Travel");
+
             return false;
         }
-        System.out.println("Travelling");
         RoomNode leaving = playerMapp.get(p);
         RoomNode enteringRoom = playerMapp.getRoom(x,y);
         enteringRoom.addPlayer(p);
-        //System.out.println("X: " + leaving.getXIndex() + ", Y:" + leaving.getYIndex());
-        //System.out.println("X: " + enteringRoom.getXIndex() + ", Y:" + enteringRoom.getYIndex());
         p.setCoords(enteringRoom);
 
         return leaving.leavingRoom(p);
     }
 
 
-    /**
-     * The player has refference to their position
-
-    /// @param p The player to get the position of
-    /// @return the room the player is currently in 
-    public RoomNode getPlayerPosition(Player p) {
-        return playerLocations.get(p);
-    }*/
     
     ///@param x x coordinate of the node (relative to room layout, not the pixel coordinate)
      /// @param y coordinate of the node (same as above)
@@ -318,14 +304,6 @@ public class Maze {
             return retreiving;
         }
         return retreiving;
-    }
-    ///@return the starting node, to initially place players.
-    public RoomNode getStart(){
-        return start;
-    }
-    ///@return the final room, the exit node
-    public RoomNode getFinish(){
-        return end;
     }
     ///@return number of players, set from GameScene
     public int numPlayers(){

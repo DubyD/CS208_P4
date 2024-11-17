@@ -24,10 +24,6 @@ public class SingleLinkedList {
         return size;
     }
 
-    public RoomNode getHead(){
-        return head;
-    }
-
     public RoomNode getTail(){
         RoomNode temp = head;
         while(temp.hasNext()){
