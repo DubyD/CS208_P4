@@ -1,5 +1,6 @@
 /**
- * Author: Ali Rohani
+ * @author Ali Rohani
+ * @author Gus Warmington
  */
 
 import javax.swing.*;

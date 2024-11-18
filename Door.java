@@ -1,7 +1,7 @@
 /**
  * Door.java
  * @author Gus Warmington
- * @author
+ * @author Sukhdeep Singh
  * Door object, to be placed on RoomNodes.
  * Direction: 0 - UP 1 - RIGHT 2 - DOWN 3 - LEFT
  */

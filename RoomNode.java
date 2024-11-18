@@ -1,7 +1,7 @@
 /**
  * @author Gus Warmington
  * A room object, extending a blank JLabel for ease of use as a JComponent.
- *
+ * @author Will Duby
  */
 
 

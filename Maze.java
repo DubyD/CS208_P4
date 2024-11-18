@@ -1,6 +1,6 @@
 /**
  * @author Will Duby
- * @author Sukhdeep
+ * @author Sukhdeep Singh
  * @author Gus Warmington - some small initial contributions to genMaze
  *
  */

@@ -1,4 +1,8 @@
-import javax.swing.*;
+/**
+ * @author Gus Warmington
+ * @author Will Duby - mostly deleting unused things
+ */
+
 import java.awt.*;
 import java.util.Objects;
 
