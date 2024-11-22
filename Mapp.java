@@ -36,12 +36,11 @@ public class Mapp {
         // sets up the buckets as each of the mazeRooms
     private void genBuckets(RoomNode[][] maze, int size){
         table = new Entry[size];
-            //initialized empty from start
+
         for(int i = 0; i < size; i++){
             table[i] = new Entry(true);
         }
 
-            //Connecting rooms to Buckets
         for(int i = 0; i < maze[0].length; i++){
             for(int j = 0; j < maze.length; j++){
 
