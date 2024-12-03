@@ -52,7 +52,7 @@ public class Mapp {
                         table[getBucketIndex(hash + offset(collisionCount))] = new Entry(maze[j][i]);
                         collision = false;
                     }
-                    System.out.println("RoomNode: (" + i + "," + j + ") collisionCount: " + collisionCount);
+                    //System.out.println("RoomNode: (" + i + "," + j + ") collisionCount: " + collisionCount);
                     collisionCount++;
                 }
             }
